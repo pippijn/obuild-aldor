@@ -1,0 +1,1 @@
+../../../../../.upstream/aldor/lib/algebra/src/multpoly/multpolytest//alg_bivtst3.as

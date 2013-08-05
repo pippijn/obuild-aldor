@@ -1,0 +1,115 @@
+\clearpage
+\section{Connecting to the characteristic set library on the command line}
+\defsec{cascmdline}
+
+\newcommand\commandlinedesignpart[1]{}
+
+ \refsec{casmaple} and \refsec{casmathematica} showed how the \exportedsymbol function of \refsec{preparationsinaldor} can be used from within computer algebra systems. This section presents the implementation of a command line utility that allows to use the exported function without \Aldor and without other computer algebra systems.
+
+This presentation is split into two parts. The first part presents the design decisions, while the second part focuses on the usage of the command line utility.
+
+\subsection{Designing the command line utility}
+
+The organization of this section sticks to the following enumeration of requirements and their order. 
+
+The requirements for the command line tool are
+\begin{itemize}
+\item to allow execution of the \exportedsymbol,
+\item to require no further software (\Aldor or computer algebra systems),
+\item to be simple,
+\item to use convenient syntax to enter and to represent data, and
+\item to be interactive.
+\end{itemize}
+
+The \exportedsymbol function is exported as \C function (see \refsec{exportingaldorsfunctions}). Therefore, any environment that can import \C code can call the function \exportedsymbol. For this command line utility, again \Aldor is chosen.
+
+\commandlinedesignpart{importing code}
+
+\Aldor's keyword \adcode{import} is typically used to bring functions from \Aldor domains into scope. However, \adcode{import} also allows to import code from other languages, as for example \C or \Fortran. The function \exportedsymbol from the \LibCharSet library is imported by
+\begin{adsnippet}
+import { 
+  __charset__coherentAutoreducedSet: ( Pointer, Pointer, Pointer, 
+      Pointer, Pointer ) -> Pointer ;
+} from Foreign C;
+\end{adsnippet}
+
+\commandlinedesignpart{Ausgabe als standalone executable}
+
+\Aldor provides various output formats as discussed in \refsec{connectionstoforeignenvironments}. For the command line utility it is desired to get a standalone executable file. The \Aldor compiler compiles to such an executable file when given the option {\tt -Fx}. For the execution of the resulting executable neither \Aldor nor \LibCharSet are required anymore. All the necessary parts of the libraries and \Aldor environment are incorporated into the executable.
+
+\commandlinedesignpart{data representation}
+
+The command line utility is implemented as interactive program holding five values that correspond to each of the five input parameters of \exportedsymbol. 
+
+The first value denotes the used notation. This parameter denotes the used syntax for the second, third and fourth parameter to \exportedsymbol. The second, third and fourth value correspond to the polynomials, dependent and independent indeterminates. The fifth value denotes further options for the computation and corresponds to the fifth parameter of \exportedsymbol.
+
+While the first and the last parameter are internally stored in string representation, the second to fourth parameter are stored as expression trees. The use of expression trees decouples the values from the used notation. This allows to switch between the available notations during the execution of the program. When a textual representation for a value is needed, the expression trees are formatted on the fly in the current notation.
+
+\commandlinedesignpart{eingabesyntax}
+
+When switching the notation for the command line utility, not only the output of values adapts to the new notation, also the input adapts. The values that are input into the command line utility always have to conform to the currently selected notation.
+
+\commandlinedesignpart{interaktiv}
+
+The program's main screen is divided into five parts, as can be seen in \reffig{commandline}. 
+
+\diagrameps[6in]{commandline}{Screen layout for the command line utility}
+
+\begin{itemize}
+\item The header forms the topmost part.
+\item The second part is used to give feedback about change of values and errors. Any function of the command line utility can add messages to a feedback container. Upon every screen redraw, which typically happens after every command, all messages of the feedback container are printed to the screen and the feedback container is emptied.
+\item The third part of the main screen of the command line utility gives a representation of the five internal values (used notation, polynomials, dependent indeterminates, independent indeterminates, and options). 
+\item If the previous command was to start the computation with the current values, the result of this computation forms the fourth part. 
+\item The last part is a prompt for accepting commands, which are described in \refsec{commandlineusage}. \LibAldor provides the function \adname[String]{<<} of the domain \adtype{String} for parsing \adtype{String}{}s from the standard input of a program. This function, however, comes with the restriction that a string has either to be quoted or consist of only alphanumeric characters\footnote{This restriction, however, cannot be found in the documentation of \adtype{String}. Only the source code of \adtype{String} has comments mentioning this restriction.}. This restriction is not suitable for command prompts. Therefore, the command line utility provides its own function to read a newline separated character string from the standard input.
+
+\end{itemize}
+
+\subsection{Using the command line tool}
+\defsec{commandlineusage}
+
+The command line utility accepts the following commands:
+
+\begin{itemize}
+\item {\tt help} or {\tt ?}
+
+Entering {\tt help} or {\tt ?} gives an overview about the possible commands and their behaviour.
+
+\item{\tt notation}
+
+The command {\tt notation} allows to change the used notation. The default setting is to use \Maple's notation. As the command line utility uses \LibExtIO{}s computer algebra framework, every notation implemented in \LibExtIO can be set. However, at present state \LibExtIO only implements
+\begin{itemize}
+\item \Maple and
+\item \Mathematica's {\tt FullForm}
+\end{itemize}
+notation.
+
+\item{\tt depvars}
+
+To set the dependent variables, the command {\tt depvars} is used. This command prompts for a list of symbols in the currently set notation and uses these symbols as dependent variables.
+
+\item{\tt indepvars}
+
+The command {\tt indepvars} allows to set the independent variables to a list of symbols in the currently used notation.
+
+\item{\tt polynomials}
+
+The input polynomials for the computation is set by the {\tt polynomials} command. These polynomials have to be entered in the currently set notation.
+
+\item{\tt options}
+
+Further options for the computation can be set by issuing the command {\tt options}. The available options can be found in \refsec{convertingaldortostrings}.
+
+\item{\tt calculate}
+
+After issuing the {\tt calculate} command, the command line utility passes the supplied data to \LibCharSet's exported \exportedsymbol function. After \LibCharSet finishes with the computation, the result is presented on the screen.
+
+\item{\tt quit} or {\tt exit}
+
+The commands {\tt quit} and {\tt exit} are used to quit the command line utility.
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Local Variables: 
+%%% ispell-local-dictionary: "english"
+%%% End:

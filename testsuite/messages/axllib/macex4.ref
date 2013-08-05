@@ -1,0 +1,76 @@
+"macex4.as", line 8: 
+        u  == v;
+..............^
+[L8 C15] #4 (Error) (After Macro Expansion) No meaning for identifier `v'.
+Expanded expression was: v
+
+"macex4.as", line 9: 
+        x ** n == expt(x,n);
+..................^
+[L9 C19] #3 (Error) (After Macro Expansion) There are no suitable meanings for the operator `expt'.
+Expanded expression was: expt
+
+"macex4.as", line 12: 
+x ** 10;
+.....^
+[L12 C6] #5 (Error) (After Macro Expansion) No meaning for integer-style literal `10'.
+Expanded expression was: 10
+
+"macex4.as", line 14: 
+x ** 10 where {
+.....^
+[L14 C6] #8 (Error) (After Macro Expansion) No meaning for integer-style literal `10'.
+Expanded expression was: 10
+
+"macex4.as", line 15: 
+  macro u == z;
+.............^
+[L15 C14] #1 (Warning) Definition of macro `u' hides an outer definition.
+[L15 C14] #9 (Error) (After Macro Expansion) No meaning for identifier `z'.
+Expanded expression was: z
+
+"macex4.as", line 16: 
+  macro expt(z,m) == m * z - 1;
+.......................^...^.^
+[L16 C24] #7 (Error) (After Macro Expansion) There are no suitable meanings for the operator `*'.
+Expanded expression was: *
+[L16 C28] #6 (Error) (After Macro Expansion) There are no suitable meanings for the operator `-'.
+Expanded expression was: -
+[L16 C30] #10 (Error) (After Macro Expansion) No meaning for identifier `1'.
+Expanded expression was: 1
+
+"macex4.as", line 21: 
+x ** 10;
+.....^
+[L21 C6] #12 (Error) (After Macro Expansion) No meaning for integer-style literal `10'.
+Expanded expression was: 10
+
+"macex4.as", line 23: 
+x ** 10 where {
+.....^
+[L23 C6] #15 (Error) (After Macro Expansion) No meaning for integer-style literal `10'.
+Expanded expression was: 10
+
+"macex4.as", line 24: 
+  macro x == v;
+.............^
+[L24 C14] #2 (Warning) Definition of macro `x' hides an outer definition.
+
+"macex4.as", line 27: 
+      macro d * e == mult(d,e);
+.....................^
+[L27 C22] #14 (Error) (After Macro Expansion) There are no suitable meanings for the operator `mult'.
+Expanded expression was: mult
+
+"macex4.as", line 28: 
+      macro d - e == subt(d,e);
+.....................^
+[L28 C22] #13 (Error) (After Macro Expansion) There are no suitable meanings for the operator `subt'.
+Expanded expression was: subt
+
+"macex4.as", line 34: 
+x ** 10;
+.....^
+[L34 C6] #17 (Error) (After Macro Expansion) No meaning for integer-style literal `10'.
+Expanded expression was: 10
+

@@ -1,0 +1,250 @@
+\clearpage
+\section{Connecting to the characteristic set library from within Maple}
+\defsec{casmaple}
+
+In \refsec{preparationsinaldor} the \adname[CoherentAutoreducedSetTools]{triangularize} algorithm of \adtype{CoherentAutoreducedSetTools} has been wrapped by \adname[ExportCoherentAutoreducedSetTools]{coherentAutoreducedSet} of \adtype{ExportCoherentAutoreducedSetTools} and this wrapper has been exported to an object file by the symbol \exportedsymbol. This section shows how this object file and the code at this symbol can be accessed and used conveniently from within \Maple.
+
+This section consists of two parts.
+The first part discusses the possibilities of connecting \Aldor's exported code to \Maple. 
+The second part presents further steps to adapt the imported code to the \Maple environment and to facilitate calling the imported code.
+
+\subsection{Accessing Aldor's code from within Maple}
+\defsec{mapleconnection}
+
+In this section the exported \Aldor code of \refsec{preparationsinaldor} is used to examine the possibilities of \Maple to import foreign code. The focus of this section is on the connectivity of \Maple, not on smooth integration. Therefore, this section only brings \Aldor's code to \Maple's environment. \refsec[Section]{mapleintegration} is dealing with integrating \Aldor's code better into \Maple's environment.
+
+In the beginning of this section, the achievements of \refsec{preparationsinaldor} are briefly recapitulated. Then \maplecode{define_external}, \Maple's function for importing foreign code, is introduced. This function does not accept foreign code in the object format of \refsec{preparationsinaldor}, but requires foreign code as dynamic shared objects. After a presentation of dynamic shared objects, a thorough discussion about migrating object files to dynamic shared objects forms the next part. Finally, the missing details of \maplecode{define_external} are covered and its usage is illustrated by an example.
+
+In \refsec{preparationsinaldor} \Aldor code has been exported in an object file. The exported code used \C calling conventions. Therefore, the exported function appears as proper \C function within the object file. Wherever a \C function within an object file can be used, the object file of \refsec{preparationsinaldor} can be used.
+
+Within \Maple{}\footnote{For developing this library \Maple has been used in version $8$. The presented techniques have also been tested with \Maple $9.5$ and no problems arose. However, this section uses \Maple to refer to \Maple in version $8$, if not noted otherwise.}, the function \maplecode{define_external} is used to bring external functions into scope. These external functions can be \C, \Fortran, or \Java functions. As \refsec{preparationsinaldor} used \C calling conventions for exporting \Aldor code, focus is put on calling \C code from within \Maple. \Fortran and \Java are not considered further\footnote{Details about how to use external \Fortran or \Java code from within \Maple can be found in \cite{Maple9AdvancedProgramming}.}. 
+
+For being able to call external \C code from within \Maple via \maplecode{define_external}, the \C code has to be compiled to a dynamic shared object\footnote{The format to embed the external \C code in depends on the platform on which \Maple is running. In a general setting, \Maple requires external code to be compiled to shared libraries in the platform's standard format for shared libraries. For \GNULinux, the standard format for shared libraries are \ELF's dynamic shared objects. Therefore, dynamic shared objects are used in \LibCharSet. On other platforms, external \C code might have to be compiled to different formats. For example on \Windows platforms, the standard format for shared libraries is \DLL \cite{MSDNDLL}, which is short for dynamic link library. Therefore, on \Windows platforms, external \C code has to be compiled to \DLL{}s to be usable from within \Maple.}. However, the object file of \refsec{preparationsinaldor} is not a dynamic shared object. Therefore, the description of the command \maplecode{define_external} is interrupted in favor of a presentation of dynamic shared objects. After a further discussion how object files can be used to build dynamic shared objects, \maplecode{define_external}'s presentation is resumed on \refpage{mapleconnectioncontinued}.
+
+Dynamic shared objects contain executable code that can be used by other applications. These applications can be statically or dynamically linked against dynamic shared objects or load them at run-time.
+
+In the case of static linking, the dynamic shared object acts as library, whose code is incorporated into the resulting executable. After linking, the resulting program can be executed without the dynamic shared object.
+
+In the case of dynamic linking, the resulting executable does not incorporate the dynamic shared object's code but only the names of the symbols that are exported by a dynamic shared object. If the resulting program is executed, the operating system loads the program and invokes a dynamic loader, which loads the linked dynamic shared objects. After binding the function calls of the executable to the appropriate functions in the dynamic shared objects, the execution starts. If further executables also need already loaded dynamic shared objects, running instances are reused. This strategy leads to smaller executables, less memory overhead and better maintainability of components. Nevertheless, there is a little startup time penalty, since symbols have to be relocated when loading a dynamic shared object. 
+
+In the case of run-time usage, the application loads a dynamic shared object at run-time only if and when it is needed. However, the program has to load the dynamic shared program explicitly\footnote{Although loading a dynamic shared object has to be done explicitly, it is heavily supported by the operating system and many programming languages. There exist functions to open a dynamic shared object, look up a symbol within a dynamic shared object, and close the file. For \C, these functions ({\tt dlopen}, {\tt dlsym}, and {\tt dlclose}) of the \file{dl} library are provided by the include file \file{dlfcn.h}. So programmers do not have to deal themselves with relocations or sharing of dynamic shared objects.}. In the previous two cases, the operating system managed the loading of dynamic shared objects automatically. The executables did not have to bother with these tasks. However, for run-time usage, the executable does not have to be linked with the dynamic shared object and does not need to declare at build time which dynamic shared object it will probably load. Therefore, this method is commonly used in plug-in frameworks. Again, already loaded dynamic shared objects are reused.
+
+Dynamic shared objects are created from position independent object files\footnote{Position independent object files are object files that are prepared to be relocated in memory. Therefore, they can be executed at an arbitrary address in memory. This possibility allows to share the code of a dynamic shared object among the applications that use the dynamic shared object.}. These position independent object files are linked to dynamic shared objects by passing them to the GNU linker \Ld{}\footnote{\Ld is the standard linker on \GNULinux platforms and is part of the GNU Binutils package\cite{GNUBinutils}.} along with the option \commandlineparameter{-shared}.
+
+\Aldor's generated object files are not position independent. Nevertheless, on the \xeightysix architecture, \Aldor's object files can be linked directly to a dynamic shared object as described above. The resulting dynamic shared object, however, contains several parts that are not in a position independent. As as result, the dynamic linker has to copy and relocate the dynamic shared object for every process using it. These additional actions cost time and demolish the benefit of sharing memory\footnote{Nevertheless, these additional tasks of copying and relocating are done by the operating system and are completely hidden from the application.}. Processes cannot reuse an instance of such a dynamic shared object. Therefore, even on \xeightysix architectures, it is strongly suggested to use position independent object files when building shared libraries. 
+
+Compilers for most computer languages offer command line parameters, which allow to generate position independent object files. The \Aldor compiler does not provide such a parameter. Nevertheless, the \Aldor compiler can be used to generate position independent object files, although this involves closer investigation of how \Aldor compiles code. 
+
+When the \Aldor compiler builds object files, first \filesuffix{c} files are generated. These \filesuffix{c} files are automatically fed to a \C compiler, which is instructed to produce the desired object files. \Aldor allows to pass additional parameters to the invoked \C compiler. Per default the \Aldor compiler uses \Unicl for compiling \filesuffix{c} files to object files. \Unicl is part of the \Aldor distribution and acts as wrapper for \Gcc{}\footnote{\Gcc is the \C compiler of the GNU compiler collection\cite{GCC}. \Gcc is the standard \C compiler on \GNULinux systems.}. When compiling \Aldor code to object files, the generated \C code is passed to \Unicl, which in turn passes the \C code to \Gcc. Since \Aldor cannot be instructed to produce position independent object files directly, either \Unicl or \Gcc are in charge. 
+
+According to its help pages, \Unicl generates code for shared libraries, when passed the command line parameter \commandlineparameter{-Wshared}. Passing this option, however, does not have any effect on \GNULinux on \xeightysix. The resulting object files are exactly the same if or if not \commandlineparameter{-Wshared} is specified. \Unicl does effectively not allow to generate position independent code.
+
+Therefore, the relevant parameters have to be passed to \Gcc directly. These parameters are either \commandlineparameter{-fpic} or \commandlineparameter{-fPIC}. Both options produce position independent code. \commandlineparameter{-fpic} is generally assumed to be faster, but imposes limits on the sizes of internal data structures\footnote{According to \Gcc's documentation, the global offset table, which is used for looking up functions in position independent code, has a size limit of 8k on \Sparc and 32k on \msixtyeightk and \RSsixk. On \xeightysix architectures, there is no such limit.}. \commandlineparameter{-fPIC} does not have these limits and can therefore be used, if the limits of \commandlineparameter{-fpic} are exceeded during compilation. 
+
+To make \Unicl pass \commandlineparameter{-fPIC} to \Gcc, \Unicl needs to be passed \commandlineparameter{-Wopts=-fPIC}. For the \Aldor compiler to pass \commandlineparameter{-Wopts=-fPIC} to \Unicl, \commandlineparameter{-C args=-Wopts=-fPIC} needs to be passed to the \Aldor compiler.
+
+Generating position independent object files in the presented way and linking them to dynamic shared objects as described before, finally allows to benefit from memory reuse and sharing code.
+
+The presented way to generate position independent object file involves passing arguments to \Unicl, which are then passed to \Gcc. This cascading passing of parameters is considered inelegant. Nevertheless, the presented approach is the recommended approach of \LibCharSet.
+
+Alternatively, \Unicl can be replaced with a different compiler that provides working parameters to generate position independent object files, as for example \Gcc.
+
+Another alternative is, to adjust the \Aldor configuration file \file{aldor.conf}. This file holds the arguments that \Unicl passes to the \C compiler for a variety of operating systems. Adding a trailing
+\begin{filecontent}
+$?shared -fPIC : ;
+\end{filecontent}
+to the \verb|cc-opts| line in the \verb|linuxcore| section of \file{aldor.conf} fixes the broken \commandlineparameter{-Wshared} support of \Unicl. This approach changes a configuration file of the \Aldor compiler. Therefore, this approach is not suggested.
+
+Either of these presented possibilities allows to build a dynamic shared object. With such a dynamic shared object, finally, the code is in a form that can be passed to \Maple's \maplecode{define_external} function. Therefore, further details of \maplecode{define_external} can be discussed.
+
+\defpage{mapleconnectioncontinued}
+\Maple's \maplecode{define_external} function takes several parameters. The first parameter is the name of the external function\footnote{By ``external function'', the function that will be loaded and used by \Maple is meant. As from \Maple's point of view, the function is not an internal function, so it is an external function.}. When importing code from a dynamic shared object, this name is an exported symbol of the dynamic shared object of interest. For the exported function of \refsec{preparationsinaldor}, this name is \exportedsymbol. The next parameters to \maplecode{define_external} are the parameter specifications for the external function. The order of the parameter specifications have to reflect the order of the external function's parameters within the dynamic shared object. Each parameter specification is of the form name followed by double colon followed by the type of the parameter. The name in a parameter specification is arbitrary and need not reflect the name of the parameter in the external function's definition. The type in a parameter specification has to be a \Maple type that reflects the type of the parameter in the external function\footnote{In \cite{Maple9AdvancedProgramming}, a mapping between native and some advanced types of \C, \Fortran, \Java and \Maple's types can be found. When parameters of the external function use types that cannot be mapped to \Maple types directly, wrappers have to be created. This creation can either be done automatically or by hand. For this example, all used types have equivalent \Maple counterparts. So, no further wrappers are needed. Therefore, generating wrappers is not discussed in this treatment. How to generate wrappers can be found for example in \cite{Maple9AdvancedProgramming}.}. If the external function returns a value, its specification is the next parameter to \maplecode{define_external}. The return value of an external function is specified via \maplecode{RETURN} followed by a double colon followed by the return type. Again, this type has to be a \Maple type reflecting the return type of the external function. The last parameter to \maplecode{define_external}\footnote{\maplecode{define_external} has further options. These options are however not of importance for this discussion and therefore not covered. These further options are discussed in detail in \cite{Maple9AdvancedProgramming}.} is the dynamic shared object in which the external function resides. This parameter has to be specified as \maplecode{LIB} followed by an equals sign followed by the filename of the dynamic shared object.
+
+The result of a call to \maplecode{define_external} yields either an error or gives a function. This function is a native \Maple function and its parameters and return type are in accordance with the parameters of the external function. Calling the new, native \Maple function, converts the input parameters and passes them to the external function.
+
+Importing the exported function of \refsec{preparationsinaldor}, can be achieved by the following \Maple statement, when \maplecode{/some/path/dynamicsharedobject.so} is replaced with the filename of the dynamic shared object.
+\clearpage
+\begin{mapleprogram}
+coherentAS:=define_external(
+         '_charset_coherentAutoreducedSet', 
+         language   :: string, 
+         polys      :: string,
+         vars       :: string,
+         deps       :: string,
+         domOptions :: string,
+         RETURN::string,
+         LIB="/some/path/dynamicsharedobject.so"
+):
+\end{mapleprogram}
+
+Having imported, the external function into \Maple, it can be used for example as the following expression shows.
+
+\begin{mapleprogram}
+coherentAS("maple","[y1(s), diff(y2(s),s)]", "[y1, y2]", "[s]", "");
+\end{mapleprogram}
+
+\subsection{Further integration of Aldor's code into Maple}
+\defsec{mapleintegration}
+
+In \refsec{mapleconnection}, \Aldor's \exportedsymbol algorithm has been connected to \Maple. From within \Maple this involves importing the function by a lengthy statement, and passing parameters as character strings to the algorithm. This section improves the integration of \exportedsymbol in \Maple by embedding the algorithm into a \Maple repository and allowing to pass mathematical expressions instead of character strings to the algorithm.
+
+The improvement of the integration is organized in three stages. The first stage provides a wrapper that allows to call the algorithm with mathematical expressions instead of character strings. The second stage bundles the algorithm and its wrapper. The third stage shows how the whole code along with documentation is put in a \Maple repository, which can be loaded and used conveniently.
+
+\exportedsymbol expects its parameters to be character strings in \C format. These strings typically represent mathematical expressions. However, for a seamless integration of \exportedsymbol into \Maple, it is required that mathematical expression themselves can be passed as arguments directly.
+
+Therefore, a new function is written that takes mathematical expressions as input. This input is then automatically converted to strings and passed to the imported \Aldor algorithm.
+
+The conversion from mathematical expressions to character strings is achieved by calling \Maple's \maplecode{convert} function. This function takes two parameters, the expression to convert and the type to convert to.
+
+\begin{mapleprogram}
+SomeStr := convert( SomeExpr, string )
+\end{mapleprogram}
+converts the expression \maplecode{SomeExpr} to a character string in \C format and stores the result in \maplecode{SomeStr}.
+
+The function \maplecode{coherentAutoreducedSet} on \refpage{maplemodulecode} shows, how to use \maplecode{convert} in a wrapper for exported code.
+
+The result of calling \exportedsymbol is a character string. Again, this string represents a mathematical expression. For good integration of the imported piece of code into \Maple, it is inevitable to automatically convert the returned character string to a mathematical expression. This conversion can also be done in the wrapper that converts the input parameters.
+
+For \LibCharSet, \Maple's \maplecode{parse} function is used converting character strings to mathematical expressions\footnote{Note, that \maplecode{convert} cannot be reused. The previous conversion of the input parameters turned mathematical expressions to character strings. This conversion needs to do the opposite, namely to convert character strings to mathematical expressions. \Maple's \maplecode{convert} is not capable of this. Therefore, \maplecode{parse} is used.}. \maplecode{parse} parses a string and returns the unevaluated expression. If the additional option \maplecode{statement} is specified, the string is not only parsed, but also evaluated. As \Maple's character strings are in \C format, this function can be used to convert the result of \exportedsymbol to a mathematical expression.
+
+\begin{mapleprogram}
+SomeExpr := parse( SomeStr, statement )
+\end{mapleprogram}
+parses the string \maplecode{SomeStr}, evaluates the resulting mathematical expression, and stores the result of the evaluation in \maplecode{SomeExpr}.
+
+Finally, with the help of \maplecode{convert} and \maplecode{parse} it is possible to write a wrapper for \exportedsymbol that accepts mathematical expressions as parameters and also returns a mathematical expression. The function \maplecode{coherentAutoreducedSet} on \refpage{maplemodulecode} gives an example of a wrapper function that converts both the input parameters and the result from and to appropriate formats.
+
+The wrapper function needs to call the imported function, it is wrapping. This calling can be done in two different ways. Either the wrapper imports the wrapped function at every call or there is some variable that stores the imported function.
+
+In the first case, the main problem is that the wrapped function has to be imported for every call of the wrapping function. This loading costs resources. The advantage of this approach is that the imported function is not stored in a publicly visible variable. Therefore, this variable cannot be altered by either the user or other functions. As a result, this method is less error-prone than the second one.
+
+In the second case, it suffices to import the wrapped function once. However, there is the problem of storing the imported function in a variable, as this variable can possibly be changed either accidentally or on purpose.
+
+The advantages of both approaches can be combined by using \Maple's \maplecode{module}s. A \maplecode{module} is an aggregation of functions and constants. \maplecode{module}s permit information hiding and exporting of functions and constants\ among other features\footnote{An in-depth description of \maplecode{module} can be found in \cite{Maple9AdvancedProgramming}.}.
+
+Describing \Maple's \maplecode{module}s in all details is beyond the scope of this discussion and can be found for example in can be found in \cite{Maple9AdvancedProgramming}. Therefore, only an example for the use of \maplecode{module} is given that covers the necessary details and constructs for this treatment. These details are described afterwards.
+
+\defpage{maplemodulecode}
+\begin{mapleprogram}
+CharSet := module() 
+    description "interface for Aldor's characteristic set library";     
+    option package,load=importAlgo;
+    export coherentAutoreducedSet;
+    local algoAldor, importAlgo;
+
+    importAlgo := proc()
+      algoAldor := define_external(
+       '_charset_coherentAutoreducedSet', 
+        languageAldorParam   :: string, 
+        polysAldorParam      :: string,
+        varsAldorParam       :: string,
+        depsAldorParam       :: string,
+        domOptionsAldorParam :: string,
+        RETURN::string,
+        LIB="/some/path/dynamicsharedobject.so"
+       ):
+    end proc;
+
+    coherentAutoreducedSet := proc( 
+       polys   :: list,
+       vars    :: list,
+       deps    :: list
+     )
+      local result, domOptions;       
+      if nargs > 3 then
+        if type(args[4],string) then
+          domOptions:=args[4];
+        else
+          ERROR(`the optional parameter for the options has to be of type string.`);
+        fi
+      fi;      
+      result:=algoAldor(
+        "maple",
+        convert( polys, string ),
+        convert( vars , string ),
+        convert( deps , string ),
+        domOptions
+      );
+      parse( result, statement );
+    end proc;
+end module:
+\end{mapleprogram}
+
+The first line of the above piece of code defines a \maplecode{module} and stores it as \maplecode{CharSet}. In the \maplecode{description} line, a short description for the \maplecode{module} is provided. Two options are specified for the module, namely \maplecode{package} and \maplecode{load}. \maplecode{package} is used to generate a \Maple package, which automatically protects exported functions from modification. \maplecode{load} allows to specify a function that is evaluated, as the module is loaded. In the presented example, the function \maplecode{importAlgo} is called, when the \maplecode{module} \maplecode{CharSet} is loaded. \maplecode{importAlgo} imports \Aldor's \exportedsymbol. The \maplecode{export} line denotes those identifiers that are visible from outside of the module. In this example, only the function \maplecode{coherentAutoreducedSet} is visible. \maplecode{coherentAutoreducedSet} is the wrapper of \Aldor's exported function that allows to be called with mathematical expressions and returns a mathematical expression. In the \maplecode{local} line, those identifiers are declared that are visible from inside the module but not from outside of the module. In this example there are two local functions, \maplecode{algoAldor} and \maplecode{importAlgo}. \maplecode{algoAldor} holds \Aldor's imported function and \maplecode{importAlgo} effectively imports \Aldor's function and assigns it to \maplecode{algoAldor}. The rest of the piece of code defines the functions \maplecode{algoAldor} and \maplecode{coherentAutoreducedSet} as described earlier.
+
+For calling the \maplecode{coherentAutoreducedSet} function of \maplecode{CharSet}, either
+\begin{mapleprogram}
+CharSet:-coherentAutoreducedSet( ... )
+\end{mapleprogram}
+
+or 
+
+\begin{mapleprogram}
+with(CharSet);
+coherentAutoreducedSet( ... )
+\end{mapleprogram}
+
+has to be called with appropriate parameters.
+
+With the help of this \maplecode{module} \Aldor's \exportedsymbol algorithm is imported only once, when the module is loaded. Furthermore, the imported algorithm is not visible to user's of the \maplecode{module} and can therefore not be modified.
+
+Although the basic problems of integrating \Aldor's exported code into \Maple are handled by the previous piece of code, it is still not covered how this code is best input in \Maple. \Maple provides a concept of external repositories. Each \Maple repository stores \Maple expressions and a name for these \Maple expressions permanently. By their name, the \Maple expressions can be retrieved later. Each \Maple repository is stored in two files, can easily be brought into scope, and hides the implementation from the users. Therefore, \Maple repositories are typically used for extending \Maple. We use such a repository to store the presented \Maple code for importing and integrating \Aldor's \exportedsymbol into \Maple. The next paragraphs show how to build a \Maple repository for the \maplecode{CharSet} \maplecode{module} and how to use it.
+
+A \Maple repository for the \maplecode{CharSet} \maplecode{module} is built in two steps. First an empty repository is created. Afterwards expressions are added permanently to the repository. Typical expressions to store in a repository are \maplecode{module}s, such as \maplecode{CharSet}.
+
+For creating a new \Maple repository, 
+
+\begin{mapleprogram}
+march('create', archive, size );
+\end{mapleprogram}
+
+is called, where \maplecode{archive} is the either the name of the new repository or a directory. The name of the repository is relative to the current directory. If only a directory is given, then a repository with the name ``maple'' is created in the specified directory. \maplecode{size} is the approximate numbers of functions in the repository\footnote{Note that each member of a \maplecode{module} is counted, in addition to the \maplecode{module} as a whole. So if you plan to create a repository which contains four modules and each module contains five functions, then you should specify $24$, not four. More information, on counting functions can be found in the documentation of \Maple's \maplecode{march}.}. 
+Every \Maple repository must reside in an own directory. Therefore, creation of a repository in a directory, where another repository already exists, will fail. In order to avoid unnecessary confusion, it is suggested to create repositories only in existing, empty directories.
+
+After generating a \Maple repository, expressions are saved to the repository, with the help of \Maple's \maplecode{savelib} function\footnote{Formerly, \Maple repositories have been called libraries. This prior naming is the reason that some functions and variables that deal with repositories contain a \maplecode{lib} in their name. Some examples are \maplecode{libname}, \maplecode{savelibname}, and \maplecode{savelib}. However, the pursued name is repository not library.}. This function takes names of expressions as arguments. \Maple stores these names along with their associated expressions in the first repository specified by \maplecode{savelibname}. If this attempt fails, the second repository specified in \maplecode{savelibname} is used, and so on. If \maplecode{savelibname} is not assigned, \maplecode{libname} is used instead.
+
+After the module \maplecode{CharSet} is defined, the following piece of code creates the \Maple repository in the directory \file{lib} and adds the \maplecode{CharSet} \maplecode{module} to it.
+
+\begin{mapleprogram}
+newlibdir:="lib";
+march('create',newlibdir,5);
+savelibname:=newlibdir;
+savelib('CharSet');
+\end{mapleprogram}
+
+To provide users additionally with proper documentation within \Maple's help system, help pages have to be added to the repository. For this purpose, \Maple provides the \maplecode{makehelp} function. This function takes three parameters. The first parameter is the topic under which a help page is registered. The second parameter is the filename of the prepared help page. A help page can either be a text file or a \Maple worksheet. These files do not have to obey any special syntax rules and are displayed when looking up the topic, which has been specified as first parameter. The third parameter to \maplecode{makehelp} is the repository to store the documentation in. The following piece of code embeds the file \file{/some/path/charset.mws} as help page for the function \maplecode{coherentAutoreducedSet} of the package \maplecode{CharSet} in the \Maple repository that can be found in the \file{/another/path} directory.
+
+\begin{mapleprogram}
+makehelp(`CharSet/coherentAutoreducedSet`,
+         `/some/path/charset.mws`,
+         `/another/path`
+    )
+\end{mapleprogram}
+
+By the created repository and the integrated wrapper for \exportedsymbol, \Aldor's code is seamlessly integrated into \Maple and can be used conveniently. Typical invocation of the algorithm within involves three stages. 
+
+The first stage is to inform \Maple of the repository. Therefore, the directory of the repository has to be added to the \maplecode{libname} variable.
+
+\begin{mapleprogram}
+libname := "/path/to/repository", libname;
+\end{mapleprogram} 
+
+This setting of \maplecode{libname} suffices to load the repository. In the second stage, the \maplecode{CharSet} \maplecode{module} is brought into scope.
+
+\begin{mapleprogram}
+with(CharSet);
+\end{mapleprogram} 
+
+Finally, the \maplecode{coherentAutoreducedSet} function can be called.
+\begin{mapleprogram}
+coherentAutoreducedSet( [y1(s),y2(s)*y1(s)], [y1,y2], [s] );
+\end{mapleprogram} 
+
+The inner workings of these three stages are illustrated in \reffig{mapleconnection}.
+\diagrameps[6in]{mapleconnection}{The inner workings of loading and using \exportedsymbol from within \Maple}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Local Variables: 
+%%% ispell-local-dictionary: "english"
+%%% End:

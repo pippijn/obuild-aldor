@@ -1,0 +1,5 @@
+"bug1326.as", line 37: 
+        print << length(a);
+........................^
+[L37 C25] #1 (Warning) Local `a' is used without being assigned or defined.
+

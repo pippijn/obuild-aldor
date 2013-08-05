@@ -1,0 +1,1 @@
+../../../../.upstream/aldor/lib/axllib/test/float0.as

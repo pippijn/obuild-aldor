@@ -1,0 +1,36 @@
+Classes[] =
+  foamj/AbstractValue
+  foamj/CastException
+  foamj/Clos
+  foamj/Env
+  foamj/EnvRecord
+  foamj/Fn
+  foamj/Foam
+  foamj/FoamClass
+  foamj/FoamContext
+  foamj/FoamException
+  foamj/FoamJ
+  foamj/Format
+  foamj/Globals
+  foamj/HaltException
+  foamj/Math
+  foamj/MultiRecord
+  foamj/Record
+  foamj/Value
+  foamj/Word
+
+foamj_CLASSES = $(addsuffix .class, $(Classes))
+foamj_SOURCES = $(addsuffix .java, $(Classes))
+
+$(foamj_CLASSES): $(foamj_SOURCES)
+  $(JAVAC) $^
+
+foamj.jar: $(foamj_CLASSES)
+  jar ($@, $(Classes))
+
+
+clean:
+  rm -f foamj/*.class
+
+
+.DEFAULT: $(install-target $(libdir), foamj.jar)

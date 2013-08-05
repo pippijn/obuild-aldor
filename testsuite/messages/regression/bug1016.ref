@@ -1,0 +1,5 @@
+"bug1016.as", line 44: 
+  f():Integer == {fluid x:Integer:=x+1; print << "x="<<x << newline; 0}
+........................^
+[L44 C25] #1 (Error) A fluid variable cannot shadow an outer non-fluid binding.
+

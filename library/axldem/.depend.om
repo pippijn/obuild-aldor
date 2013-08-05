@@ -1,0 +1,17 @@
+src/dirprod.ao:	\
+	src/polycat.ao
+src/gb.ao:	\
+	src/polycat.ao
+src/matopdom.ao:	\
+	src/matrix.ao
+src/matrix.ao:	\
+	src/vector.ao
+src/nni.ao:	\
+	src/polycat.ao
+src/poly.ao:	\
+	src/polycat.ao
+src/poly3.ao:	\
+	src/poly.ao
+src/prime.ao:	\
+	src/nni.ao	\
+	src/vector.ao

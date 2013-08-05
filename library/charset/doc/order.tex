@@ -1,0 +1,27 @@
+\clearpage
+\section{Orders on differential indeterminates}
+\defsec{orders}
+
+
+The orders part of \LibCharSet consists of
+\begin{itemize}
+\item \adtype{DifferentialVariableOrderToolsType}
+\item \adtype{DifferentialVariableEliminationOrderToolsType}
+\item \adtype{DifferentialVariableLexicographicEliminationOrderTools}
+\item \adtype{DifferentialVariableLexicographicOrderTools}
+\item \adtype{DifferentialVariableOrderlyEliminationOrderTools}
+\item \adtype{DifferentialVariableOrderlyOrderTools}
+\item \adtype{DifferentialVariableMixedOrderTools}
+\end{itemize}
+
+\adtype{DifferentialVariableOrderToolsType} is the main category for orders on differential indeterminates.
+
+\adtype{DifferentialVariableEliminationOrderToolsType} marks orders as elimination orders.
+
+The rest of the domains are implementations of the given categories. The file \file{orders/orders.as} shows how the various orders act.
+
+\inputSourceFile{orders/orders.as}{Indeterminates in increasing order}
+
+\clearpage
+
+\inputOutput{orders/orders}

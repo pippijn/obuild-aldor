@@ -1,0 +1,22 @@
+#1 (Warning) Could not use archive file `librepl.al'.
+"arrepl1b.as", line 4: 
+import from ReplLib;
+............^
+[L4 C13] #2 (Error) No meaning for identifier `ReplLib'.
+
+"arrepl1b.as", line 11: 
+        export from A;
+....................^
+[L11 C21] #3 (Error) No meaning for identifier `A'.
+
+"arrepl1b.as", line 14: 
+        import from A;
+....................^
+[L14 C21] #4 (Error) No meaning for identifier `A'.
+
+"arrepl1b.as", line 15: 
+        a: Int == x + y;
+..................^...^
+[L15 C19] #5 (Error) No meaning for identifier `x'.
+[L15 C23] #6 (Error) No meaning for identifier `y'.
+

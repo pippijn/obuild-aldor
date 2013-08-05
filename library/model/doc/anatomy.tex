@@ -1,0 +1,116 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+\clearpage
+\section{Anatomy of a \projectplainname project}
+\defsec{anatomy}
+
+\newcommand\LibNewProject{\lib{NewProject}}
+
+This section shows how to start a \projectname project and discusses the files in the \projectname's root directory.
+
+As pointed out in the motivation (\refsec{motivation}), \projectname serves as model for \Aldor projects. 
+
+To start a new \projectname project with the name \LibNewProject, create a directory with the same name in lowercas letters (i.e.: \file{newproject}). This directory is the root directory for \LibNewProject. Copy (or preferable link) the files
+\begin{itemize}
+\item \file{configure},
+\item \file{configure.funcs},
+\item \file{default\_targets.mk},
+\end{itemize}
+and the \file{scripts}\footnote{The \file{scripts} directory does not have to be called \file{scripts} in the \file{NewProject} directory. Any name can be chosen. However, if something different than \file{scripts} is chosen, the \variable{SCRIPTDIR} parameter of \file{configure.in} has to be set to the directory's name. See \refsec{needs}.} directory from \projectname's root directory into \LibNewProject's root directory.
+
+The \file{configure} script is used to set up an appropriate environment for \LibNewProject. \file{configure} for example looks for the \Aldor compiler, libraries and generates dependency files. This script is controlled by the content of \file{configure.in}\footnote{See section \refsec{needs} for a treatment of \file{configure.in}.}. Developers typically execute
+\begin{console}
+./configure
+\end{console}
+in \LibNewProject's root directory to update the dependency files. Users of \LibNewProject do the same to adjust \LibNewProject to their system. More information about the \file{configure} script can be found in \refsec{configure}.
+
+The file \file{configure.funcs} contains functions that are needed by the \file{configure} script.
+
+\file{default\_targets.mk} is a makefile defining how \Aldor files have to be compiled and recursive targets have to be built. From a strict point of view, this file is not mandatory for \projectname projects. However, virtually every makefile of \projectname includes \file{default\_targets.mk}, therefore it is suggested to keep this file in \LibNewProject's root directory.
+
+The scripts in the \file{scripts} directory are discussed in the sections where they are used.
+
+\projectname has been designed to comply with the GNU coding standards\cite{GNUCodingStandards}. \LibNewProject does not have to. Nevertheless it is strongly suggested to follow these standards.
+
+If \LibNewProject follows the GNU coding standards, the files
+\begin{itemize}
+\item \file{AUTHORS},
+\item \file{ChangeLog},
+\item \file{INSTALL},
+\item \file{NEWS}, and
+\item \file{README}
+\end{itemize}
+should be present in \LibNewProject's root directory. \projectname provides all these five files. For \projectname, \file{INSTALL}, \file{NEWS}, and \file{README} are short, general statements that might be reused for \LibNewProject. \file{AUTHORS}, \file{ChangeLog} are specific to \projectname itself and it does not make sense to reuse them. Separate \file{AUTHORS} and \file{ChangeLog} files have to be created for \LibNewProject. More information on the suggested format of these files can be found in \cite{GNUCodingStandards}.
+
+Besides the already mentioned files, 
+\begin{itemize}
+\item \file{config.status},
+\item \file{configure.in},
+\item \file{environment.mk},
+\item \file{Makefile}, and
+\item \file{.generatedfiles},
+\end{itemize}
+may be seen in the root directory.
+
+\file{config.status} holds the last call to \file{configure} with all arguments. It is discussed in \refsec{configure}.
+
+\file{configure.in} contains a \projectname project's parameters to the configuration process. More information can be found in \refsec{needs}.
+
+\file{environment.mk} is a makefile that contains information from the current system. \refsec[Section]{configure} discusses this file more explicitely. This file may appear under a different name, if the \variable{ENVIRONMENTMKFILE} in \file{configure.in} is modified.
+
+\file{Makefile} is the main makefile of a \projectname project. This file is discussed mor thoroughly in \refsec{configure}.
+
+\file{.generatedfiles} cantains the names of those files that have to be romeved when building the target \target{distclean}. This file may appear under a different name, if the \variable{GENERATEDFILESFILE} in \file{configure.in} is modified.
+
+\subsection{Calling the configure script}
+\defsec{configure}
+
+This section describes {\it workings} of the \file{configure} script. A discussion of the {\it options} to the \file{configure} script from the point of view of a user of a \projectname project is presented in \refsec{installation}. Further options for developers of \projectname projects are discussed in \refsec{needs}.
+
+\begin{console}
+./configure
+\end{console}
+is executed in a \projectname project's root directory, to adapt the project's settings (see the documentation of \file{configure.in} in \refsec{needs}) to the current system. This adaption process is typically in charge of
+\begin{itemize}
+\item locating and checking executables,
+\item locating libraries,
+\item generating dependency information,
+\item generating include files, and
+\item patching version information.
+\end{itemize}
+
+
+\subsubsection{Locating and checking executables}
+
+\file{configure} starts to look for an executable in \shellvariable{ALDORBIN}. If it cannot be found there, it looks for the executable in \file{\shellvariable{ALDORROOT}/bin}. If it is in neither of the two directories, the \file{configure} script calls \file{which}, to find the executable.
+
+However, it is possible to override the found executables by passing parameters to the \file{configure} script. This overriding is explained in \refsec{installation}. Overriden executables are considered found.
+
+If the executable is found and no script to check the executable is specified in \file{configure.in}, the executable is accepted and marked as usable.
+
+If the executable is found and a script to check the executable is specified in \file{configure.in}, the script is executed and the found executable is passed as parameter to the script. If the return value of the script is $0$, the executable is accepted and marked as usable.  Otherwise the executable is considered invalid and marked as not usable.
+
+Executables that cannot be found, are marked as not usable.
+
+\subsubsection{Locating and checking executables}
+
+ 
+
+

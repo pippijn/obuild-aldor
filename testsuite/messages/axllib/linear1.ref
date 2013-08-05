@@ -1,0 +1,33 @@
+"linear1.as", line 8: 
+#lisp (BREAK)
+^
+[L8 C1] #1 (Warning) Unknown system command.
+
+"linear1.as", line 18: 
+        cons: (S, $) -> $
+..................^
+[L18 C19] #2 (Error) Syntax error.
+
+"linear1.as", line 19: 
+        first: $ -> S
+...............^
+[L19 C16] #3 (Error) Syntax error.
+
+"linear1.as", line 27: 
+    bbbbbbbbbb
+....^
+[L27 C5] #5 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+
+"linear1.as", line 28: 
+        cccccccccccccc
+........^
+[L28 C9] #4 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+
+"linear1.as", line 32: 
+  eeeeeeee
+..^
+[L32 C3] #6 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+

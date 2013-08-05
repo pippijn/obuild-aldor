@@ -1,0 +1,5 @@
+"forn5o.as", line 3: 
+#include "forn5.as"
+^
+[L3 C1] #1 (Error) Could not open file `forn5.as'.
+

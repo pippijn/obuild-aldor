@@ -1,0 +1,763 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{naldordoc}[2005/11/21]
+\RequirePackage[obeyspaces]{url}
+\RequirePackage{hyphenat}
+\RequirePackage{hyperref}
+
+% This package is a native \LaTeX implementation of the aldordoc interface.
+% No need for any perl scripts.
+%
+% To change the formatting of types redefine
+%   addecoratetype
+% . To change the formatting of names redefine
+%   addecoratename
+% . To change the formatting of macros redefine
+%   addecoratetype
+% . For example
+%
+% \renewcommand{\addecoratemacro}[2]{%
+%   \underline{#2}%
+% }
+%
+% underlines macros for postscript output. Nate that underline prohibits linebreaking.
+%
+% \renewcommand{\addecoratetype}[2]{%
+%   \nohyphens{#2}%
+% }
+%
+% can be used to forbid linebreaking in types.
+%
+%
+%
+% Throughout the whole document, to 
+%   "append a signature"
+% is used as shorter notation for 
+%   "to add a colon (:) and add unescaped Aldor code 
+%   that specifies the type of an object"
+% .
+%
+% Examples
+%   :Integer
+%   :Character -> ( String, String )
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%% variables %%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+% adempty
+%
+% is always {}. This is used as proper empty value in
+% TeX macros
+\def\adempty{}%
+
+
+% adthismacroname
+%
+% holds the name of the last defined macro
+\def\adthismacroname{}%
+
+% adthistypename
+%
+% holds the name of the last defined type
+%NOTE: Do not confuse with adthisnametype !
+\def\adthistypename{}%
+
+% adthisnamename
+%
+% holds the name of the last defined function or 
+% constant -- possibly appended signature
+\def\adthisnamename{}%
+
+% adthisnametype
+%
+% holds the name of the category or domain to which the 
+% last defined  function or constant belongs
+%NOTE: Do not confuse with adthistypename !
+\def\adthisnametype{}%
+
+% adthisnameescapedtype
+%
+% \adthisnametype with escaped ! and ^
+\def\adthisnameescapedtype{}%
+
+% adthisnameescapedtype
+%
+% \adthisnamename without signature, but with escaped ! and ^
+\def\adthisnameescapedname{}
+
+% adthisexceptionname
+%
+% holds the name of the last exception of a \adthrows
+\def\adthisexceptionname{}%
+
+% adlastdefinedentity
+%
+% holds the last defined entity (macro, type, name, ...)
+\def\adlastdefinedentity{}%
+
+% addospecials
+%
+% catcode changes for \adname and related functions.
+% Note, that this opens a new group without closing it!
+\def\addospecials{\begingroup%
+  \catcode`\%=11
+  \catcode`^=11
+  \catcode`\#=11
+  \catcode`^=11
+  \catcode`+=11
+  \catcode`_=11
+  \catcode`\<=13
+  \catcode`\>=13
+}
+
+
+
+
+
+% adless
+%
+% typesets the "less" sign
+\def\adless{$<$}
+
+% adgreater
+%
+% typesets the "greater" sign
+\def\adgreater{$>$}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%% index %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%For the index entries, the characters !, ^, and # have
+%to be escaped. Therefore some catcodes are changed.
+%They are reset right after the definition of
+%\adindexescape
+% ^ is treated as letter
+% # is treated as letter
+% ; denotes parameter
+\catcode`^=11
+\catcode`\#=11
+\catcode`;=6
+\catcode`\<=13
+\catcode`\>=13
+
+\def<{\adless}
+\def>{\adgreater}
+
+% adindexescapehash
+%
+% DO NOT CALL DIRECTLY. USE \adindexescape INSTEAD !
+%
+% escapes ! to "!
+\def\adindexescapehash;1#;2|{%
+\ifx\adempty;2%
+;1%
+\else
+;1\#\expandafter\adindexescapehash;2|%
+\fi%
+}
+
+% adindexescapeexclamationmark
+%
+% DO NOT CALL DIRECTLY. USE \adindexescape INSTEAD !
+%
+% escapes ! to "!
+\def\adindexescapeexclamationmark;1!;2|{%
+\ifx\adempty;2%
+\adindexescapehash;1#\adempty|%
+\else
+\adindexescapehash;1#\adempty|"!\expandafter\adindexescapeexclamationmark;2|%
+\fi%
+}
+
+% adindexescapehatmark
+%
+% DO NOT CALL DIRECTLY. USE \adindexescape INSTEAD !
+%
+% escapes ^ to $\,\hat{}\,$ and ! to "!
+\def\adindexescapehat;1^;2|{%
+\ifx\adempty;2%
+\adindexescapeexclamationmark;1!\adempty|%
+\else%
+\adindexescapeexclamationmark;1!\adempty|$\,\hat{}\,$\expandafter\adindexescapehat;2|%
+\fi%
+}
+
+% adindexescape
+%
+% wrapper for escapeing ^ to $\,\hat{}\,$ and ! to "!
+%
+% ;1 parameter to escape
+\newcommand{\adindexescape}[1]{\expandafter\adindexescapehat;1^\adempty|}
+
+%done with escaping ^, so setting the catcode of ^ back superscript (7)
+\catcode`^=7
+\catcode`\#=6
+\catcode`;=12
+\catcode`\<=12
+\catcode`\>=12
+
+% adindexentryone
+%
+% adds an index entry at top level
+%
+% #1 a command to format the page reference
+%    if #1 is \adempty (default setting), no 
+%    special format is applied
+% #2 unescaped top level
+% #3 unescaped second level
+\newcommand{\adindexentryone}[2][\adempty]{%
+\ifx\adempty#1%
+\index{\adindexescape{#2}}%
+\else%
+\index{\adindexescape{#2}|#1}%
+\fi%
+}
+
+% adindexentryone
+%
+% adds an index entry at the second level
+%
+% #1 a command to format the page reference
+%    if #1 in \adempty (default setting), no 
+%    special format is applied
+% #2 unescaped top level
+% #3 unescaped second level
+\newcommand{\adindexentrytwo}[3][\adempty]{%
+\ifx\adempty#1%
+\index{\adindexescape{#2}!\adindexescape{#3}}%
+\else%
+\index{\adindexescape{#2}!\adindexescape{#3}|#1}%
+\fi%
+}
+
+% adindexdefinitionformatter
+%
+% formats the page reference to the definition of an index entry
+%
+% #1 parameter to
+%\newcommand{\adindexdefinitionformatter}[1]{{\it \hyperpage{#1}}}
+\newcommand{\adindexdefinitionformatter}[1]{\hyperpage{#1}*}
+
+% adlinkprefix
+%
+% the prefix added to link targets
+%
+\newcommand{\adlinkprefix}{naldordoc:}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%% Aldor macros %%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+% adsetthismacro
+%
+% sets adthismacroname.
+% This function is called implizitely by \addefinemacro.
+%
+% #1 the name to set to adsetthismacro
+\newcommand{\adsetthismacro}[1]{%
+\gdef\adthismacroname{#1}%
+\gdef\adlastdefinedentity{\adthismacro}%
+}
+
+% addefinemacro
+%
+% adds markup for the beginnig of a macro definition.
+%
+% #1 the name of the macro that is to define
+\newcommand{\addefinemacro}[1]{%
+\adsetthismacro{#1}%
+\hypertarget{\adlinkprefix#1}{}%
+\adindexentryone[adindexdefinitionformatter]{#1}%
+}
+
+
+% addecoratemacro
+%
+% allows to decorate macros. This command can for example be used to underline macros or append a $^{Macro}$.
+% The default is to not decorate macros.
+%
+% #1 hyperlink target of the macro to decorate
+% #2 the name of the macro to decorate
+\newcommand{\addecoratemacro}[2]{%
+\hyperlink{#1}{#2}%
+}
+
+% admacro
+%
+% references a macro.
+%
+% #1 name of the referenced macro.
+\newcommand{\admacro}[1]{%
+\adindexentryone{#1}%
+\addecoratemacro{\adlinkprefix#1}{#1}\xspace%
+}
+
+% adthismacro
+%
+% references the last defined macro.
+\newcommand{\adthismacro}{\admacro{\adthismacroname}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%% Aldor categories and domains %%%%
+
+
+
+
+
+% adsetthistype
+%
+% sets adthistypename.
+% This function is called implizitely by \addefinetype.
+%
+% #1 the name to set to adthistypename
+\newcommand{\adsetthistype}[1]{%
+\gdef\adthistypename{#1}%
+\gdef\adlastdefinedentity{\adthistype}%
+}
+
+% addefinetype
+%
+% adds markup for the beginnig of a category or domain
+% definition.
+%
+% #1 the name of the category or domain that is to 
+%    define
+\newcommand{\addefinetype}[1]{%
+\adsetthistype{#1}%
+\hypertarget{\adlinkprefix#1}{}%
+\adindexentryone[adindexdefinitionformatter]{#1}%
+}
+
+
+% addecoratetype
+%
+% allows to decorate types. This command can for example be used to underline types or append a $^{Type}$.
+% The default is to not decorate types.
+%
+% #1 hyperlink target of the type to decorate
+% #2 the name of the type to decorate
+\newcommand{\addecoratetype}[2]{%
+\hyperlink{#1}{#2}%
+}
+
+% adtype
+%
+% references a category or domain.
+%
+% #1 name of the referenced category or domain
+\newcommand{\adtype}[1]{%
+\adindexentryone{#1}%
+\addecoratetype{\adlinkprefix#1}{#1}%
+\xspace%
+}
+
+% adthistype
+%
+% references the last defined category or domain.
+\newcommand{\adthistype}{\adtype{\adthistypename}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%% Aldor functions and constants %%%
+
+
+
+
+
+% adextractname
+%
+% extracts the NAME in NAME:SIGNATURE|
+\def\adextractname#1:#2|{#1}
+
+% adextractandindexescapename
+%
+% extracts the NAME in NAME:SIGNATURE| and escapes it for use in index
+\def\adextractandescapename#1:#2|{\adindexescape{#1}}
+
+% adextractsignature
+%
+% extracts the SIGNATURE in NAME:SIGNATURE|
+\def\adextractsignature#1:#2|{%
+  \ifx\adempty#2\adempty\else\expandafter\adstraptrailerextractsignature#2|\fi%
+}
+
+% adstraptrailerextractsignature
+%
+% straps the final :\adempty| of for \adextractsignature
+\def\adstraptrailerextractsignature#1:\adempty|{#1}
+
+% adsetthisname
+%
+% changes catcodes and calls \adsetthisnameinspecial.
+% This function is called implizitely by \addefinename.
+\newcommand{\adsetthisname}{\addospecials\adsetthisnameinspecial}
+
+% adsetthisnameinspecial
+%
+% DO NOT CALL DIRECTLY. USE \adsetthisname INSTEAD !
+%
+% sets adthisnametype to #1
+% sets adthisnameescapedtype to !, ^ escaped #1
+% sets adthisnamename to #2
+% sets adthisnameescapedname to #2 w/o signature and escaped ! and ^
+\newcommand{\adsetthisnameinspecial}[2][\adthistypename]{%
+\gdef\adthisnametype{#1}%
+\gdef\adthisnameescapedtype{\adindexescape{#1}}%
+\gdef\adthisnamename{#2}%
+\gdef\adthisnameescapedname{\adindexescape{\adextractname#2:\adempty|}}%
+\endgroup%
+\gdef\adlastdefinedentity{\adthisname}%
+}
+
+% addefinename
+%
+% changes catcodes and calls \addefinenameinspecial.
+\newcommand{\addefinename}{\addospecials\addefinenameinspecial}%
+
+% addecoratename
+%
+% allows to decorate names. This command can for example be used to underline names or append a $^{Name}$.
+% The default is to not decorate names.
+%
+% #1 hyperlink target of the name to decorate
+% #2 the name to decorate
+\newcommand{\addecoratename}[2]{%
+\hyperlink{#1}{#2}%
+}
+
+% addefinenameinspecial
+%
+% DO NOT CALL DIRECTLY. USE \addefinename INSTEAD !
+%
+% adds markup for the beginning of a function or
+% constant definition
+%
+% #1 (optional) the category or domain to which the
+%    function or constant belongs to. 
+%    (default: \adthistypename)
+% #2 the name of the function or constant that is to
+%    define. A signature should be appended.
+\newcommand{\addefinenameinspecial}[2][\adthistypename]{%
+\adsetthisname[#1]{#2}%
+\hypertarget{\adlinkprefix#1:\adextractname#2:\adempty|}{}%
+\hypertarget{\adlinkprefix#1:\adextractname#2:\adempty|:\adextractsignature#2:\adempty|}{}%
+\adindexentrytwo[adindexdefinitionformatter]{#1}{\adextractname#2:\adempty|}%
+\adindexentrytwo[adindexdefinitionformatter]{\adextractname#2:\adempty|}{#1}%
+\endgroup
+}
+
+% adname
+%
+% changes catcodes and calls adnameinspecial.
+\newcommand{\adname}{\addospecials\adnameinspecial}
+\def\DeclareUrlCommand#1#2{\def#1{\begingroup #2\Url}}
+
+% adnameinspecial
+%
+% references a function or macro.
+%
+% #1 (optional) the category or domain to which the
+%    referenced function or constant belongs to. 
+%    (default: \adthistypename)
+% #2 the name of the referenced function or consta
+%    A signature may be appended.
+\newcommand{\adnameinspecial}[2][\adthistypename]{%
+\def\adlocalname{\expandafter\adextractname#2:\adempty|}%
+\def\adlocalescapedname{\expandafter\adextractandescapename#2:\adempty|}%
+\def\adlocalsignature{\expandafter\adextractsignature#2:\adempty|}%
+%the following if cascade tackles problems with escaping the types and names properly.
+\ifx#1\adthisnametype%
+\ifx#2\adthisnamename%
+\adindexentrytwo{\adthisnameescapedtype}{\adthisnameescapedname}%
+\adindexentrytwo{\adthisnameescapedname}{\adthisnameescapedtype}%
+\else
+\adindexentrytwo{\adthisnameescapedtype}{\expandafter\adlocalescapedname}%
+\adindexentrytwo{\expandafter\adlocalescapedname}{\adthisnameescapedtype}%
+\fi
+\else
+\adindexentrytwo{#1}{\expandafter\adlocalescapedname}%
+\adindexentrytwo{\expandafter\adlocalescapedname}{#1}%
+\fi%
+\addecoratename{\adlinkprefix#1:#2}{\adlocalname}%
+\endgroup%
+\xspace%
+}
+
+% adthisname
+%
+% changes catcodes and calls \adthisnameinspecial.
+\newcommand{\adthisname}{\adname[\adthisnametype]{\adthisnamename}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%% exceptions %%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% adsetthisexception
+%
+% changes catcodes and calls 
+% \adsetthisexceptioninspecial.
+% This function is called implizitely by \adthrows
+% in the \adthrows within an adexceptions environment.
+\newcommand{\adsetthisexception}{\addospecials\adsetthisexceptioninspecial}
+
+% adsetthisexceptioninspecial
+%
+% DO NOT CALL DIRECTLY. USE \adsetthisexception INSTEAD !
+%
+% sets adthisnametype to #1.
+\newcommand{\adsetthisexceptioninspecial}[1]{%
+\gdef\adthisexceptionname{#1}%
+\endgroup%
+}
+
+% adthrows
+%
+% declares that a function throws an exception.
+\newcommand{\adthrows}[1]{\item #1, }
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%% Aldor source code %%%%%%%%%%%%%%%
+
+
+
+
+
+% adcode
+%
+% provides layout short inline Aldor code.
+% Implemented by reusing the definition of the 
+% \url command.
+\newcommand\adcode{\begingroup \Url}
+
+% adsnippet
+%
+% provides layout for Aldor code
+\newenvironment{adsnippet}{%
+\verbatim%
+}{%
+\endverbatim\vspace*{-0.5cm}%
+}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%% Aldor description parts %%%%%%%%%
+
+
+
+
+
+% adsection
+%
+% formats a part of the documentaiton of a category,
+% domain, function, or constant.
+%
+% #1 The name of the part to format
+\newenvironment{adsection}[1]{%
+
+\textbf{#1}%
+
+}{}
+
+% adlistsection
+%
+% formats a part of the documentaiton of a category,
+% domain, function, or constant as list
+%
+% #1 The name of the part to format
+\newenvironment{adlistsection}[1]{%
+\begin{adsection}{#1}%
+\begin{list}{}{}%
+}{%
+\end{list}%
+\end{adsection}%
+}
+
+% adprintfirstsentence
+%
+% prints only the text of the first sentence
+%
+% #1 the sentence
+\def\adprintfirstsentence#1.#2\adempty{%
+#1.%
+}
+
+% addescription
+%
+% formats the long and short description of a 
+% category, domain, function, or constant.
+%
+% #1 is the short description.
+% The long description is content of this environment.
+\newenvironment{addescription}[1]{%
+\begin{adsection}{Description}%
+\adlastdefinedentity \adprintfirstsentence#1.\adempty%
+}{%
+\end{adsection}%
+}
+
+% adshortdescription
+%
+% formats the short description of a category,
+% domain, function, or constant and omits the
+% content of this environment.
+%
+% #1 is the short description.
+\newenvironment{adshortdescription}[1]{%
+\adprintfirstsentence#1.\adempty%
+\comment%
+}{%
+\endcomment%
+}
+
+% adremarks
+%
+% formats the "remarks" part of the description of 
+% a category, domain, function, or constant.
+\newenvironment{adremarks}{%
+\begin{adsection}{Remarks}%
+}{%
+\end{adsection}%
+}
+
+% adseealso
+%
+% formats the "seealso" part of the description of 
+% a category, domain, function, or constant.
+\newenvironment{adseealso}{%
+\begin{adsection}{See also}%
+}{%
+\end{adsection}%
+}
+
+% adlocalmacros
+%
+% formats the "local macros" part of the description of 
+% a category or domain
+\newenvironment{adlocalmacros}{%
+\begin{adsection}{Local macros}%
+}{%
+\end{adsection}%
+}
+
+% adexportedcategories
+%
+% formats the "exported categories" part of the 
+% description of a category, domain, function, or
+% constant.
+\newenvironment{adexportedcategories}{%
+\begin{adlistsection}{Exported categories}%
+}{%
+\end{adlistsection}%
+}
+
+% adexportednames
+%
+% formats the "exported functions and constants"
+% part of the  description of a category, domain,
+% function, or constant.
+\newenvironment{adexportednames}{%
+\begin{adlistsection}{Exported functions and constants}%
+}{%
+\end{adlistsection}%
+}
+
+% adexportsfrom
+%
+% formats the "exports from" part of the 
+% description of a category, domain, function, or
+% constant.
+\newenvironment{adexportsfrom}{%
+\begin{adlistsection}{Exports from}%
+}{%
+\end{adlistsection}%
+}
+
+% adexportedby
+%
+% formats the "exported by" part of the 
+% description of categories
+\newenvironment{adexportedby}{%
+\begin{adlistsection}{Exported By}%
+}{%
+\end{adlistsection}%
+}
+
+% adparameters
+%
+% formats the "parameters"  part of the  description 
+% of a category, domain, function, or constant.
+\newenvironment{adparameters}{%
+\begin{adsection}{Parameters}%
+}{%
+\end{adsection}%
+}
+
+% adsignature
+%
+% formats the "signature"  part of the  description 
+% of a category, domain, function, or constant.
+\newenvironment{adsignature}{%
+\begin{adlistsection}{Signature}%
+}{%
+\end{adlistsection}%
+}
+
+% adexceptions
+%
+% formats the "exceptions"  part of the  description 
+% of a category, domain, function, or constant.
+\newenvironment{adexceptions}{%
+\begin{adlistsection}{Exceptions}%
+}{%
+\end{adlistsection}%
+}
+

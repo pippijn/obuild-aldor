@@ -1,0 +1,65 @@
+\clearpage
+\section{Indeterminates}
+\defsec{indeterminates}
+
+
+The indeterminates part of \LibCharSet can be separated into
+
+\begin{itemize}
+\item differential indeterminates and
+\item supportive domains and categories.
+\end{itemize}
+
+
+
+
+
+\subsection{Differential indeterminates}
+
+The differential indeterminates part consists of 
+\begin{itemize}
+\item \adtype{DifferentialVariableType},
+\item \adtype{OrdinaryDifferentialVariableType},
+\item \adtype{EliminationOrderedDifferentialVariableType},
+\item \adtype{DifferentialVariable},
+\item \adtype{OrdinaryDifferentialVariable},
+\item \adtype{DifferentialVariableTools},
+\end{itemize}
+
+\adtype{DifferentialVariableType} is the main category for differential indeterminates.
+
+\adtype{OrdinaryDifferentialVariableType} refines \adtype{DifferentialVariableType} for differential settings with only a single derivation.
+
+\adtype{EliminationOrderedDifferentialVariableType} marks indeterminates to obey an elimination order.
+
+\adtype{DifferentialVariable} is a general purpuse implementation of differential indeterminates. The file \file{dvars/dvars.as} illustrates its usage.
+
+\clearpage
+\inputSourceFile{dvars/dvars.as}{Using differential indeterminates}
+
+\inputOutput{dvars/dvars}
+
+\adtype{OrdinaryDifferentialVariable} implements \adtype{OrdinaryDifferentialVariableType} 
+
+\adtype{DifferentialVariableTools} provides functions to convert betwee differential indeterminates and expression trees.
+
+
+\subsection{Supportive Domains and categories}
+
+\begin{itemize}
+\item \adtype{MergedVariableType},
+\item \adtype{VariableMerger}, and
+\item \adtype{VariableMergerTools}.
+\end{itemize}
+
+\adtype{MergedVariableType} is a category for merging two indeterminate domains.
+
+\adtype{VariableMerger} merges two indeterminate domains.
+
+\adtype{VariableMergerTools} adjoins indeterminates to a given indeterminate domain. An example for \adtype{VariableMergerTools} is given in the file \file{merger/merger.as}
+
+\inputSourceFile{merger/merger.as}{Adjoining indeterminates}
+
+\clearpage
+
+\inputOutput{merger/merger}

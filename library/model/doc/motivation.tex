@@ -1,0 +1,44 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+\pagebreak
+{\huge Although the \projectname environment (its scripts and  Makefiles) itself is ready for use, the documentation of \projectname is still very incomplete.}
+
+Although the documentation of \projectname is far from being completed, \projectname has been released, as other libraries (e.g.: \LibAldorUnit\cite{AldorUnit} and \LibExtIO\cite{ExtIO}) use it and reference to it. \projectname is ready to be used by other \Aldor projects as well, however, \projectname's documentation is still missing.
+\pagebreak
+\section{Motivation}
+\defsec{motivation}
+
+
+\projectname is serves as model for \Aldor libraries.
+
+The main purpose of \projectname is {\it not} to deliver the functionality of the \projectname's library.
+
+The main purpose of \projectname is to provide a framework for implementing libraries in \Aldor.
+
+The framework of \projectname provides support for
+\begin{itemize}
+\item building libraries,
+\item building unit tests,
+\item generating documentation,
+\item configuring a library on a foreign system, and
+\item installing a library on a foreign system.
+\end{itemize}
+
+With the help of \LibModel, developers only have to write code, unit tests, and documentation. Developers do {\it not} have to deal with tracking dependencies or extracting the API of source files.

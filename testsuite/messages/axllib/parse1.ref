@@ -1,0 +1,21 @@
+"parse1.as", line 9: 
+- == +$I
+^
+[L9 C1] #2 (Note 1)  (cf. L10 C1)
+
+"parse1.as", line 10: 
+- == +$(I)
+^
+[L10 C1] #1 (Error) Constant `-' cannot be redefined.
+(see Note 1)
+
+"parse1.as", line 15: 
+f$P(a,b,c)
+^
+[L15 C1] #4 (Warning) Local `f' is used without being assigned or defined.
+
+"parse1.as", line 40: 
+a := test not plus x
+^
+[L40 C1] #3 (Error) `a' is used in a type, so must be constant, and so cannot be assigned to.
+

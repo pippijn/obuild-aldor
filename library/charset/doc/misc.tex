@@ -1,0 +1,31 @@
+\clearpage
+\section{Miscellaneous}
+\defsec{misc}
+
+The miscellaneous part of \LibCharSet consists of those domains not fitting properly into one of the previous sections. These domains are
+
+\begin{itemize}
+\item \adtype{RankedType},
+\item \adtype{ExportedCoherentAutoreducedSetTools},
+\item \adtype{DifferentialPolynomialFractionRing},
+\item \adtype{CharSetLibraryInformation},
+\item \adtype{AldorInteger2},
+\item \adtype{OrderedVariableList2}, and
+\item \adtype{OrderedVariableListWithProperHash}.
+\end{itemize}
+
+\adtype{RankedType} models a transitive relation that may be used to order collections of elements. It is however weaker than \adtype{PartiallyOrderedType}.
+
+\adtype{ExportedCoherentAutoreducedSetTools} allows to call the \adname[CoherentAutoreducedSetTools]{triangularize} function of \adtype{CoherentAutoreducedSetTools} from \C. This domain is discussed in more detail in \refsec{preparationsinaldor}.
+
+\adtype{DifferentialPolynomialFractionRing} provides the field of rational functions. The file \file{dipofr/dipofr.as} gives an example for its usage.
+
+\inputSourceFile{dipofr/dipofr.as}{Lifting to a differential polynomial ring}
+
+\inputOutput{dipofr/dipofr}
+
+
+\adtype{CharSetLibraryInformation} holds machine readable information about \LibCharSet.
+
+\adtype{AldorInteger2}, \adtype{OrderedVariableList2}, and \adtype{OrderedVariableListWithProperHash} address bugs in the \LibAlgebra library and hopefully will not be necessary in future versions of \LibCharSet.
+

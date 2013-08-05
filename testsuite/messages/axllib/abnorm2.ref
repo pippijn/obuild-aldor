@@ -1,0 +1,56 @@
+"abnorm2.as", line 5: 
+H0 == G
+^.....^
+[L5 C1] #35 (Error) Have determined 0 possible types for the expression.
+  Subexpression `H0':
+	Meaning 1: ? == G
+  Subexpression `G':
+[L5 C7] #34 (Error) No meaning for identifier `G'.
+
+"abnorm2.as", line 6: 
+H1 == G with G
+......^
+[L6 C7] #33 (Error) No meaning for identifier `G'.
+
+"abnorm2.as", line 7: 
+H2 == F(G) with (G; F(G))
+......^.^..^
+[L7 C7] #31 (Error) There are no suitable meanings for the operator `F'.
+[L7 C9] #32 (Error) No meaning for identifier `G'.
+[L7 C12] #30 (Error) There are no suitable meanings for the operator `Join'.
+
+"abnorm2.as", line 10: 
+        f: A -> B
+...........^.^..^
+[L10 C12] #23 (Error) No meaning for identifier `A'.
+[L10 C14] #27 (Error) There are no suitable meanings for the operator `->'.
+[L10 C17] #22 (Error) No meaning for identifier `B'.
+
+"abnorm2.as", line 11: 
+        f: B -> A
+.............^
+[L11 C14] #24 (Error) There are no suitable meanings for the operator `->'.
+
+"abnorm2.as", line 15: 
+H4 == (with (f: A -> B; g: B->A)) with
+................^.^..^......^
+[L15 C17] #15 (Error) No meaning for identifier `A'.
+[L15 C19] #19 (Error) There are no suitable meanings for the operator `->'.
+[L15 C22] #14 (Error) No meaning for identifier `B'.
+[L15 C29] #16 (Error) There are no suitable meanings for the operator `->'.
+
+"abnorm2.as", line 18: 
+H5 == (with (f: A -> B; g: B->A)) with
+................^.^..^......^
+[L18 C17] #2 (Error) No meaning for identifier `A'.
+[L18 C19] #11 (Error) There are no suitable meanings for the operator `->'.
+[L18 C22] #7 (Error) No meaning for identifier `B'.
+[L18 C29] #8 (Error) There are no suitable meanings for the operator `->'.
+
+"abnorm2.as", line 19: 
+        (with (f: A->B; h: A -> B); with (h:A->C; i: K))
+.............................................^.^.....^
+[L19 C46] #4 (Error) There are no suitable meanings for the operator `->'.
+[L19 C48] #3 (Error) No meaning for identifier `C'.
+[L19 C54] #1 (Error) No meaning for identifier `K'.
+

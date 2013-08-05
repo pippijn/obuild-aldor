@@ -1,0 +1,148 @@
+src/array.ao:	\
+	src/langx.ao	\
+	src/parray.ao
+src/axlcat.ao:	\
+	src/basic.ao
+src/list2.ao:	\
+	src/list.ao
+src/ieeectl.ao:	\
+	src/axlcat.ao\
+	src/dfloat.ao
+src/basic.ao:	\
+	src/machine.ao
+src/axl_boolean.ao:	\
+	src/lang.ao	\
+	src/axlcat.ao
+src/bpower.ao:	\
+	src/sinteger.ao
+src/axl_byte.ao:	\
+	src/sinteger.ao
+src/axl_char.ao:	\
+	src/integer.ao	\
+	src/segment.ao
+src/complex.ao:	\
+	src/langx.ao	\
+	src/bpower.ao	\
+	src/integer.ao	\
+	src/string.ao
+src/debug.ao:	\
+	src/langx.ao	\
+	src/textwrit.ao
+src/dfloat.ao:	\
+	src/langx.ao	\
+	src/sfloat.ao
+src/efuns.ao:	\
+	src/complex.ao	\
+	src/except.ao	\
+	src/dfloat.ao	\
+	src/textwrit.ao
+src/except.ao:	\
+	src/axlcat.ao
+src/file.ao:	\
+	src/pointer.ao	\
+	src/array.ao	\
+	src/fname.ao	\
+	src/axl_char.ao
+src/axl_float.ao:	\
+	src/format.ao	\
+	src/except.ao	\
+	src/integer.ao	\
+	src/fprint.ao	\
+	src/segment.ao
+src/fmtout.ao:	\
+	src/textwrit.ao
+src/fname.ao:	\
+	src/oslow.ao
+src/format.ao:	\
+	src/axl_char.ao	\
+	src/dfloat.ao	\
+	src/textwrit.ao
+src/fprint.ao:	\
+	src/langx.ao	\
+	src/string.ao
+src/fstring.ao:	\
+	src/textwrit.ao
+src/gener.ao:	\
+	src/basic.ao
+src/hinteger.ao:	\
+	src/sinteger.ao
+src/imod.ao:	\
+	src/bpower.ao	\
+	src/integer.ao	\
+	src/axlcat.ao	\
+	src/segment.ao
+src/integer.ao:	\
+	src/sinteger.ao
+src/langx.ao:	\
+	src/axlcat.ao	\
+	src/segment.ao	\
+	src/list.ao
+src/list.ao:	\
+	src/pointer.ao	\
+	src/sinteger.ao	\
+	src/tuple.ao
+src/machine.ao:	\
+	src/lang.ao
+src/object.ao:	\
+	src/langx.ao
+src/opsys.ao:	\
+	src/file.ao
+src/oslow.ao:	\
+	src/langx.ao	\
+	src/string.ao
+src/parray.ao:	\
+	src/integer.ao
+src/partial.ao:	\
+	src/pointer.ao	\
+	src/machine.ao	\
+	src/string.ao
+src/pfloat.ao:	\
+	src/format.ao	\
+	src/except.ao	\
+	src/fprint.ao
+src/pkarray.ao:	\
+	src/sinteger.ao	\
+	src/axlcat.ao
+src/pointer.ao:	\
+	src/axl_boolean.ao
+src/ratio.ao:	\
+	src/langx.ao	\
+	src/string.ao	\
+	src/bpower.ao	\
+	src/integer.ao
+src/ref.ao:	\
+	src/basic.ao
+src/segment.ao:	\
+	src/axl_boolean.ao	\
+	src/gener.ao
+src/sfloat.ao:	\
+	src/bpower.ao	\
+	src/integer.ao	\
+	src/string.ao
+src/sinteger.ao:	\
+	src/segment.ao
+src/sort.ao:	\
+	src/string.ao	\
+	src/list.ao
+src/string.ao:	\
+	src/array.ao	\
+	src/axl_char.ao	\
+	src/tuple.ao	\
+	src/axlcat.ao
+src/table.ao:	\
+	src/sfloat.ao	\
+	src/list.ao	\
+	src/textwrit.ao
+src/textread.ao:	\
+	src/string.ao	\
+	src/file.ao
+src/textwrit.ao:	\
+	src/opsys.ao	\
+	src/string.ao
+src/tuple.ao:	\
+	src/basic.ao
+src/uarray.ao:	\
+	src/sinteger.ao
+src/rtexns.ao:	\
+	src/langx.ao	\
+	src/textwrit.ao

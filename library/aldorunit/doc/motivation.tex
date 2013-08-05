@@ -1,0 +1,67 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+\clearpage
+\section{Motivation}
+
+Though it is desired that software works flawlessly, it is in general not feasible to verify the correctness of software.
+
+Nevertheless, software engineers have to convince themselves and more importantly their customer that the authored piece of software is doing, what it is supposed to do. But since these two groups (developers and customers) have different viewpoints, they see different aspects of the product and will probably want software to meet different criteria.
+
+In order to define the criteria in an appropriate way, the idea of specifying these criteria in software itself came up\cite{Beck2003}. To automatically and often check these criteria is one important aspect of extreme programming\cite{Beck2000}.
+
+There are two types of so called ``tests''. On the one hand there are ``customer tests'' (which have also been referred to as ``acceptance test''). Customer tests specify what the customer expects from the product. On the other hand there are ``programmer tests'' (for which also the term ``unit test'' has been used). Programmer tests try to aide the developer in designing software and progressing with the development.
+
+In extreme programming short iterations and repeated testing is of utter importance along with only committing code to the repository that fulfills all the tests that are meant for testing it.
+
+Since the author is convinced of this idea of extreme programming being reasonable and improving the software development process, the need arose to be able to support these ideas of testing in \Aldor\cite{Aldor}.
+
+\subsection{Present State}
+
+Besides the favoured automatic testing, there are also other ways to test software.
+
+\begin{itemize}
+
+\item{Testing via a Debugger}
+
+A developer can use a debugger to step through every line of source code and compare the desired result to the real result of executing commands.
+
+At present stage, there is no real debugger for \Aldor. A developer might take advantage of the intermediate \C code and generate executables with \C-style debug information. But this ends up in debugging using \C. When writing software using \Aldor, the demand to debug \Aldor code, not \C code is reasonable. However, this is at present stage not possible.
+
+After all, even if there was an \Aldor~debugger, other problems would arise. First of all, it is not easy to test the same thing twice, since the developer always has to think again and again about, what the expected effect and the real effect of a statement is. Besides that, it is also an extremely time consuming way of testing. Not to forget that during the development of the piece of software often developers have to modify source code that has not initially been authored by themselves. If in turn then the developer of the modification wants to test the software, he might not be aware right away of what is the expected effect of statements, he has not dealt with before. These and more problems arise when using a debugger for testing.
+
+Nevertheless a debugger is a fundamental tool to support testing. For example, if a test fails to finish correctly, developers might want to inspect every single line of the used functions to see clearly what goes wrong in the test.
+
+\item{Testing via Output}
+
+One way to get to know what happens inside software is to add output that indicates that the execution reached a certain stage inside a function. Additionally, the developer might may choose to output the value of certain variables. This overcomes the bare necessity of having a debugger.
+
+Nevertheless there still is the problem of having to interpret the values, which are given to the developer and comparing them to the desired values.
+
+\end{itemize}
+
+Showing what is currently possible in \Aldor, it has to be pointed out clearly that writing tests and executing them repeatedly and often actually is possible in \Aldor. But there is no common framework supporting this. Every developer has to write his own environment for testing. Every developer has to think about feasible ways to organize tests and schedule their execution. Every developer has to do work that should better be done once and for all.
+
+\subsection{Desired State}
+
+The author's desired state is an environment in which an \Aldor~developer only writes tests.
+
+The developer has no need to think about how this test will be executed. Neither shall a programmer be bothered by the question of how to put several tests together or organize tests for a whole piece of software. In addition the developer shall not be disturbed by unnecessary debug information of tests. To show which tests fail and where they fail would be a maxim for a better \Aldor environment.
+
+Peeping at other languages, it can clearly be seen, what is possible there. So for example \Java~itself does not offer an environment for testing. But with \JUnit\cite{JUnit} a package has been delivered to \Java~developers that hides all unnecessary logic to them. It provides an environment in which the developer has only to deal with writing tests. The requirements of the software is specified via special functions for asserting equality and the like. By running the test suite the developer is presented which tests failed and which succeed in their assertions.

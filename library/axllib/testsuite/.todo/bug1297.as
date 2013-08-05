@@ -1,0 +1,124 @@
+--* From youssef@buphyk.bu.edu  Thu Feb 22 23:08:55 2001
+--* Received: from server-23.tower-4.starlabs.net (mail.london-1.starlabs.net [212.125.75.12])
+--* 	by nag.co.uk (8.9.3/8.9.3) with SMTP id XAA19845
+--* 	for <ax-bugs@nag.co.uk>; Thu, 22 Feb 2001 23:08:54 GMT
+--* X-VirusChecked: Checked
+--* Received: (qmail 19486 invoked from network); 22 Feb 2001 23:03:23 -0000
+--* Received: from buphyk.bu.edu (128.197.41.10)
+--*   by server-23.tower-4.starlabs.net with SMTP; 22 Feb 2001 23:03:23 -0000
+--* Received: (from youssef@localhost)
+--* 	by buphyk.bu.edu (8.9.3/8.9.3) id SAA27282
+--* 	for ax-bugs@nag.co.uk; Thu, 22 Feb 2001 18:08:14 -0500
+--* Date: Thu, 22 Feb 2001 18:08:14 -0500
+--* From: Saul Youssef <youssef@buphyk.bu.edu>
+--* Message-Id: <200102222308.SAA27282@buphyk.bu.edu>
+--* To: ax-bugs@nag.co.uk
+--* Subject: [6] Functor category causes core dump
+
+--@ Fixed  by: <Who> <Date>
+--@ Tested by: <Name of new or existing file in test directory>
+--@ Summary:   <Description of real problem and the fix>
+
+-- Command line: axiomxl -g interp
+-- Version: 1.1.12p6
+-- Original bug file name: test.as
+
+--+ --
+--+ --  Hi Martin & Stephen,
+--+ -- 
+--+ --      The recent emails has reminded me of what would be handy in 
+--+ --  Aldor from the category theory point of view and I remembered that 
+--+ --  I had alot of problems representing functors.  I have a solution to 
+--+ --  this now, but it's not really ideal and involves the occasional 
+--+ --  pretend.
+--+ -- 
+--+ --     Categories in the math sense have objects and morphisms.  For an Aldor 
+--+ --  example, objects satisfying Ring might be the objects and Aldor functions
+--+ --  between Ring domains can be the morphisms.  The category itself can be a 
+--+ --  parameterized (parameterised) package supplying identity morphisms and 
+--+ --  composition of morphisms.  The problem is: what, in Aldor, are functors?
+--+ --  In category theory, a "functor" between categories ObjA and ObjB consists 
+--+ --  of 
+--+ -- 
+--+ --     (a) A mapping (F) from the objects of ObjA to objects of ObjB.
+--+ --     (b) For each A,B in ObjA, a mapping from (A->B) to (F A -> F B).
+--+ --
+--+ --  Functors are supposed to preserve commuting diagrams, but never mind!
+--+ -- 
+--+ --  You would think that this is easy.  (a) can be a domain constructor, and 
+--+ --  (b) can be a mapping like the one below.
+--+ --
+--+ --    However, this doesn't work (the code below, for example, segfaults).  
+--+ --  I've tried *many* variations on this and finally got something to work, 
+--+ --  but without really understanding why the compiler was having such a hard 
+--+ --  time. 
+--+ --
+--+ --     I guess the other major class of things I noticed was that category valued
+--+ --  constants in with clauses are accepted by the compiler but don't work 
+--+ --  properly (I've got a few old bug reports on this).  Also things like 
+--+ --  define Foo(C:Category):Category == C with ... are also accepted by the compiler
+--+ --  but don't work.  There are also some bugs in conditional "with" clauses (I might
+--+ --  not have reported all of these) but they're not used much.
+--+ --
+--+ --     Anyway, I have designed around these problems, but it's something to think
+--+ --  about if you contemplate major improvements.
+--+ --
+--+ --     Cheers,  Saul
+--+ --
+--+ #include "axllib"
+--+ #pile
+--+ 
+--+ define Functor(ObjA:Category,ObjB:Category):Category == with
+--+     apply: (%,ObjA) -> ObjB
+--+     applymorphism: (F:%,X:ObjA,Y:ObjA) -> (X->Y) -> (F X -> F Y)  
+--+ 
+--
+--  Hi Martin & Stephen,
+-- 
+--      The recent emails has reminded me of what would be handy in 
+--  Aldor from the category theory point of view and I remembered that 
+--  I had alot of problems representing functors.  I have a solution to 
+--  this now, but it's not really ideal and involves the occasional 
+--  pretend.
+-- 
+--     Categories in the math sense have objects and morphisms.  For an Aldor 
+--  example, objects satisfying Ring might be the objects and Aldor functions
+--  between Ring domains can be the morphisms.  The category itself can be a 
+--  parameterized (parameterised) package supplying identity morphisms and 
+--  composition of morphisms.  The problem is: what, in Aldor, are functors?
+--  In category theory, a "functor" between categories ObjA and ObjB consists 
+--  of 
+-- 
+--     (a) A mapping (F) from the objects of ObjA to objects of ObjB.
+--     (b) For each A,B in ObjA, a mapping from (A->B) to (F A -> F B).
+--
+--  Functors are supposed to preserve commuting diagrams, but never mind!
+-- 
+--  You would think that this is easy.  (a) can be a domain constructor, and 
+--  (b) can be a mapping like the one below.
+--
+--    However, this doesn't work (the code below, for example, segfaults).  
+--  I've tried *many* variations on this and finally got something to work, 
+--  but without really understanding why the compiler was having such a hard 
+--  time. 
+--
+--     I guess the other major class of things I noticed was that category valued
+--  constants in with clauses are accepted by the compiler but don't work 
+--  properly (I've got a few old bug reports on this).  Also things like 
+--  define Foo(C:Category):Category == C with ... are also accepted by the compiler
+--  but don't work.  There are also some bugs in conditional "with" clauses (I might
+--  not have reported all of these) but they're not used much.
+--
+--     Anyway, I have designed around these problems, but it's something to think
+--  about if you contemplate major improvements.
+--
+--     Cheers,  Saul
+--
+#include "axllib"
+#pile
+
+define Functor(ObjA:Category,ObjB:Category):Category == with
+    apply: (%,ObjA) -> ObjB
+    applymorphism: (F:%,X:ObjA,Y:ObjA) -> (X->Y) -> (F X -> F Y)  
+
+

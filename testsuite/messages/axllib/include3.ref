@@ -1,0 +1,95 @@
+"include3.as", line 5: 
+a
+^
+[L5 C1] #14 (Error) There are no suitable meanings for the operator `a'.
+
+"include3.as", line 6: 
+a
+^
+[L6 C1] #13 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+[L6 C1] #15 (Error) There are no suitable meanings for the operator `a'.
+
+"include3.as", line 7: 
+       b        -- spaces
+.......^
+[L7 C8] #12 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+[L7 C8] #16 (Error) There are no suitable meanings for the operator `b'.
+
+"include3.as", line 8: 
+        c       -- spaces
+........^
+[L8 C9] #11 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+[L8 C9] #17 (Error) There are no suitable meanings for the operator `c'.
+
+"include3.as", line 9: 
+        c       -- tab
+........^
+[L9 C9] #10 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+[L9 C9] #18 (Error) There are no suitable meanings for the operator `c'.
+
+"include3.as", line 10: 
+         d      -- spaces
+.........^
+[L10 C10] #9 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+[L10 C10] #19 (Error) There are no suitable meanings for the operator `d'.
+
+"include3.as", line 11: 
+         d      -- tab space
+.........^
+[L11 C10] #8 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+[L11 C10] #20 (Error) There are no suitable meanings for the operator `d'.
+
+"include3.as", line 12: 
+               e        -- spaces
+...............^
+[L12 C16] #7 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+[L12 C16] #21 (Error) There are no suitable meanings for the operator `e'.
+
+"include3.as", line 13: 
+               e        -- tab spaces
+...............^
+[L13 C16] #6 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+[L13 C16] #22 (Error) There are no suitable meanings for the operator `e'.
+
+"include3.as", line 14: 
+                f       -- spaces
+................^
+[L14 C17] #5 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+[L14 C17] #23 (Error) There are no suitable meanings for the operator `f'.
+
+"include3.as", line 15: 
+                f       -- tab tab
+................^
+[L15 C17] #4 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+[L15 C17] #24 (Error) There are no suitable meanings for the operator `f'.
+
+"include3.as", line 16: 
+                 g      -- spaces
+.................^
+[L16 C18] #3 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+[L16 C18] #25 (Error) There are no suitable meanings for the operator `g'.
+
+"include3.as", line 17: 
+                 g      -- tab tab space
+.................^
+[L17 C18] #2 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+[L17 C18] #26 (Error) There are no suitable meanings for the operator `g'.
+
+"include3.as", line 18: 
+                 g      -- tab space tab space
+.................^
+[L18 C18] #1 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+

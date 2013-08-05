@@ -1,0 +1,16 @@
+"axllib.as", line 79: 
+        rep x == x @ % pretend Rep;
+.......................^.......^
+[L79 C24] #2 (Error) (After Macro Expansion) Argument 1 of `#' did not match any possible parameter type.
+    The rejected type is Rep.
+    Expected type VecInt.
+Expanded expression was: v @ % pretend Rep
+[L79 C32] #1 (Error) (After Macro Expansion) No meaning for identifier `Rep'.
+Expanded expression was: Rep
+
+"abcheck1.as", line 38: 
+    == add
+.......^
+[L38 C8] #3 (Error) The domain is missing some exports.
+	Missing =: (VecInt, VecInt) -> Boolean
+

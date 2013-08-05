@@ -1,0 +1,5 @@
+"scan4.as", line 28: 
+for i in 1. ..2 repeat if 5 then .7 else 0.
+.......................^
+[L28 C24] #1 (Fatal Error) Missing vital semantic information: please add `import from Boolean' to this scope!
+

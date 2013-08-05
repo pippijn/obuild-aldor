@@ -1,0 +1,68 @@
+\clearpage
+\section{Algebraic domains}
+\defsec{polys}
+
+The domains of the algebraic domains part of \LibCharSet are separated into three groups. These groups are
+
+\begin{itemize}
+\item genuine polynomial ring implementations,
+\item categorial extensions, and
+\item representational extensions.
+\end{itemize}
+
+
+
+
+
+\subsection{Genuine polynomial ring implementations}
+
+The domains
+\begin{itemize}
+\item \adtype{RecursivePolynomialRingViaPercentArray} and
+\item \adtype{RecursivePolynomialRingAllCoefficients}
+\end{itemize}
+are geniune implementations of polynomial rings.
+
+\adtype{RecursivePolynomialRingViaPercentArray} is a robust and efficient implementation of recursive multivariate polynomial rings. \adtype{RecursivePolynomialRingAllCoefficients} has a bad overall performance but allows to compute coefficients extremely fast. 
+
+
+
+
+
+
+\subsection{Categorial extensions of polynomial rings}
+
+The group of domains providing categorial extensions are
+\begin{itemize}
+\item \adtype{DistributivePolynomialRingCommutativeRingExtension},
+\item \adtype{DistributivePolynomialRingIntegralDomainExtension},
+\item \adtype{DistributivePolynomialRingLeadingTermOrderExtension},
+\item \adtype{DistributivePolynomialRingSubResultantPRSGcdDomainExtension}, and
+\item \adtype{PolynomialRingSubResultantPRSGcdDomainExtension}.
+\end{itemize}
+
+These extensions of polynomial rings do not alter the representation of the polynomial rings but export further categories. For example, \adtype{DistributedMultivariatePolynomial1} from the \LibAlgebra library does not export \adtype{CommutativeRing}. However, \adtype{DistributedMultivariatePolynomial1} can be used to model commutative polynomials. With the extension \adtype{DistributivePolynomialRingCommutativeRingExtension}, the polynomial ring exports \adtype{CommutativeRing}.
+
+The file \file{polygcd/polygcd} shows how these extensions can be used to compute the greatest common divisor of polynomials.
+
+\inputSourceFile{polygcd/polygcd.as}{An example for polynomial ring extensions}
+\inputOutput{polygcd/polygcd}
+
+
+
+\subsection{Representational extensions of polynomial rings}
+
+The third group of domains in \LibCharSet's algebraic domains part consists of
+\begin{itemize}
+\item \adtype{PolynomialRingWithMainVariableAndDegree},
+\item \adtype{PolynomialRingWithMainVariableAndDegrees},
+\item \adtype{PolynomialRingWithMainVariable}, and
+\item \adtype{RecursivePolynomialRingViaPolynomialRingArray}.
+\item \adtype{PlainPolynomialRingWrapper}
+\end{itemize}
+
+All of these domains wrap a polynomial ring and add additional structure to the wrapped polynomial ring. For example, \adtype{PolynomialRingWithMainVariable} explicitely stores the main indetereminate for every polynomial. As a result, the function \adname[PolynomialRing0]{mainVariable} of \adtype{PolynomialRing0} receives a drastic performance boost.
+
+\adtype{RecursivePolynomialRingViaPolynomialRingArray} is especially remarkable. This domain is typically applied to distributive polynomial rings and it partly converts a distributive polynomial ring into a recursive one. This is achieved by determining a polynomial's main indeterminate and explicitely storing the coefficients with respect to this indeterminate. These coefficients are stored using the wrapped polynomial ring. For example for the polynomial $p = 7y_1y_2^3+2y_2+5y_1+3y_1^2$ with $y_2>y_1$, the main indeterminate is $y_2$. Storing $p$ comes down to storing the coefficients of $y_2$ in $p$. These are $7y_1$ for $y_2^3$, $0$ for $y_2^2$, $2$ for $y_2^1$ and $5y_1+3y_1^2$ for $y_2^0$. Applying \adtype{RecursivePolynomialRingViaPolynomialRingArray} twice to a distributive polynomial ring gives a polynomial ring acting recursively in the two largest indeterminates of a polynomial and distributive on the rest.
+
+\adtype{PlainPolynomialRingWrapper} can be used to measure the cast of wrapping a polynomial ring.

@@ -1,0 +1,6 @@
+[submodule ".wiki"]
+	path = .wiki
+	url = git@github.com:pippijn/aldor.wiki.git
+[submodule ".upstream"]
+	path = .upstream
+	url = git@github.com:pippijn/aldor.git

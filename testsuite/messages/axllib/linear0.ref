@@ -1,0 +1,6 @@
+"linear0.as", line 7: 
+f(x) ==
+..^
+[L7 C3] #1 (Error) Parameter type (for x) must be specified explicitly or with default.
+[L7 C3] #3 (Error) Function return type must be specified.
+

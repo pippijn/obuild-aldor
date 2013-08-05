@@ -1,0 +1,186 @@
+\clearpage
+\section{Exporting Aldor code to C}
+\defsec{preparationsinaldor}
+
+Throughout the whole \refsec{preparationsinaldor}, a strict separation between the \Aldor environment and entities outside of the \Aldor environment is made. The entities outside of the \Aldor environment are not distinguished further. Therefore, the term ``foreign environment'' is used for the rest of this section, when referring to such entities outside of the \Aldor environment. Typical foreign environments are \Maple or an environment for the programming language \C. 
+
+To be able to call \Aldor code from foreign environments, preparations have to be made to the source code within the \Aldor environment. This section presents these preparations and discusses possible alternatives.
+
+This section is divided into three parts.
+The first part presents how \Aldor code can be connected from foreign environments. It turns out that object files should be used for this purpose. 
+The second part elaborates on how functions can be exported in object files and what data structures can be used to pass values to the exported functions. Character strings in \C format are chosen to serve the latter purpose.
+The third part discusses how \Aldor's expressions can be brought to and parsed from character strings in \C format. Finally, this part presents the export wrapper for the \adname[CoherentAutoreducedSetTools]{triangularize} algorithm of \adtype{CoherentAutoreducedSetTools}.
+
+
+
+
+
+\subsection{Connections to foreign environments}
+\defsec{connectionstoforeignenvironments}
+
+In this part, the possible ways to connect to \Aldor code are discussed.
+
+Two ways can be identified to connect to \Aldor in a \GNULinux environment.
+These are:
+\begin{itemize}
+\item spawning an interactive \Aldor shell, and
+\item using \Aldor code in one of the various output formats of the \Aldor compiler.
+\end{itemize}
+
+After a short discussion of the first alternative, the second one is presented in detail.
+
+Foreign environments can spawn a interactive instance of the \Aldor compiler and pass appropriate commands to this instance. The foreign environment can then parse and use the output of the interactive \Aldor compiler. In this approach, \Aldor does not use libraries that have been compiled to machine code, but libraries in an intermediate code that needs to be interpreted. Therefore, this approach is inherently slow and not considered further.
+
+The \Aldor compiler can compile to ten different formats. These formats are
+\begin{itemize}
+\item source after inclusion (\filesuffix{ai}),
+\item macro expanded parse tree (\filesuffix{ap}),
+\item symbol\footnote{In this context \adtype{Symbol} is not to be confused with symbol. While the first is meant to refer to \LibAldor's domain for read only character strings, the latter is used in a general computer science sense.} information (\filesuffix{asy}),
+\item machine independent code (\filesuffix{ao}),
+\item \Foam code (\filesuffix{fm}),
+\item \Lisp code (\filesuffix{lsp}),
+\item \C code (\filesuffix{c}),
+\item \Cpp code (\filesuffix{cpp}),
+\item object code (\filesuffix{o}), and
+\item executable code.
+\end{itemize}
+
+The first five formats (source after inclusion, macro expanded parse tree, symbol information, machine independent code, \Foam code) are not considered further, since neither common tools for processing these files can be found nor are there any foreign environments available, where these formats are of use. Among the remaining five formats object code is chosen to become the desired output format. Object code contains machine code and does not need to be compiled any further. Object code can be passed to a linker directly. Therefore, it is more convenient to use object code than either of the three generated source code formats (\Lisp code, \C code, \Cpp code). Object code can be used to build libraries, shared objects, and executables. Therefore, object code gives more flexibility than compiling directly to executables. So, for \LibCharSet object code is used to make algorithms inside the \Aldor environment accessible to foreign environments.
+
+Object files contain relocatable machine code in the \ELF\footnote{\ELF is an abbreviation for ``{\underline e}xecutable and {\underline l}inking {\underline f}ormat''. At the time of writing \LibCharSet \ELF is the standard file format for executable files, relocatable code and shared objects on \GNULinux. Detailed information on \ELF can be found in \cite{ELF1995} and \cite{SystemV2003}.}. Object files export symbols. By referring to these exported symbols, machine code within the object file can be executed. To generate object files, the parameter \commandlineparameter{-Fo} has to be passed to the \Aldor compiler.
+
+
+
+
+\subsection{Exporting Aldor's functions}
+\defsec{exportingaldorsfunctions}
+
+This part provides a detailed description about how \Aldor functions can be exported in object files and what domains can be used for passing values to foreign environments.
+
+First, the default exports of \Aldor are discussed. Afterwards, the necessary \Aldor constructs are presented to export \Aldor functions in object files. This is followed by a discussion about possible data structures to pass \Aldor values to foreign environments. Finally, a small code snippet shows the results of this section.
+
+Per default, \Aldor exports symbols for domains, categories and their functions in object files. However, these exported symbols are not the names of the domains, categories, and functions, but their names with additional prefixes and postfixes. Furthermore, the resulting symbols are cut off after 30 characters\footnote{To cut off symbols after $30$ characters is a default for the \Aldor compiler. This behaviour can be modified by passing \commandlineparameter{-C idlen=n} to the \Aldor compiler, where \commandlineparameter{n} is a number. Setting \commandlineparameter{n} to $0$, turns the truncation off. Turning truncation off resolves the problem of cutting off symbols, but does not resolve the problem of getting to know the prefixes and postfixes. }. Additionally, these kind of exports are considered not to be used by the public, since they are not documented in \cite{AldorUG} at all. For these three reasons, these default exported symbols are not used for connecting foreign environments.
+
+In \Aldor functions can be exported as symbols within an object file, by using \Aldor's \adcode{export} keyword. Such exported symbols are neither prefixed nor postfixed. Even the symbols name is not truncated to $30$ characters. The \adcode{export} keyword takes two parameters. The first parameter is a function or collection of functions to export. The second parameter is a language to export to. \Aldor supports three languages, which are \Lisp, \Fortran, and \C\footnote{\Aldor also provides \programminglanguage{Builtin}. \programminglanguage{Builtin} is used to refer to the compiler's internal domains and functions. \adtype{SInt} is an example for such a domain. Although \programminglanguage{Builtin} is treated as a language, one could export to, it makes no sense to export to \programminglanguage{Builtin}, as compiler internal definitions cannot be modified. Nevertheless, the compiler compiles source files that export to \programminglanguage{Builtin} without errors. However, the functions exported to \programminglanguage{Builtin} cannot be found in the resulting object files and are therefore effectively not exported. Besides the \programminglanguage{Builtin} language, further languages can be defined, by generating domains that have \adtype{ForeignLanguage}. The compiler accepts such definitions and exports. The functions exported to such new languages, however, are again not exported when exporting to such a new language.}. However, functions exported to \Lisp are effectively not exported in the object file. Exporting to \Fortran is only suggested \cite[section 20.4]{AldorUG} if the exported symbol consists only of up to six letters, which should all be uppercase letters. Furthermore, it might be necessary to adjust some of \Aldor's configuration for some platforms \cite[section 20.5]{AldorUG}, when exporting to \Fortran. As a result both \Lisp and \Fortran are neglected and \C is chosen to be the language for exporting functions to foreign environments.
+
+The current \Aldor compiler does only allow to export functions to \C that are defined at the top level of an \Aldor source file\footnote{A similar a restriction can be found in \cite{AldorUG} for exporting functions to \Fortran. Nevertheless, the restriction for exporting functions to \C could not be found documented anywhere.}. An exported function at the top level scope, however, may call arbitrary functions, especially those that are not at top level scope. Therefore, this restriction is considered not too burdensome, since it can be overcome by building top level scope wrappers.
+
+The algorithm, which is chosen to be exported to foreign environments, typically involves polynomials. Although typical foreign environments (for example \Maple) provide implementations of polynomials, the internal data structure of the foreign environment cannot be expected to meet all of \Aldor's various implementations of polynomials. Therefore, the type of the parameters of the exported function has to be considered further. The possible options are
+
+\begin{itemize}
+\item to use \Aldor's data representation,
+\item to use the data representation of the foreign environment, or
+\item to define a new representation.
+\end{itemize}
+
+Using \Aldor's representation involves to introduce \Aldor's types in every used foreign environment. Using the data representation of the foreign environment causes to introduce the foreign environment's types to \Aldor for every different foreign environment. Both alternatives are possible and need to convert data only once. However, both alternatives are likely to need updates as new versions of foreign environments appear. 
+
+Positive integers of \Maple are a good example. Until version $9$, \Maple used a custom data representation for positive integers. From version $9$ on, \Maple uses a mixture of its custom data representation and the GNU Multiple Precision Arithmetic Library \cite{GMP}{}\footnote{\Maple's kernel from version $9$ onwards uses a threshold to determine, when which implementation is used. In version $9.5$  on a $32$-bit architecture, \Maple uses the custom presentation for positive integers that are less than $10^{72}$. For positive integers that are greater than or equal to $10^{72}$, \Maple switches to the GNU Multiple Precision Arithmetic Library. Further details can be found in \cite{Maple9AdvancedProgramming}.}. Such modifications are typically hidden from a \Maple user, but have impact when passing values using \Maple's internal data representation.
+
+As this example shows, using the internal data structure of either \Aldor or the foreign environment may become a lethal factor to the connections between \Aldor and the foreign environment, if the internal data format changes. Therefore, neither the data representation of \Aldor, nor the data representation of the foreign environment is used.
+
+A new representation is used, which can easily be converted to and from \Aldor's values and is expected to be implemented already in most foreign environments: character strings in \C format. For example both, \Maple and \Mathematica, are able to convert their expressions to and from character strings in \C format. However, foreign environments use different formats for their character string encoded expressions. Therefore, algorithms have been implemented in \Aldor that convert \Aldor's expressions to and from strings in the format of the desired foreign environments. These algorithms are separated from the characteristic set implementation and are bundled in the \LibExtIO library. More details on this topic can be found in \refsec{convertingaldortostrings}.
+
+Character strings in \C format are implemented by \LibAldor's domain \adtype{String}. The examples of \cite{AldorUG} used \adtype{String} directly for passing strings between \C and \Aldor. Nevertheless, \LibCharSet does not use \adtype{String} itself for passing strings. \LibCharSet uses \adtype{Pointer}{}s to a \adtype{String}'s character representation. The reason for this different approach are the diverse internal representations of character strings in \C, the release version of \LibAlgebra, and the debug version of \LibAlgebra.
+
+In \C, character strings are realized as pointers to the first character. In the release version of \LibAldor, character strings are also implemented as pointers to the first character. The debug version of \LibAldor, however, does not only store the characters, but also the number of characters. Therefore, passing a \adtype{String} of the debug version to \C, causes to pass a pointer to the memory region which contains first of all the number of characters followed by alignment bytes and finally the character string. The \C environment, however, expects only the pointer to the first character of the character string. Therefore, the use of \adtype{String} does not give the desired results for the debug library and is error prone. Using \adtype{Pointer}{}s to the \adtype{String}{}s character data does not introduce performance losses but works with both, the release and the debug version of \LibAldor. Therefore, the use of \adtype{String} is neglected in favor of \adtype{Pointer} to increase the usability and robustness of the interface.
+
+The following code snippet collects the ideas of this section and shows, how an \Aldor function can be exported.
+
+\begin{adsnippet}
+...
+...
+--exporting a top level function
+export {
+  someTopLevelFunc: ( Pointer, ..., Pointer ) -> Pointer;
+} to Foreign C;
+
+
+--implementing the function in top level scope
+someTopLevelFunc( p1: Pointer, ..., pn: Pointer ): Pointer == {
+  local string1: String := string( p1 );
+  ...   ...      ...    ......     ... 
+  local stringn: String := string( pn );
+  local result : String := empty;
+
+  -- perform operation with the strings and fill
+  -- the result
+  
+  pointer result;
+}
+...
+...
+\end{adsnippet}
+ 
+
+
+
+\subsection{Converting Aldor's expressions to character strings}
+\defsec{convertingaldortostrings}
+
+The previous section motivates that character strings in \C format are used for passing values to foreign environments. This section discusses the possibilities to transform values of \Aldor domains to such character strings and vice versa. 
+
+In the beginning of this section \LibAlgebra's framework for expression trees is presented. The framework's efforts to convert expression trees to various languages are discussed and put into context with the \adname[CoherentAutoreducedSetTools]{triangularize} algorithm of \adtype{CoherentAutoreducedSetTools}, as this algorithm is to export. Thereby, necessary extensions of the expression tree framework are discussed. The next part describes \LibExtIO's abstraction of computer algebra systems, which is used to convert expression trees to strings in the desired format and vice versa. Finally, the exported algorithm is presented and its options are discussed.
+
+In order to convert the values of only some \Aldor domains to character strings, it suffices to formulate functions that perform this transformation for just these domains. However, \LibAlgebra follows a more general approach by providing an expression tree framework. Most domains and categories of \LibAldor and \LibAlgebra are incorporated in this framework and allow to convert their values to a simple tree data structure. In this tree data structure, the leaves are numbers and/or \adtype{Symbol}{}s and the inner nodes are operations. These types of leaves and inner nodes are used to express a value of a domain and thereby convert the hidden representation and data structures of a value into a simple and common data structure. These trees are called expression trees and can be evaluated back to proper values or written to a \adtype{TextWriter} in either \Aldor, \Axiom, \C, \Fortran, infix, \Lisp, \Maple, or \TeX~notation. 
+
+\LibAlgebra  implements expression trees in the domain \adtype{ExpressionTree}. The category \adtype{ExpressionTreeOperator} is used for modelling inner nodes of an \adtype{ExpressionTree} and the domain \adtype{ExpressionTreeLeaf} models the leaves of an \adtype{ExpressionTree}.
+
+%\footnote{\LibAlgebra provides a category \adtype{ExpressionType}. This category has a \adname[ExpressionType]{extree} function, which maps a value of a domain implementing this category to an expression tree. Basic domains such as \adtype{AldorInteger}, \adtype{MachineInteger}, \adtype{Symbol}, \adtype{String} have \adtype{ExpressionType}. But also more complex domains and categories such as \adtype{PolynomialRing0} have this category.}
+% allow to convert their values to the domain \adtype{ExpressionTree}, which models expression trees.
+%Exression 
+
+The algorithm that is exported in this section deals with differential polynomials and is connected to \Maple, \Mathematica, and a command line utility. 
+\LibAlgebra does not provide a derivation \adtype{ExpressionTreeOperator}. But differential polynomials cannot be properly represented by expression trees without such an \adtype{ExpressionTreeOperator}. Therefore, a derivation \adtype{ExpressionTreeOperator} has to be implemented. Furthermore, \LibAlgebra does not provide functions to write \adtype{ExpressionTree}{}s in \Mathematica's format. To implement this output mechanism is a second necessary extension of \LibAlgebra's expression tree framework.
+
+While the additional derivation \adtype{ExpressionTreeOperator} can be easily implemented, it is hard to add \Mathematica to the output formats. For this observation it is crucial to see how outputting \adtype{ExpressionTree}{}s works. As all possible output formats work alike, \Maple is used to illustrate the workings of the mechanism. 
+
+To output an \adtype{ExpressionTree} in \Maple's syntax, the function \adname[ExpressionTree]{maple} of \adtype{ExpressionTree} is called with a \adtype{TextWriter} to write to and an \adtype{ExpressionTree} to output as parameters. This function checks whether or not the top most node in the expression tree is a leaf. If this node of the expression tree is a leaf, then the \adname[ExpressionTreeLeaf]{maple} function of \adtype{ExpressionTreeLeaf} is called with this leaf. If the top node of the expression tree is an operator, then the \adname[ExpressionTreeOperator]{maple} function of the operator is called. This function takes the \adtype{TextWriter} to output to and the operator's children from the expression tree as arguments. As a result, each operator has to know how to output itself and its children for each language.
+
+Adding \Mathematica's format to the output formats would involve extending \adtype{Ex\-pres\-sion\-Tree} and all available \adtype{ExpressionTreeOperator}{}s by a function to output the operator to \Mathematica's format. 
+These scattered extensions are a direct consequence of \LibAlgebra's mingling of data structure (expression trees) and output mechanism of \adtype{ExpressionTree}{}s. Scattered code is both hard to maintain and hard to understand. It is considered to be more flexible to decouple the expression trees from the output functions. Therefore, \LibAlgebra's framework for expression trees is only used to store and generate the expression trees, not to output them in any language's format. The latter functionality is delegated to the computer algebra system framework of the \LibExtIO.
+
+\adsetthistype{ComputerAlgebra\-Sys\-tem\-Type}
+\LibExtIO provides the category \adthistype to encapsulate functions for converting \LibAlgebra's \adtype{ExpressionTree}{}s to strings in a computer algebra system's format and vice versa. The first important member of \adthistype is the \adtype{Symbol} \adname{identifier}. \adname{identifier} announces the targeted computer algebra system. The following constant and functions are all understood in the scope of the described computer algebra system. \adname{encodeAsString!} is used to convert an \adtype{ExpressionTree} to the format of the target computer algebra system's format. This function takes the expression tree to convert as parameter and gives the result as \adtype{String}. In the context of \refsec{exportingaldorsfunctions}, this function is important, as the resulting \adtype{String} can easily be converted to a \adtype{Pointer} by calling \adtype{String}'s \adname[String]{pointer} function. The constant \adname{parserDomain} of \adthistype is a \adtype{ParserReader}{}\footnote{In \LibAlgebra, a \adtype{Parser} is bound to exactly one \adtype{TextReader}. Therefore, a \adtype{Parser} cannot be reused, after the attached \adtype{TextReader} ran dry of new characters. For generating new \adtype{Parser}{}s the category \adtype{ParserReader} is provided by \LibAlgebra. This category contains a function \adname[ParserReader]{parser} that takes a \adtype{TextReader} as input and returns a \adtype{Parser}, that acts on the passed \adtype{TextWriter}.} for the described computer algebra system. With the help of this constant, \adtype{String}{}s in the computer algebra system's format can be parsed to \adtype{ExpressionTree}{}s. \adthistype also provides the function \adname{encodeAsString}, which encodes \Aldor's \adtype{String}{}s in the computer algebra's format. Additionally, \adname{encodeAsError} and \adname{encodeAsWarning} are found in \adthistype to format errors and warnings using the computer algebra system's syntax.
+
+\LibExtIO provides two implementations of \adthistype.
+\adsetthistype{MapleTools}
+The first implementation is \adthistype. \adthistype addresses \Maple's syntax. Since \LibAlgebra already comes with support for \Maple, these functions are reused. \adtype{InfixExpressionParser}{}\footnote{The implementation of the domain \adtype{InfixExpressionParser} can be found in \LibAlgebra. \adtype{In\-fix\-Ex\-pres\-sion\-Parser} is a \adtype{ParserReader} and its generated \adtype{Parser}{}s do not only accept infix notation, but also function application in \Maple's syntax.} of \LibAlgebra serves as \adname[ComputerAlgebraSystemType]{parserDomain} and the \adname[ExpressionTree]{maple} function of \adtype{ExpressionTree} is used to convert expression trees to \adtype{String}{}s.
+
+\adsetthistype{Mathematica\-Full\-Form\-Tools}
+The second implementation of \adtype{ComputerAlgebraSystemType} is \adthistype. \Mathematica is able to accept input in various formats, as can be seen in \cite{MathematicaBook}. \adthistype treats only the FullForm format. This restriction does not hinder usability, since \Mathematica provides functions to convert between FullForm and any other format. The \adname[ComputerAlgebraSystemType]{parserDomain} of \adthistype is \adtype{Math\-e\-mat\-ica\-Full\-Form\-Parser}, which is a straight forward implementation of a parser for \Mathematica's FullForm format.. \adtype{MathematicaFullFormParser} is also part of \LibExtIO. The functions for converting \adtype{ExpressoinTree}{}s to \adtype{String}{}s are implemented in \adthistype itself.
+
+\adsetthistype{ExportCoherentAutoreduced\-Set\-Tools}
+Finally, all the necessary pieces of information are put together and the \adname[CoherentAutoreducedSetTools]{triangularize} algorithm of \adtype{CoherentAutoreducedSet} can be exported in an appropriate format to an object file. The necessary code is put together in \LibCharSet's \adthistype. The domain exports only the function \adname{coherentAutoreducedSet}. This function takes five \adtype{Pointer}{}s as parameter and returns another Pointer. All \adtype{Pointer}{}s refers to character strings in \C format. The first input parameter refers to the identifier of an implementation of \adtype{ComputerAlgebraSystemType}. The next three parameters are supposed to be stored in the format of this implementation. The second parameter refers to a list of differential polynomials for which a coherent autoreduced set is to be computed. The third and fourth parameter refer to the dependent and independent indeterminates of the domain for the differential polynomials. The fifth parameter allows to adjust further parameters for the domains for the differential polynomials. These further options have to be comma separated. If contradicting options are specified, the latter option has precedence. The possible options for the order of the derivatives are
+\begin{itemize}
+\item \adcode{OrderlyEliminationOrder} \\ uses \adtype{DifferentialVariableOrderlyEliminationOrderTools} to order the derivatives,
+\item \adcode{LexicographicEliminationOrder} \\ {\em(default)} uses \adtype{DifferentialVariableLexicographicEliminationOrderTools} to order the derivatives,
+\item \adcode{LexicographicOrder} \\ uses \adtype{DifferentialVariableLexicographicOrderTools} to order the derivatives, and
+\item \adcode{OrderlyOrder} \\ uses \adtype{DifferentialVariableOrderlyOrderTools} to order the derivatives.
+\end{itemize}
+
+The possible options for the exponent vectors are
+\begin{itemize}
+\item \adcode{presortClasses} \\ is only valid for orders which export \adtype{DifferentialVariableEliminationOrderToolsType} and refines the chosen exponent vector implementation by wrapping it with \adtype{Class\-Pre\-sortedDifferentialExponent},
+\item \adcode{SortedListExponent} \\ uses \adtype{SortedListExponent} for storing exponent vectors,
+\item \adcode{ListExponent} \\ uses \adtype{ListExponent} for storing exponent vectors,
+\item \adcode{ListSortedExponent} \\ uses \adtype{ListSortedExponent} for storing exponent vectors, and
+\item \adcode{CumulatedExponent} \\ uses \adtype{CumulatedExponent} for storing exponent vectors.
+\end{itemize}
+
+The possible options for the implementation of the polynomials are
+\begin{itemize}
+\item \adcode{RecursivePolynomialRingViaPercentArray} \\ models the polynomials by \adtype{RecursivePolynomialRingViaPercentArray} and
+\item \adcode{DistributedMultivariatePolynomial1} \\ models the polynomials by \adtype{DistributedMultivariatePolynomial1}.
+\end{itemize}
+
+The result \adtype{Pointer} of \adname{coherentAutoreducedSet} is a list of polynomials, encoded as \C string using the format of the supplied computer algebra system. These polynomials are the result of the algorithm.
+
+%The function \adname{coherentAutoreducedSet} is exported in the object file by the symbol \exportedsymbol, using the technique presented in \refsec{exportingaldorsfunctions}.
+
+Using the technique presented in \refsec{exportingaldorsfunctions}, the function \adname{coherentAutoreducedSet} is exported in the object file by the symbol \exportedsymbol.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Local Variables: 
+%%% ispell-local-dictionary: "english"
+%%% End:

@@ -1,0 +1,1 @@
+../../../../.upstream/aldor/lib/axllib/test/qual1.as

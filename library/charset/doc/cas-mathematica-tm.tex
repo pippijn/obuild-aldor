@@ -1,0 +1,193 @@
+\subsection{MathLink template files}
+\defsec{mathlink}
+
+\refsec[Section]{mcc} used \MathLink template files without specifying what \MathLink template files are. The current section gives a detailed discussion of these template files.
+
+The first part of this section gives the syntax for a \MathLink template file and provides a basic example for \exportedsymbol. In the second part of this section, this basic example is refined and better integrated into \Mathematica.
+
+\subsubsection{A basic MathLink template file}
+\defsec{basicmathlink}
+
+\MathLink template files are used to describe \C functions to make available through \MathLink. These template files may contain \C source code and \MathLink commands. Lines not beginning with a colon are treated as \C code. Lines beginning with a colon are treated as \MathLink commands. Such lines are of the form colon, command name, colon optionally followed by arguments to the command. \MathLink provides eight different commands. 
+\begin{itemize}
+\item \mathematicacode{Begin} is used to start the definition of a function that is to be made accessible through \MathLink. This command takes no options. 
+\item \mathematicacode{Function} takes one parameter, which is the name of the \C function to make accessible. 
+\item \mathematicacode{Pattern} is used to define the function's \MathLink name. The \MathLink name and the \C name of a function need not be identical. \mathematicacode{Pattern} takes one argument, which is the \Mathematica calling pattern for the function. 
+\item \mathematicacode{Arguments} takes one argument which is the list of arguments to pass to the \C function. This list may contain arbitrary \Mathematica expressions, for example \mathematicacode{If} constructs. Additionally, these expressions may contain the parameters of the \mathematicacode{Pattern} command. The expressions of \mathematicacode{Arguments} are evaluated for every function call of the \MathLink function.
+\item \mathematicacode{ArgumentTypes} denotes the corresponding types for the arguments specified by \mathematicacode{Arguments}.
+\item \mathematicacode{ReturnType}'s argument specifies the return type of the \C function. 
+\item \mathematicacode{End} is used to end the definition of a function that is to be made accessible through \MathLink. 
+\item \mathematicacode{Evaluate} allows to execute arbitrary \Mathematica commands. However, the command \mathematicacode{Evaluate} is discussed in more detail in \refsec{extendedmathlink}, as it is not necessary for making \C functions accessible via \MathLink.
+\end{itemize}
+
+With the first seven commands the mapping between the \C function and the \MathLink function can be described completely.
+
+\begin{itemize}
+\item \mathematicacode{Begin} and \mathematicacode{End} are used for scoping.
+\item \mathematicacode{Function}, \mathematicacode{ArgumentTypes}, and \mathematicacode{ReturnType} describe the \C function.
+\item \mathematicacode{Pattern} and \mathematicacode{Arguments} describe the \MathLink function.
+\end{itemize}
+
+An example template specification for \exportedsymbol is given by the following piece of code. The argument of \mathematicacode{Pattern} is too long to fit on the page. Therefore, it is broken up into two lines. Breaking lines with \MathLink commands is not allowed in \MathLink template files and renders the given code an invalid \MathLink template file. Nevertheless, the line is kept broken into two lines and has to be interpreted as if these two line were actually one line. For \refsec{basicmathlink} and \refsec{extendedmathlink}, \mathematicacode{--} at the end of a line marks a line break that must not occur in the \MathLink template file, but is necessary for formatting the code in this documentation.
+
+\defpage{tmexample}
+\begin{mathematicaprogram}
+:Begin:
+:Function:      _charset_coherentAutoreducedSet
+:Pattern:       CoherentAutoreducedSetAldor[ langStr_String, polyStr_String,      --
+  varStr_String, depStr_String, optStr_String ]
+:Arguments:     { langStr, polyStr, varStr, depStr, optStr }
+:ArgumentTypes: { String, String, String, String, String }
+:ReturnType:    String
+:End:
+\end{mathematicaprogram}
+
+In addition to the \MathLink definition, a \MathLink template has to contain an entrance point for \MathLink and an implementation of the \C function that is referenced by \MathLink's \mathematicacode{Function} command. The entry point for \Mathematica is set up by calling the \MathLink's \C function \ccode{MLMain}. This call can be set up with the following piece of code.
+
+\begin{mathematicaprogram}
+int main(int argc, char* argv[])
+{
+  return MLMain(argc, argv);
+}
+\end{mathematicaprogram}
+
+As mentioned before, the \MathLink template also has to provide the \C function which is made accessible via \MathLink. For this discussion, the implementation of \exportedsymbol is hidden within the \LibCharSet library and cannot be given in the template file. However, \C allows to defer the implementation to a library by the keyword \ccode{extern}. The following \C code denotes that the implementation of the function \exportedsymbol is not contained in this file, but can expected to be found in a library later on.
+
+\begin{mathematicaprogram}
+extern char * _charset_coherentAutoreducedSet( kcharp_ct langStr, kcharp_ct polyStr, 
+  kcharp_ct varStr, kcharp_ct depStr, kcharp_ct optStr);
+\end{mathematicaprogram}
+
+In \Aldor (see \refsec{exportingaldorsfunctions}), \exportedsymbol has been exported as function taking five pointers and returning a pointer. Although each of the pointers is expected to point to a string, this cannot be seen from \exportedsymbol's definition in \Aldor. This knowledge is implicit. However, the given piece of code denotes that \exportedsymbol takes five arguments of \ccode{kcharp_ct} and returns a \ccode{char *}. Both, \ccode{char *} and \ccode{kcharp_ct} denote pointers to strings in \C and are discussed later. Although \C allows to model arbitrary pointers\footnote{In \C, pointers to arbitrary entities are modelled by \ccode{void *}.} which correspond to \Aldor's \adtype{Pointer}, the given piece of code uses pointers to strings. These types are consequences of the \MathLink template on \refpage{tmexample}. There, \mathematicacode{String}{}s are used as types for \mathematicacode{ArgumentTypes} and \mathematicacode{ReturnType}. In this template, the implicit knowledge that the pointers actually point to strings is made explicit. However, it is not possible to have arbitrary pointers in \mathematicacode{ArgumentTypes} or \mathematicacode{ReturnType}, as \Mathematica does not provide the concept of arbitrary pointers. Therefore, it is crucial for \MathLink to know what kind of pointers a function is dealing with.
+
+The \MathLink template file uses the types \ccode{char *} and \ccode{kcharp_ct} for pointers to strings. In \C, \ccode{char} is used as type for a character and \ccode{*} denotes a pointer to a type. Therefore, \ccode{char *} is actually a pointer to a character. However, in \C strings are typically represented by a pointer to the first character of a string. All subsequent characters and a trailing zero byte are stored in the consecutive bytes. Therefore, there is no syntactical difference between a pointer to a character and a pointer to a string in \C. \ccode{kcharp_ct} is an alias of \MathLink to \C's \ccode{const char *}\footnote{This statement holds for operating systems like \GNULinux on \xeightysix. However, the exact expansion of \ccode{kcharp_ct} can be found in \file{mathlink.h} and is \ccode{MLCONST char FAR *}. The definition of \ccode{MLCONST} is far too complicated to be reproduced in this documentation and is again found in \ccode{mathlink.h}. However, in typical applications on up-to-date operating systems and \C compilers, it is save to assume \ccode{MLCONST} to evaluate to \ccode{const}. \ccode{FAR} evaluates to \ccode{far} on operating systems that use segmented pointers to memory, like \MSDOS. There, \ccode{far} has to be used for pointers to memory in other segments than the current one. On other operating systems like \GNULinux, \ccode{FAR} is blank.}. \ccode{const char *} is a pointer to a string, whose value cannot be changed\footnote{\ccode{const char *} strings cannot be modified directly. However it is possible to discard the \ccode{const} qualifier (for example by casting to \ccode{char *}) and modify the string afterwards. Although possible, it is considered bad style to discard qualifiers. \C compilers typically issue warnings, when qualifiers are removed from a type.}.
+
+The complete \MathLink template file is given by the following piece of code.
+
+\begin{mathematicaprogram}
+:Begin:
+:Function:      _charset_coherentAutoreducedSet
+:Pattern:       CoherentAutoreducedSetAldor[ langStr_String, polyStr_String,      --
+  varStr_String, depStr_String, optStr_String ]
+:Arguments:     { langStr, polyStr, varStr, depStr, optStr }
+:ArgumentTypes: { String, String, String, String, String }
+:ReturnType:    String
+:End:
+
+extern char * _charset_coherentAutoreducedSet( kcharp_ct langStr, kcharp_ct polyStr, 
+  kcharp_ct varStr, kcharp_ct depStr, kcharp_ct optStr);
+
+int main(int argc, char* argv[])
+{
+  return MLMain(argc, argv);
+}
+\end{mathematicaprogram}
+
+\subsubsection{Advanced topics of MathLink templates}
+\defsec{extendedmathlink}
+
+The template file of \refsec{basicmathlink} allows \exportedsymbol to be called directly from \Mathematica. When calling \exportedsymbol directly, the language parameter has to be specified for every call. Furthermore, it is necessary to convert the parameters to strings and the result to a \Mathematica expression for every call. Although \Mathematica allows to attach short help texts to functions, the \MathLink template of \refsec{basicmathlink} does not use this feature. 
+
+This section overcomes these issues by \MathLink's \mathematicacode{Evaluate} command. After discussing each of these issues separately, a complete \MathLink file is given that incorporates the presented changes.
+
+\mathematicacode{Evaluate} allows to execute arbitrary \Mathematica commands upon connection to the \Mathematica kernel. The following piece of code defines a wrapper for the function \mathematicacode{CoherentAutoreducedSetAldor}. This wrapper is called \mathematicacode{CoherentAutoreducedSet} and takes care of the conversion between strings and \Mathematica expressions. Additionally, the used language is automatically set to \mathematicacode{mathematicafullform}.
+
+\begin{mathematicaprogram}
+:Evaluate:      CoherentAutoreducedSet[ poly_List, var_List, dep_List,            --
+    opts_String:"" ] := ToExpression[ CoherentAutoreducedSetAldor[                --
+    "mathematicafullform", ToString[ poly//FullForm ], ToString[ var//FullForm ], --
+    ToString[ dep//FullForm ], ToString[ opts//FullForm ] ] ]
+\end{mathematicaprogram}
+
+The function \mathematicacode{ToExpression} converts a string to a \Mathematica expression. \mathematicacode{FullForm} formats an expression in full form syntax. However, the result of \mathematicacode{FullForm} is not a string but again an expression. Therefore, \Mathematica's \mathematicacode{ToString} is used to convert the full form expressions to strings. %Nevertheless, \mathematicacode{FullForm} is important to convert the \Mathematica expressions to \Mathematica expresions in full form syntax.
+
+A help text is attached to a function by setting its \mathematicacode{usage} message. The following code gives an example for \mathematicacode{CoherentAutoreducedSet}.
+
+
+\begin{mathematicaprogram}
+:Evaluate:      CoherentAutoreducedSet::usage = "CoherentAutoreducedSet[          --
+    { a, b, ...}, {y1,y2,...}, { s1, s2, ... }, Options ] derives a coherent      --
+    autoreduced set of the polynomials a, b, ... in the dependent variables y1,   --
+    y2,  ... and independent variables s1, s2, ... . Options is an optional       --
+    string denoting options as described in the reference manual for the          --
+    characteristic set library of Aldor."
+\end{mathematicaprogram}
+
+Finally, the code is put into a package by the the following pattern. 
+
+\begin{mathematicaprogram}
+:Evaluate:      BeginPackage["PackageName`"]
+
+    public definitions
+
+:Evaluate:      Begin["`Private`"]
+
+    private definitions
+
+:Evaluate:      End[ ]
+:Evaluate:      EndPackage[ ]
+\end{mathematicaprogram}
+
+In this pattern, \mathematicacode{public definitions} is to be replaced with the definitions that should be publicly available and accessible after connection to a kernel.
+\mathematicacode{private definitions} is to be replaced by definitions that are not intended for public use. Although this pattern is proposed in \MathLink's documentation, \Mathematica does allow to hide a function completely. The definitions in the \mathematicacode{Private} part can be accessed, when completely qualifying their name. Although, the function \mathematicacode{CoherentAutoreducedSetAldor} of the \MathLink template file on \refpage{completemltemplate} is defined within a \mathematicacode{Private} part, 
+
+\begin{mathematicaprogram}
+`CharacteristicSet`Private`CoherentAutoreducedSet
+\end{mathematicaprogram}
+
+can be used to access the function.
+
+The \MathLink template on \refpage{completemltemplate} adds the improvements of this section to the basic template of \refsec{basicmathlink}.
+
+In \refsec{casmathematica} only the \MathLink template commands of the \MathLink's \C software development kit have been used. These commands are sufficient for connecting \exportedsymbol code to \Mathematica. However, the \MathLink \C software development kit also provides several \C functions to be used in \C code. There are, for example, functions to access \Mathematica's internal data structures for expressions. These functions are documented in the manual of the \C software development kit and allow to convert custom data types to \Mathematica expressions and vice versa. Since \exportedsymbol takes string parameters, these functions need not be used and conversion between \Aldor and \Mathematica expressions is left to \Mathematica's \mathematicacode{ToString}, \mathematicacode{FullForm}, and \mathematicacode{ToExpression}.
+
+\clearpage
+\defpage{completemltemplate}
+\begin{mathematicaprogram}
+:Evaluate:      BeginPackage["CharacteristicSet`"]
+:Evaluate:      CoherentAutoreducedSet::usage = "CoherentAutoreducedSet[          --
+    { a, b, ...}, {y1,y2,...}, { s1, s2, ... }, Options ] derives a coherent      --
+    autoreduced set of the polynomials a, b, ... in the dependent variables y1,   --
+    y2,  ... and independent variables s1, s2, ... . Options is an optional       --
+    string denoting options as described in the reference manual for the          --
+    characteristic set library of Aldor."
+
+:Evaluate:      Begin["`Private`"]
+
+:Evaluate:      CoherentAutoreducedSetAldor::usage = "CoherentAutoreducedSetAldor --
+    [ polys, depVars, indepVars, Options ] derives a coherent autoreduced set of  --
+    the polynomials encoded in polys in the dependent variables encoded in        --
+    depVars and independent variables encoded in indepVars. Options is a string   --
+    denoting options as described in the reference manual for the characteristic  --
+    set library of Aldor."
+
+:Begin:
+:Function:      _charset_coherentAutoreducedSet
+:Pattern:       CoherentAutoreducedSetAldor[ langStr_String, polyStr_String,      --
+    varStr_String, depStr_String, optStr_String ]
+:Arguments:     { langStr, polyStr, varStr, depStr, optStr }
+:ArgumentTypes: { String, String, String, String, String }
+:ReturnType:    String
+:End:
+
+:Evaluate:      CoherentAutoreducedSet[ poly_List, var_List, dep_List,            --
+    opts_String:"" ] := ToExpression[ CoherentAutoreducedSetAldor[                --
+    "mathematicafullform", ToString[ poly//FullForm ], ToString[ var//FullForm ], --
+    ToString[ dep//FullForm ], ToString[ opts//FullForm ] ] ]
+
+:Evaluate:      End[ ]
+:Evaluate:      EndPackage[ ]
+
+extern char * _charset_coherentAutoreducedSet( kcharp_ct langStr, kcharp_ct polyStr, 
+  kcharp_ct varStr, kcharp_ct depStr, kcharp_ct optStr); 
+
+int main(int argc, char* argv[])
+{
+  return MLMain(argc, argv);
+}
+\end{mathematicaprogram}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Local Variables: 
+%%% ispell-local-dictionary: "english"
+%%% End:

@@ -1,0 +1,1 @@
+../../../.upstream/aldor/aldor/lib/libfoam/al/stringtable.as

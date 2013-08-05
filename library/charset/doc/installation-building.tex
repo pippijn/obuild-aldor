@@ -1,0 +1,94 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+
+After configuring \projectname, the library has to be built. This is done by issuing
+\begin{console}
+make
+\end{console}
+in \projectname's root directory. This command builds the include file and the library are being built.
+
+If building succeeds, \projectname~is ready for installation. \projectname is installed by calling
+\begin{console}
+make install
+\end{console}
+in \projectname's root directory. This statement installs the library and include files (along with the documentation, if it has been built) to the directory, the configure script determined. In most cases this will be \shellvariable{ALDORROOT}. This directory can be changed in two ways. First by setting the environment variable \shellvariable{INSTALLROOT} to the directory the files shall be installed too before configuring the library. The alternative is to pass a different value for the variable \shellvariable{INSTALLROOT} to the make command. This might look like
+\begin{console}
+make INSTALLROOT=/new/install/directory install
+\end{console}
+. Note that due to the GNU coding standards, the target \target{install} does not depend on the targets \target{all}, \target{lib}, and so on. So one has to build the files before building the target \target{install}.
+
+In addition to the \target{install} target, there are also some other targets, which are worth mentioning.
+
+The target \target{doc} builds the documentation, if the configuration process said that the optional target \target{doc} is ok. This target has to be called separately and is not built when building \target{all}, as described in the GNU coding standards, since it is not a vital part of the library. Building \target{doc} also builds the library and include file, since it is needed for getting the output of the documentation source files.
+
+The target \target{test} builds the test suite for \projectname, if the configuration process said that the optional target \target{test} is ok. This target has to be called separately and is not built when building \target{all}. But building \target{test} also builds the library and include files.
+
+The target \target{check} builds the test suite for \projectname~and runs it, if the configuration process said that the target \target{check} is ok.
+
+To summarize the above mentioned, a one-liner to configure \projectname, build, check and install the library along with the documentation would be
+\begin{console}
+./configure && make check doc install
+\end{console}
+.
+
+%\projectname is based on \LibModel\cite{LibModel}. Therefore, further documentation of default targets and the configuration process can be found in the manual for \LibModel.
+
+\subsection{Hinting the configure process}
+\defsec{advancedconfiguration}
+
+As presented in the beginning of \refsec{installation}, 
+\begin{console}
+./configure
+\end{console}
+is used, to adapt \projectname to the current system. This script tries to locate all used libraries and executables on the system. However, if the \file{configure} script fails to find all relevant files or executables need special options, these can be applied by further parameters to \file{configure}.
+
+If configure fails to locate a library, setting environment variables helps \file{configure} to locate the necessary files. Assume \lib{SomeLibrary} cannot be found by \file{configure}, although \lib{SomeLibrary} is installed. \file{configure} is looking for the library files of \lib{SomeLibrary} in the directories
+\begin{itemize}
+\item \shellvariable{SOMELIBRARYROOT}\file{/lib},
+\item \shellvariable{SOMELIBRARYROOT}, and
+\item the directories of already found libraries.
+\end{itemize}
+The include file for \lib{SomeLibrary} is looked for in the directories
+\begin{itemize}
+\item \shellvariable{SOMELIBRARYROOT}\file{/include},
+\item \shellvariable{SOMELIBRARYROOT}, and
+\item the directories of already found libraries.
+\end{itemize}
+The following example tries to find the files for \lib{SomeLibrary} in the corresponding subdirectories of \file{/path/to/SomeLibrary} in a \Bash-like shell:
+\begin{console}
+SOMELIBRARYROOT=/path/to/SomeLibrary ./configure
+\end{console}
+
+If \file{configure} fails to locate a program, the {\tt --with-executable-...} option can be used to hint the \file{configure} script. For example when calling \file{configure} like
+\begin{console}
+./configure --with-executable-aldor /some/path/aldor
+\end{console}
+then \file{/some/path/aldor} is used instead of the \Aldor compiler.
+
+\file{configure} can also be used to override options to programs. The default option to \file{latex} is {\tt-interaction=nonstopmode}. If furthermore source specials should be included, the parameter {\tt-src-specials} has to be added to every call af {\tt latex}. This can be achieved be calling \file{configure} like
+\begin{console}
+./configure --with-options-latex "-interaction=nonstopmode -src-specials"
+\end{console}
+
+Calling
+\begin{console}
+./configure --help
+\end{console}
+gives a short overview of the possible parameters to \file{configure} script.

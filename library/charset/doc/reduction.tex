@@ -1,0 +1,30 @@
+\clearpage
+\section{Reduction Part}
+\defsec{reductions}
+
+
+The reduction part of \LibCharSet consists of
+\begin{itemize}
+\item \adtype{ReductionType},
+\item \adtype{TriangularizationReductionType},
+\item \adtype{AutoreducedSet},
+\item \adtype{DifferentialPolynomialReductionTools},
+\item \adtype{PseudoRemaindeReductionTools},
+\item \adtype{PolynomialReductionTools}, and
+\item \adtype{PolynomialReductionWithoutDivisionTools}.
+\end{itemize}
+
+
+\adtype{ReductionType} is the main category for reductions.
+
+\adtype{TriangularizationReductionType} extends \adtype{ReductionType} by reductions with respect to \adtype{List}{}s and \adtype{AutoreducedSet}{}s.
+
+\adtype{AutoreducedSet} provides sets, whose elements are pairwise reduced.
+
+The further domains implement different reductions algorithms and export \adtype{ReductionType} or \adtype{TriangularizationReductionType}.
+As \adtype{PseudoRemaindeReductionTools}, \adtype{PolynomialReductionTools}, and \adtype{PolynomialReductionWithoutDivisionTools} are similar to each other, \file{reductions/reductions.as} illustrates the differents these reductions.
+
+
+\inputSourceFile{reductions/reductions.as}{Comparing reductions}
+\pagebreak
+\inputOutput{reductions/reductions}

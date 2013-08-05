@@ -1,0 +1,141 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+\clearpage
+\section{Presenting \projectplainname~by example}
+
+As a step towards the desired state, the author developed \projectname, a library dealing with programmer tests in \Aldor. 
+
+This library is examined by a short example showing its usage and what has to be provided. A full documentation can be found in \refsec{api}. \projectname was designed to allow convenient migration from \JUnit~to \projectname.
+So also the terminology used and the functions are be called analogously.
+
+The big picture is to write several tests. Each test is represented by exactly one function. Then several tests are aggregated into a test case. Several test cases are collected into a test suite, which is in turn executed.
+
+It is now shown, how \projectname~can be used with the help of a simple example. 
+\inputSourceFile{simple/listtool.as}{The Domain \adtype{ListTools}}
+
+For testing \adtype{ListTools} of the file \file{simple/listtool.as}, tests will be written and applied. To provide help for doing this is the basic aim of \projectname.
+
+The next subsection illustrates how tests are created.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Creating tests}
+
+Tests are again written using \Aldor. As mentioned above, tests are aggregated into test cases. Such a test case might look like the one in \file{simple/listtool.test.as}
+
+\inputSourceFile{simple/listtool.test.as}{A Test Case for \adtype{ListTools}}
+
+All the functions of a test case that start with \adcode{test} are considered to be a test. Although this rule is mandatory only for working in a \LibModel~environment, this rule should also be followed, when writing test suites without \LibModel. Furthermore, all tests must not take parameters and must not return any value. So \file{simple/testtool.test.as} has two tests, namely \adname{testMerge1} and \adname{testMerge2}. There is a third test that is compiled only if {\tt SOME\_FANCY\_EXPRESSION} has been asserted. 
+
+None of the three tests are exported directly in \adtype{ListToolTester}'s ``with'' statement. They are exported by including a file that collects the signatures of the functions of a domain. In this case, the signature file is \file{simple/listtool.test.signatures.as}. Signature files are the supposed way to export tests in a \LibModel~environment, since these can be updated automatically. 
+
+As can be seen from this small example of a test case, checks for equality are {\it never} done by calling \adname[PrimitiveType]{=} directly. Instead, the \adcode{assert...} functions of \adtype{TestCaseTools} are used. Due to this, every testcase typically imports from \adtype{TestCaseTools}. At first glance it may seem cumbersome to use \adcode{assert...} functions, but there is a lot of extra value hidden inside the \adcode{assert...} functions. A simple test for equality via \adname[PrimitiveType]{=} gives no information to the test environment. A call to \adname[TestCaseTools]{assertEquals} gives the test environment the type of the left-hand side and right-hand side argument. So the test environment can print these two values if necessary. Furthermore, the test environment can abort the test, if the assertion is wrong. The environment can also output further information for the developer. So there is a benefit to not using \adname[PrimitiveType]{=} directly. \adtype{TestCaseTools} defines several \adname[TestCaseTools]{assertEquals} and \adname[TestCaseTools]{assertNotEquals} functions, as can be seen in \refsec{api}. Users of \projectname are by no means limited to these functions. Every developer can write further \adcode{assert...} functions and use them. 
+
+The presented arguments against using \adname[PrimitiveType]{=} directly also apply to the functions of \adtype{Partial}. A developer should {\it never} use \adname[Partial]{failed?} or \adname[Partial]{retract} of \adtype{Partial} directly. \projectname proposes to use \adname[TestCaseTools]{assertFailed} and \adname[TestCaseTools]{failSafeRetract}. By using \adname[TestCaseTools]{failSafeRetract} the developer of the test does not have to take care if the partial argument is retractable or not. If it is retractable, it just gives the retracted value. If not, then \adname[TestCaseTools]{failSafeRetract} takes care about this and aborts the test. By that, developers can circumvent annoying calls to \adname[Partial]{failed?} and \adname[Partial]{retract} and let \projectname~do the work.
+
+The function \adname[TestCaseTools]{fail} of \adtype{TestCaseTools} allows to let the current test fail with a failure message.
+
+Having discussed the tests themselves, it is investigated how a domain which collect tests becomes a test case.
+
+A test case is of type \adtype{TestCaseType}. Besides denoting that the package is a test case, this also provides overridable functions \adname[TestCaseType]{setUp}~and \adname[TestCaseType]{tearDown}, both taking no arguments and giving no result. In accordance with \JUnit, \adname[TestCaseType]{setUp}~is called before each test in the test case and \adname[TestCaseType]{tearDown}~after each test in the testcase. \adname[TestCaseType]{setUp}~should be used for common preparations for the tests. These preparations might be opening of files, setting global variables and the like. \adname[TestCaseType]{tearDown} in turn should be used for cleaning up. So with the help of these two functions it shall be assured that each test is run in a clean environment. Frequently used values should generally be set in the \adname[TestCaseType]{setUp} function. Of course, all the functions that can be used in normal tests like \adname[TestCaseTools]{assertEquals}, \adname[TestCaseTools]{failSafeRetract} and the like can be used inside the \adname[TestCaseType]{setUp} and \adname[TestCaseType]{tearDown} functions. Their execution and output will also be considered part of each test.
+
+Now having the file to test and a test case, still several questions remain open. These are the generation of the signature file, the building of the test suite and finally, how the test suite is invoked.
+
+The last question is treated in \refsec{executingtestsuite}. The first two depend heavily on what you base your project on.
+
+\subsection{Course of actions for libraries using LibModel}
+
+If a project bases on \LibModel, the first two open questions are immediately answered: \LibModel~does the work for you.
+
+In order to test files from a \LibModel~environment, it is sufficient to write the file to test and the test cases. The environment takes care of building a whole test suite around the available test cases. In the case of \adtype{ListTools} it suffices to write the file for the domain (\file{simple/listtool.as}), the test case for it (\file{simple/listtool.test.as}) and place these two files in the correct directories. These are \file{lib/src} for \file{simple/listtool.as} and \file{test/src} for \file{simple/listtool.test.as} in an unmodified \LibModel~environment. Since \LibModel~allows to modify the paths where files are found, the proper directories in terms of variable names are \file{\$\{LIBDIR\}/\$\{SRCDIR\}} and \file{\$\{TESTDIR\}/\$\{SRCDIR\}}. After putting the files in the directories, 
+\begin{console}
+./configure
+\end{console}
+has to be executed in the projects main directory. This becomes necessary, because the files introduce new dependencies and the dependency files have to be regenerated. The next step after re-configuring is a call to
+\begin{console}
+make check
+\end{console}
+in the projects main directory. This call builds and runs the test suite\footnote{In a \LibModel environment there is typically not just one test suite, but there is a test suite for every variant (e.g.: release, debug, $\ldots$) of the library that is produced. These test suites can be found in \file{\$\{TESTDIR\}}. Their names start in \file{TestSuite} and have the same suffix as the corresponding library. For example \projectname~provides two variants, a release and a debug variant. These libraries are called \file{libaldorunit} and \file{libaldorunitd}. Therefore, \projectname~provides two test suites, which are called \file{TestSuite} and \file{TestSuited}.}.
+
+Using the \LibModel~environment, there is no need to update dependencies or Makefiles manually. Furthermore there is no need to manually enter tests or test cases into the test suite. A test case even automatically updates the functions it exports by updating the signature files on its own.
+
+%What part comes from which library can bee seen in the following picture:
+%\begin{center}
+%\epsfxsize=17cm \epsfbox{building.eps}
+%\end{center}
+
+
+\subsection{Course of actions for libraries without using LibModel}
+
+For libraries that are not using the \LibModel~environment the way from the source code to a working test suite consists of two stages. These are
+
+\begin{itemize}
+\item{generating signature files} and
+\item{generating the test suite}.
+\end{itemize}
+
+Every item is treated individually in the following subsections.
+
+\subsubsection{Generating signature files}
+
+In order to ease the writing of many tests, it is good to have the signatures of a test case extracted automatically. By this it is impossible to not export and therefore not be able to run certain tests. This can easily happen by mistake, when writing several tests.
+
+In a \LibModel~environment signatures are extracted by calling
+\begin{console}
+${SCRIPTDIR}/extract_test_signatures.sh someAldorFile.test.as
+\end{console}
+, where \file{\$\{SCRIPTDIR\}} is \file{scripts} for an unmodified \LibModel~environment. \file{someAldorFile.test.as} is the file to generate a signature file for. The signatures of this file are printed to the standard output. For example
+\begin{console}
+${SCRIPTDIR}/extract_test_signatures.sh listtool.test.as >listtool.test.signatures.as
+\end{console}
+generates the signature file for the provided example and stores in the file \file{listtool.test.signatures.as}.
+
+It is pointed out that this script will work even in an non-\LibModel~environment without any problems, as it does not rely on any particular \LibModel~script or feature.
+
+However, \LibModel's script does not have to be used. The signature files can easily be written on ones own.
+
+A signature file contains the plain signatures as they would appear in the \adcode{with} part of a declaration. Besides the function names along with their signatures (hence the name), these files also may contain system commands such as \systemCommand{if}, \systemCommand{else}, or \systemCommand{endif}. By these commands, it is possible to include some tests only if some condition is fulfilled. \projectname~for example uses this mechanism to provide some functionality only if it has been built with the \LibAlgebra~library. Such a file may look like \file{simple/listtool.test.signatures.as}.
+
+\inputSourceFile{simple/listtool.test.signatures.as}{A sample Signature File}
+
+Signature files are not only usefull because one does not have to take care of exporting every test, they are also used by the script of \LibModel that generates the test suite.
+
+\subsubsection{Generating the test suite}
+
+In a \LibModel~environment, all test cases are collected in a separate library. This library is then used to build the test suite. \LibModel~uses a script to do this automatically, but it can be achieved manually via
+\begin{console}
+${RELATIVE_ROOT}/scripts/generate_testsuite.sh ${PROJECTNAME} >tst-suit.as
+\end{console}
+in the base directory for the source code of the test cases. This directory is \file{\$\{TESTDIR\}/\{SRCDIR\}} in a \LibModel~environment. If the \LibModel~environment uses its defaults, this directory is \file{test/src}. \file{\$\{RELATIVE\_ROOT\}} has to be replaced to the relative path to the root of the project. This is likely to be \file{../..} in a \LibModel~based project. {\tt\$\{PROJECTNAME\}} finally has to be replaced with the name of the project for which the testsuite shall be generated.
+
+The script automatically looks for \file{.as} files in the current directory and tries to use them as test cases. In order to name the test cases correctly within the test suite, this script also needs the \file{get\_type\_for\_file.sh} script. It has to be in the same directory as \file{generate\_testsuite.sh} is. This additional script tries to extract the exported type of a file. It heavily relies on the ``one exported type per file'' principle. This means that every file should only export one type. 
+
+In the unlikely case, where the script by itself does not get the type right, the type, the script would find, can be owerridden. This overriding is done by adding an aldoc like documentation. By inserting a line that starts with \verb|\thistype| and is followed by the exported type in curly braces, the script uses the specified type and does not try to determine it on its own. Typically, this line is surrounded by {\tt\systemCommand{if} ALDOC}, some more aldoc documentation, and a {\tt\systemCommand{endif} ALDOC}. It is not necessary that the \systemCommand{if} argument is called {\tt ALDOC}. Such a file, which overrides the type the script would find, may look like \file{simple/listtool-with-aldoc.as}.
+
+\inputSourceFile{simple/listtool-with-aldoc.as}{\file{simple/listtool.as} with aldoc comments}
+
+Having discussed this additional script, the generated test suite file is investigated. The generated file is responsible for building up data structures that describe which test is in which test case, and how it is called. Furthermore, it also uses \projectname~to run the test suite.
+
+Again a file for a test suite of the \adtype{ListTools} domain is presented as example in \file{simple/tst-suit.as}.
+
+\inputSourceFile{simple/tst-suit.as}{A sample Test Suite}
+
+The presented example is divided into three parts. First of all the declarations. This part is followed by the information about the tests for each test case. Each test case shall reside in its own function. This among other things helps to avoid clashes of names imported into scope. Finally every function for a test case is passed to \LibAldorUnit~in the third part of the test suite.
+
+Having obtained the necessary sources, it is not a problem to compile the files into a working test suite. This compilation can be done via \file{Makefile}s which are provided by \LibModel~or in any other way.

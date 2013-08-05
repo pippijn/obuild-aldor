@@ -1,0 +1,1 @@
+../../../../.upstream/aldor/lib/axllib/test/scobind0.as

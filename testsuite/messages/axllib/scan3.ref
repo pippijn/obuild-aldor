@@ -1,0 +1,10 @@
+"scan3.as", line 44: 
+3.e-            --  wp es
+^
+[L44 C1] #1 (Error) Syntax error: improper number (no digits in exponent).
+
+"scan3.as", line 54: 
+.e7             --   p e
+^
+[L54 C1] #2 (Error) Syntax error.
+

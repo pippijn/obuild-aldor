@@ -1,0 +1,33 @@
+# Build libraries and run tests.
+recurse-into ($(glob D, *))
+
+# Used for producing test report.
+static.	=
+  COLORDIFF	= $(check-prog colordiff)
+
+
+# Small Levenshtein distance program
+LEVENSHTEIN = $(builddir)/levenshtein$(EXEEXT)
+$(builddir)/levenshtein$(EXEEXT): $(scriptdir)/levenshtein.c
+  $(CC) $< -o $@
+
+# All diff files from testsuite.
+private.diffs =
+  DIFFS[] = $(EMPTY_ARRAY)
+  foreach (x, $(glob D, */testsuite/*)):
+    DIFFS += $x/$(basename $x).i.diff
+    DIFFS += $x/$(basename $x).r.diff
+    export DIFFS
+  value $(DIFFS)
+
+# Generate HTML report.
+$(testresultdir)/testreport.html: $(scriptdir)/testreport $(COLORDIFF) $(LEVENSHTEIN) $(diffs)
+  $(scriptdir)/testreport	\
+    $(COLORDIFF) $(LEVENSHTEIN)	\
+    $(in $(rootdir), $(file .))	\
+    $(filter %.diff, $^)	\
+    > $@
+
+
+# Produce test report on make check.
+check: $(testresultdir)/testreport.html

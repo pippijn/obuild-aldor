@@ -1,0 +1,43 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{references}[2006/03/31]
+
+\usepackage{hintedlabels}
+
+% custom references
+
+\newcommand\defsec[1]{\hintedlabel{sec:#1}}
+\newcommand\refsec[2][Section]{\hyperlink{sec:#2}{#1} \ref{sec:#2}}
+
+\newcommand\defpage[1]{\hintedlabel{page:#1}}
+\newcommand\refpage[2][page]{\hyperlink{page:#2}{#1} \pageref{page:#2}}
+
+\newcommand\deflemma[1]{\hintedlabel{lemma:#1}}
+\newcommand\reflemma[2][Lemma]{\hyperlink{lemma:#2}{#1} \ref{lemma:#2}}
+
+\newcommand\defdef[1]{\hintedlabel{definition:#1}}
+\newcommand\refdef[2][Definition]{\hyperlink{definition:#2}{#1} \ref{definition:#2}}
+
+\newcommand\reffig[2][Figure]{\hyperlink{fig:#2}{#1} \ref{fig:#2}}
+
+\newcommand\refalg[2][Algorithm]{\hyperlink{alg:#2}{#1} \ref{alg:#2}}
+
+\newcommand\reftab[2][Table]{\hyperlink{table:#2}{#1} \ref{table:#2}}

@@ -1,0 +1,1 @@
+../../../../.upstream/aldor/lib/axllib/test/goto0.as

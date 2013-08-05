@@ -1,0 +1,1 @@
+../../../../.upstream/aldor/lib/axllib/test/object0.as

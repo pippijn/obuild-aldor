@@ -1,0 +1,46 @@
+
+#16 (Fatal Error) Missing vital semantic information: please add `import from Boolean' to this scope!
+
+"abcheck2.as", line 8: 
+FloatTest: with
+...........^
+[L8 C12] #12 (Error) There are no suitable meanings for the operator `Join'.
+
+"abcheck2.as", line 9: 
+    convert: SF -> %                -- fine
+.............^..^
+[L9 C14] #9 (Error) No meaning for identifier `SF'.
+[L9 C17] #10 (Error) There are no suitable meanings for the operator `->'.
+
+"abcheck2.as", line 10: 
+    outputFloating: () -> Void      -- fine
+.......................^..^
+[L10 C24] #7 (Error) There are no suitable meanings for the operator `->'.
+[L10 C27] #3 (Error) No meaning for identifier `Void'.
+
+"abcheck2.as", line 11: 
+    outputFloating: N -> Void       -- fine
+....................^.^
+[L11 C21] #2 (Error) No meaning for identifier `N'.
+[L11 C23] #4 (Error) There are no suitable meanings for the operator `->'.
+
+"abcheck2.as", line 12: 
+    +: %-> %                        -- fine
+........^
+[L12 C9] #1 (Error) There are no suitable meanings for the operator `->'.
+
+"abcheck2.as", line 15: 
+    arbitraryPrecision              -- fine
+....^
+[L15 C5] #13 (Error) No meaning for identifier `arbitraryPrecision'.
+
+"abcheck2.as", line 16: 
+    arbitraryExponent               -- fine
+....^
+[L16 C5] #14 (Error) No meaning for identifier `arbitraryExponent'.
+
+"abcheck2.as", line 20: 
+    if SF has Field                 -- should be fine
+..............^
+[L20 C15] #15 (Error) No meaning for identifier `Field'.
+

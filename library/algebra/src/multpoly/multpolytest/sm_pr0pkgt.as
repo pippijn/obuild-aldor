@@ -1,0 +1,1 @@
+../../../../../.upstream/aldor/lib/algebra/src/multpoly/multpolytest//sm_pr0pkgt.as

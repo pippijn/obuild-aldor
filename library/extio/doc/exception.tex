@@ -1,0 +1,52 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+\clearpage
+\section{Exceptions}
+
+\adtype{ArrayException},
+\adtype{Exception},
+\adtype{GeneratorException},
+\adtype{FileException},
+\adtype{ListException},
+\adtype{NotFoundException},
+\adtype{NotFoundExceptionType},
+\adtype{SyntaxException},
+\adtype{ReducibleModulusException},
+\adtype{RuntimeError}, and
+\adtype{TableException}
+constitute the exceptions part of \projectname.
+
+\adtype{ExceptionType} is a base category for exceptions.
+
+\adtype{Exception} is a basic implementation of \adtype{ExceptionType}.
+
+\adtype{NotFoundExceptionType} is a category for exceptions that indicate a failed search.
+
+\adtype{NotFoundException} implements \adtype{NotFoundException}.
+
+\adtype{RuntimeError} extends the builtin domain to \adtype{ExceptionType}.
+
+The extensions of \adtype{ArrayException}, \adtype{GeneratorException}, \adtype{FileException}, \adtype{ListException}, \adtype{SyntaxException}, and \adtype{TableException} add \adtype{ExceptionType} to the corresponding domains of \LibAldor.
+
+The extension \adtype{ReducibleModulusException} adds \adtype{ExceptionType} to the \adtype{ReducibleModulusException} domain of \LibAldor.
+
+\inputSourceFile{exception/exception.as}{An example of using \adtype{ExceptionType}}
+\inputOutput{exception/exception}
+

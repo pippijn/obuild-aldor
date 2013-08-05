@@ -1,0 +1,5 @@
+"extend2.as", line 1: 
+#include "basicmath";
+^
+[L1 C1] #1 (Error) Could not open file `basicmath'.
+

@@ -1,0 +1,208 @@
+src/arith/sal_arith.ao:	\
+	src/base/sal_copy.ao
+src/arith/sal_binpow.ao:	\
+	src/arith/sal_arith.ao	\
+	src/arith/sal_intcat.ao
+src/arith/sal_bool.ao:	\
+	src/base/sal_htype.ao
+src/arith/sal_bsearch.ao:	\
+	src/arith/sal_intcat.ao
+src/arith/sal_complex.ao:	\
+	src/arith/sal_fltcat.ao	\
+	src/arith/sal_lincomb.ao
+src/arith/sal_dfloat.ao:	\
+	src/arith/sal_sfloat.ao
+src/arith/sal_fltcat.ao:	\
+	src/arith/sal_int.ao
+src/arith/sal_ftools.ao:	\
+	src/arith/sal_fltcat.ao
+src/arith/sal_int.ao:	\
+	src/arith/sal_random.ao	\
+	src/arith/sal_binpow.ao	\
+	src/arith/sal_segment.ao	\
+	src/arith/sal_itools.ao	\
+	src/base/sal_byte.ao
+src/arith/sal_intcat.ao:	\
+	src/arith/sal_bool.ao	\
+	src/arith/sal_oarith.ao	\
+	src/base/sal_serial.ao	\
+	src/base/sal_itype.ao	\
+	src/base/sal_otype.ao
+src/arith/sal_itools.ao:	\
+	src/arith/sal_bsearch.ao	\
+	src/arith/sal_intcat.ao	\
+	src/base/sal_partial.ao
+src/arith/sal_lincomb.ao:	\
+	src/arith/sal_arith.ao
+src/arith/sal_mint.ao:	\
+	src/arith/sal_itools.ao	\
+	src/arith/sal_segment.ao	\
+	src/base/sal_byte.ao
+src/arith/sal_oarith.ao:	\
+	src/arith/sal_arith.ao	\
+	src/base/sal_torder.ao
+src/arith/sal_pointer.ao:	\
+	src/arith/sal_mint.ao
+src/arith/sal_random.ao:	\
+	src/arith/sal_mint.ao	\
+	src/base/sal_gener.ao
+src/arith/sal_segment.ao:	\
+	src/arith/sal_intcat.ao	\
+	src/base/sal_partial.ao
+src/arith/sal_sfloat.ao:	\
+	src/arith/sal_ftools.ao
+src/base/ald_pfunc.ao:	\
+	src/arith/sal_pointer.ao
+src/base/sal_base.ao:	\
+	src/lang/sal_lang.ao
+src/base/sal_bstream.ao:	\
+	src/base/sal_base.ao
+src/base/sal_byte.ao:	\
+	src/base/sal_htype.ao	\
+	src/base/sal_itype.ao	\
+	src/base/sal_otype.ao	\
+	src/base/sal_bstream.ao	\
+	src/base/sal_serial.ao
+src/base/sal_char.ao:	\
+	src/base/sal_htype.ao	\
+	src/base/sal_itype.ao	\
+	src/base/sal_otype.ao	\
+	src/base/sal_bstream.ao	\
+	src/base/sal_serial.ao	\
+	src/base/sal_byte.ao	\
+	src/base/sal_torder.ao
+src/base/sal_copy.ao:	\
+	src/base/sal_base.ao
+src/base/sal_gener.ao:	\
+	src/lang/sal_lang.ao
+src/base/sal_htype.ao:	\
+	src/base/sal_base.ao
+src/base/sal_itype.ao:	\
+	src/base/sal_tstream.ao
+src/base/sal_manip.ao:	\
+	src/base/sal_byte.ao
+src/base/sal_order.ao:	\
+	src/base/sal_base.ao
+src/base/sal_otype.ao:	\
+	src/base/sal_tstream.ao
+src/base/sal_partial.ao:	\
+	src/base/sal_char.ao	\
+	src/base/sal_gener.ao	\
+	src/base/sal_syntax.ao
+src/base/sal_serial.ao:	\
+	src/base/sal_bstream.ao
+src/base/sal_syntax.ao:	\
+	src/base/sal_base.ao
+src/base/sal_torder.ao:	\
+	src/base/sal_order.ao
+src/base/sal_tstream.ao:	\
+	src/base/sal_base.ao
+src/datastruc/ald_flags.ao:	\
+	src/datastruc/sal_barray.ao
+src/datastruc/ald_queue.ao:	\
+	src/datastruc/ald_symtab.ao
+src/datastruc/ald_symbol.ao:	\
+	src/datastruc/sal_hash.ao
+src/datastruc/ald_symtab.ao:	\
+	src/datastruc/ald_symbol.ao
+src/datastruc/sal_array.ao:	\
+	src/arith/sal_bsearch.ao	\
+	src/datastruc/sal_parray.ao
+src/datastruc/sal_barray.ao:	\
+	src/datastruc/sal_pkarray.ao
+src/datastruc/sal_bdata.ao:	\
+	src/arith/sal_mint.ao	\
+	src/datastruc/sal_data.ao
+src/datastruc/sal_bstruc.ao:	\
+	src/datastruc/sal_bdata.ao	\
+	src/datastruc/sal_fstruc.ao
+src/datastruc/sal_ckarray.ao:	\
+	src/datastruc/sal_array.ao
+src/datastruc/sal_cklist.ao:	\
+	src/datastruc/sal_list.ao	\
+	src/arith/sal_random.ao
+src/datastruc/sal_ckmembk.ao:	\
+	src/datastruc/sal_memblk.ao
+src/datastruc/sal_data.ao:	\
+	src/base/sal_char.ao
+src/datastruc/sal_ddata.ao:	\
+	src/datastruc/sal_bdata.ao
+src/datastruc/sal_fstruc.ao:	\
+	src/datastruc/sal_lstruc.ao
+src/datastruc/sal_hash.ao:	\
+	src/datastruc/sal_kntry.ao	\
+	src/datastruc/sal_table.ao
+src/datastruc/sal_kntry.ao:	\
+	src/base/sal_char.ao	\
+	src/base/sal_copy.ao
+src/datastruc/sal_list.ao:	\
+	src/base/sal_partial.ao	\
+	src/datastruc/sal_bstruc.ao	\
+	src/datastruc/sal_ddata.ao
+src/datastruc/sal_lstruc.ao:	\
+	src/base/sal_gener.ao	\
+	src/datastruc/sal_data.ao
+src/datastruc/sal_memblk.ao:	\
+	src/datastruc/sal_array.ao	\
+	src/datastruc/sal_barray.ao
+src/datastruc/sal_parray.ao:	\
+	src/arith/sal_random.ao	\
+	src/datastruc/sal_fstruc.ao	\
+	src/datastruc/sal_list.ao
+src/datastruc/sal_pkarray.ao:	\
+	src/datastruc/sal_parray.ao
+src/datastruc/sal_set.ao:	\
+	src/datastruc/ald_symtab.ao
+src/datastruc/sal_slist.ao:	\
+	src/arith/sal_random.ao	\
+	src/datastruc/sal_bstruc.ao	\
+	src/datastruc/sal_list.ao
+src/datastruc/sal_sortas.ao:	\
+	src/datastruc/sal_kntry.ao	\
+	src/datastruc/sal_sset.ao	\
+	src/datastruc/sal_table.ao
+src/datastruc/sal_sset.ao:	\
+	src/datastruc/sal_list.ao	\
+	src/datastruc/sal_ddata.ao	\
+	src/datastruc/sal_bstruc.ao	\
+	src/arith/sal_random.ao
+src/datastruc/sal_stream.ao:	\
+	src/arith/sal_pointer.ao	\
+	src/datastruc/sal_list.ao	\
+	src/datastruc/sal_lstruc.ao	\
+	src/datastruc/sal_parray.ao	\
+	src/datastruc/sal_string.ao
+src/datastruc/sal_string.ao:	\
+	src/datastruc/sal_array.ao	\
+	src/datastruc/sal_pkarray.ao
+src/datastruc/sal_table.ao:	\
+	src/datastruc/sal_string.ao
+src/gmp/sal_fltgmp.ao:	\
+	src/datastruc/sal_string.ao	\
+	src/arith/sal_dfloat.ao	\
+	src/gmp/sal_intgmp.ao
+src/gmp/sal_gmptls.ao:	\
+	src/datastruc/sal_parray.ao
+src/gmp/sal_intgmp.ao:	\
+	src/arith/sal_int.ao	\
+	src/gmp/sal_gmptls.ao
+src/util/ald_trace.ao:	\
+	src/datastruc/sal_string.ao	\
+	src/arith/sal_pointer.ao
+src/util/eio_rsto.ao:	\
+	src/base/sal_base.ao
+src/util/rtexns.ao:	\
+	src/base/sal_manip.ao	\
+	src/util/ald_trace.ao
+src/util/sal_agat.ao:	\
+	src/datastruc/sal_string.ao	\
+	src/arith/sal_dfloat.ao
+src/util/sal_cmdline.ao:	\
+	src/datastruc/sal_string.ao	\
+	src/arith/sal_pointer.ao
+src/util/sal_file.ao:	\
+	src/datastruc/sal_string.ao
+src/util/sal_timer.ao:	\
+	src/arith/sal_pointer.ao
+src/util/sal_version.ao:	\
+	src/datastruc/sal_string.ao

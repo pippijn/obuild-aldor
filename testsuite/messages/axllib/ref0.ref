@@ -1,0 +1,11 @@
+"ref0.as", line 9: 
+ref(x:SingleInteger):() ==
+^...^
+[L9 C1] #2 (Error) Improper form appearing in `ref' statement.
+[L9 C5] #1 (Error) Improper form appearing within a declaration.
+
+"ref0.as", line 17: 
+ref(8);
+^
+[L17 C1] #3 (Error) Improper form appearing in `ref' statement.
+

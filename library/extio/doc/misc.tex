@@ -1,0 +1,49 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+\clearpage
+\section{Miscellaneous}
+
+\adtype{ExtIOLibraryInformation},
+\adtype{RuntimeStorage},
+\adtype{StreamFormatter},
+\adtype{StringTokenizer}, and
+\adtype{Times}
+constitute the miscellaneous part of \projectname.
+
+\adtype{ExtIOLibraryInformation} provides information about \projectname in a machine (\Aldor) readable format.
+
+\adtype{RuntimeStorage} is an interface to \Aldor's garbage collector.
+
+\adtype{StreamFormatter} provides wrappers for streams allowing to format them. For example \file{linebreaker/linebreaker.as} shows how to break a stream into lines at a certain column.
+
+\inputSourceFile{linebreaker/linebreaker.as}{An example of using \adtype{StreamFormatter}}
+\inputOutput{linebreaker/linebreaker}
+
+\adtype{StringTokenizer} allows to chop \adtype{String}{}s into a sequence of tokens.
+
+\inputSourceFile{tokenizer/tokenizer.as}{An example of using \adtype{StringTokenizer}}
+\inputOutput{tokenizer/tokenizer}
+
+\adtype{Times} allows to determine how much time the system spends in a process, as illustrated in \file{times/times.as}.
+
+\clearpage
+\inputSourceFile{times/times.as}{An example of using \adtype{Times}}
+\inputOutput{times/times}
+

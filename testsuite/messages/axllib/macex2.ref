@@ -1,0 +1,65 @@
+"macex2.as", line 7: 
+macro (xx == uu; yy == vv)
+.............^.........^
+[L7 C14] #15 (Error) (After Macro Expansion) No meaning for identifier `uu'.
+Expanded expression was: uu
+[L7 C24] #16 (Error) (After Macro Expansion) No meaning for identifier `vv'.
+Expanded expression was: vv
+
+"macex2.as", line 9: 
+        a == a1 - a2
+.............^..^.^
+[L9 C14] #3 (Error) (After Macro Expansion) No meaning for identifier `a1'.
+Expanded expression was: a1
+[L9 C17] #2 (Error) (After Macro Expansion) There are no suitable meanings for the operator `-'.
+Expanded expression was: -
+[L9 C19] #4 (Error) (After Macro Expansion) No meaning for identifier `a2'.
+Expanded expression was: a2
+
+"macex2.as", line 10: 
+        b == b1 ; c == c1
+.............^.........^
+[L10 C14] #5 (Error) (After Macro Expansion) No meaning for identifier `b1'.
+Expanded expression was: b1
+[L10 C24] #1 (Error) (After Macro Expansion) There are no suitable meanings for the operator `c1'.
+Expanded expression was: c1
+
+"macex2.as", line 11: 
+        d(e,f)(g,h) == (e+f)*(g+h)
+............................^
+[L11 C29] #6 (Error) (After Macro Expansion) There are no suitable meanings for the operator `*'.
+Expanded expression was: *
+
+"macex2.as", line 16: 
+d(1,2)(3,4)     -- c1(1,2)   * c1(3,4)
+..^.^..^.^
+[L16 C3] #8 (Error) (After Macro Expansion) No meaning for identifier `1'.
+Expanded expression was: 1
+[L16 C5] #9 (Error) (After Macro Expansion) No meaning for integer-style literal `2'.
+Expanded expression was: 2
+[L16 C8] #11 (Error) (After Macro Expansion) No meaning for integer-style literal `3'.
+Expanded expression was: 3
+[L16 C10] #12 (Error) (After Macro Expansion) No meaning for integer-style literal `4'.
+Expanded expression was: 4
+
+"macex2.as", line 17: 
+(xx/yy)(aa,bb)  -- c1(uu,vv) * c1(aa,bb)
+........^..^
+[L17 C9] #18 (Error) (After Macro Expansion) No meaning for identifier `aa'.
+Expanded expression was: aa
+[L17 C12] #19 (Error) (After Macro Expansion) No meaning for identifier `bb'.
+Expanded expression was: bb
+
+"macex2.as", line 24: 
+(macro (aaa,bbb)(uuu)(vvv) +-> [aaa,bbb,uuu,vvv])(3,4)(5)(6)
+...............................^..................^.^..^..^
+[L24 C32] #24 (Error) There are no suitable meanings for the operator `bracket'.
+[L24 C51] #25 (Error) (After Macro Expansion) No meaning for integer-style literal `3'.
+Expanded expression was: 3
+[L24 C53] #26 (Error) (After Macro Expansion) No meaning for integer-style literal `4'.
+Expanded expression was: 4
+[L24 C56] #27 (Error) (After Macro Expansion) No meaning for integer-style literal `5'.
+Expanded expression was: 5
+[L24 C59] #28 (Error) (After Macro Expansion) No meaning for integer-style literal `6'.
+Expanded expression was: 6
+

@@ -1,0 +1,225 @@
+-- release of version 0.1.4 ------------------------------------------
+
+2006-04-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.funcs(resolve_recursive_library_dependence): fixed faulty regular exression.
+	* doc/src/styles/diagrams.sty: switched to includegraphics.
+	* doc/src/libmodel.tex: switched from epsfig to graphicx.
+
+2006-03-31  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure: replaced dvipdf, dvips, and latex in the default executables of target doc by pdflatex. Added \xspace to more \project... macros. Removed unnecessary spaces in the \project... macros.
+	* configure.in: updated default executables for target doc.
+	* doc/Makefile: removed support for PostScript documentation
+	* doc/src/anatomy.tex: replaced \projectname by \projectplainname in section name. Removed \file command in subsection name.
+	* doc/src/dirdoc.tex: replaced \LibModel by \projectplainname in section name.
+	* doc/src/hypersetup.tex: added.
+	* doc/src/installation.tex: replaced \projectname by \projectplainname in section name.
+	* doc/src/libmodel.tex: Added inclusion of hypersetup.tex
+	* doc/src/Makefile: removed PostScript support. Replaced latex by pdflatex. Added removing *.out to target clean.
+	* doc/src/needs.tex: replaced \projectname by \projectplainname in section name.
+	* doc/src/styles/references.sty: removed nested links issue. Added inclusion of hypersetup.tex
+	* scripts/generate_dependencies_doc.sh: changed dependencies of .dvi to .pdf.
+	* scripts/generate_documentation_macros.sh: removed the \it macro in the name of the subsection for a macro
+	* scripts/generate_documentation_aldordoc.sh: removed the \it macro in the name of the subsection for a extension
+
+	
+2005-01-22  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: increased PATCHVERSION to 4
+
+-- release of version 0.1.3 ------------------------------------------
+
+2006-01-19  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/environment.tex: added \filesuffix. Added optional inclusion of environment-custom.
+	* doc/src/libmodel.tex: added packages, amssymb, amsmath, syntax and xspace.
+	* scripts/generate_dependencies_doc.sh: added setting the catcode of underscore to 8 to avoid troubles when using the syntax package and using filenames containing an underscore.
+
+2006-01-18  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/styles/diagram.sty: added.
+	* doc/src/libmodel.tex: using package diagrams.
+
+2006-01-17  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* scripts/generate_dependencies.sh: fixed regular expression grepping for dependecies in files to match the beginning and ending of lines.
+	
+2006-01-09  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure: Added DOCINCLUDEDOCDIR and DOCLIBRARYDOCDIR.
+	* configure.in: Added DOCINCLUDEDOCDIR and DOCLIBRARYDOCDIR.
+	* doc/src/styles/naldordoc.sty: changed the name of the envirenment adexportedfrom to adexportsfrom. Added the environment adexportedby.
+	* scripts/generate_dependencies_doc.sh: adapted to use DOCLIRARYDOCDIR. adapted to use scripts/generate_dependencies_macros.sh instead of scripts/generate_dependencies_makros.sh. When writing target $TEXFILE, the directory for the file is now only created, when it does not already exist. Adapted to the new scripts/generate_documentation_aldordocs.sh.
+	* scripts/generate_dependencies_macros.sh: renamed from scripts/generate_dependencies_macros.sh. Adapted to DOCINCLUDEDOCDIR
+	* scripts/generate_dependencies_makros.sh: renamed to scripts/generate_dependencies_macros.sh
+	* scripts/generate_documentation_aldordoc.sh: introduced third parameter denoting the file to write the documentation to. Adapted to name changes in doc/src/styles/naldordoc.sty. Added generation and use of adexportedby via exp files. Added breaking of function signatures for the detailed description of a function.
+	
+2006-01-06  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* scripts/generate_documentation_aldordoc.sh: fixed linking problem for domains with more than one export under the same name. In the overview of the functions of a domain, the links to functions now carry the function's signature.
+
+2006-01-04  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure: added generation of footer includefile. added a #if statement in the generated include file to prevent including the code of the include file more than once.
+	* include/src/Makefile: added footer includefile.
+
+2006-01-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/styles/naldordoc.sh: added environment adlocalmacros. changed adparameters environment from a list to plain text.
+	* scripts/generate_documentation_aldordoc.sh: added printing of local macros. adapted to new adparameters.
+	* scripts/generate_documentation_macros.sh: adapted to new adparameters. 
+
+2006-01-02  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/styles/naldordoc.sh: added \adlastdefinedentity.
+
+2005-12-31  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/libmodel.tex: added inclusion of amsmath package
+
+2005-12-30  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/styles/naldordoc.sh: cutting off short description after the first period. If no period is given, a period is added.
+	* scripts/generate_documentation_aldordoc.sh: added breaking lines in parameters to categories and domains. 
+
+2005-11-21  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* scripts/generate_documentation_aldordoc.sh: escaping < and > in (sub)section commands and in the "is part of" message. Preparations for supporting breaking too long snippet lines.
+	* doc/src/styles/naldordoc.sh: added support for the characters < and > in names.
+
+2005-11-15  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* scripts/generate_documentation_aldordoc.sh (parse_function): Added support for functions with mathematical symbols as name (e.g.: +, * )
+
+2005-11-14  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* scripts/generate_documentation_aldordoc.sh (parse_function): Added failing with error, when post-doc instead of pre-doc occurs. Adding failing with error, if nested 'with's occur.
+
+2005-11-08  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: increased PATCHVERSION to 3
+
+-- release of version 0.1.2 ------------------------------------------
+
+2005-11-08  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure: added \projectsupporters generation when generating LaTeX unclude file header. Fixing type latex to LaTeX.
+	* configure.in: introduced SUPPORTERS array.
+	* configure.funcs (check_gmp): resetting SEARCHRESULTDESCRIPTION after silent search for the aldorcompiler.
+	* doc/src/frontpage.tex: added \projectsupporters.
+	* doc/src/Makefile: Added support for hyphenation within \adtype, \adname, ...
+	* doc/src/styles/naldordoc.sty: added \adlinkprefix. Updated timestamp.
+	* doc/src/styles/pagelayout.sty: changed unconditional requirement for microtype to conditional one. Updated timestamp.
+
+2005-11-02  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/styles/naldordoc.sty: introduced addecoratetype, addecoratename, addecoratemacro. Updated timestamp.
+	
+2005-10-31  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* updating documentation to use \clearpage instead of \pagebreak
+	* updating license information
+	* scripts/generate_documentation_makros.sh: using \clearpage instead of \pagebreak
+	* scripts/generate_documentation_aldordoc.sh: using \clearpage instead of \pagebreak
+
+2005-10-30  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/bibliography.bib: updated to @internet instead of @article for references to urls.
+	* doc/src/libmodel.tex: added inclusion of license.
+	* scripts/generate_testsuite.sh: substitution of List for DoubleEndedList if Algebra is not available.
+
+2005-10-28  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure: added an error message, if a required target misses some dependencies. added gmp support. updated default for COMMANDcheck.
+	* configure.funcs: added gmp support.
+	* configure.in: updated defaults.
+	* doc/src/libmodel.tex: including inputs.tex, installation.tex and api.tex only if they exist.
+	* lib/Makefile: added gmp support.
+	* lib/debug/Makefile: removed $(COMPILERLIBRARYOPTIONS) from ALDORVARIANTOPTIONS.
+	* lib/gmp/Makefile: created.
+	* lib/release/Makefile: removed $(COMPILERLIBRARYOPTIONS) from ALDORVARIANTOPTIONS.
+	* lib/shared-object/Makefile: added copying shared object to $(LIBDIR).
+	* test/Makefile: added gmp support.
+	* test/MakefileStub: changed -lm to -C lib=m. added gmp support.
+	* test/gmp/Makefile: created.
+	* scripts/generate_include_test.sh: added gmp support.
+
+2005-10-18  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: increased PATCHVERSION to 2
+
+-- release of version 0.1.1 ------------------------------------------
+
+2005-10-18  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* added GPL header to Makefiles, scripts, library source files, and test source files
+	* configure: added information to write to the Makefile for optional targets which cannot be built. adjusted to generate lowercase files
+	* configure.funcs: no longer assuming correct version, if the file for testing the MINIMALVERSION cannot be interpreted
+	* COPYING: added.
+	* doc/src/libmodel.tex: moved from doc/src/LibModel.tex
+	* doc/src/LibModel.tex: moved to doc/src/libmodel.tex
+	* doc/src/Makefile: updated clean and distclean targets to work properly. produced files are now lowercase.
+	* scripts/generate_dependencies_doc.sh: adjusted to generate lowercase files
+	* scripts/mark_file_generated.sh: automatic adjusted to generate lowercase files
+	
+2005-10-15  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/installation-building.tex: added configure options
+        * configure.sh: adjusted OPTIONSaldor and OPTIONSld to automatically detect x86_64 architectures
+	* doc/src/environment.tex: added \theindexhook, removed \aldorCode, \var, \const
+	* doc/src/LibModell.tex: adjusted to naldordoc.sty
+	* doc/src/naldordoc.sty: added.
+	* doc/src/adoc2.sty: removed, in favor of naldordoc.sty.
+
+2005-10-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* scripts/generate_documentation_aldordoc.sh: separate rendering for "exports from" clauses and reorganized $DOCDIR/$SRCDIR/doclibrary
+
+2005-07-28  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure: added sort to EXECUTABLESdoc
+	* configure.in: updated defaults according to configure
+	* scripts/generate_dependencies_doc.sh: updated apiinputs generation
+	* scripts/generate_documentation_aldordoc.sh: adjusted error messages 
+	* scripts/generate_documentation_makro.sh: updated apiinputs generation
+		
+2005-06-06  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* introduced AldorDoc from Ralf Hemmecke.
+	* introduced building of variants of libraries
+	* introduced building of variants of tests
+
+2005-06-06  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/Makefile (uninstall): fixed typo (reported by Ralf Hemmecke)
+
+2005-06-04  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* scripts/generate_dependencies.sh: altered regular expression when grepping the dependencies
+
+2005-03-15  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* scripts/generate_dependencies.sh: altered regular expression when grepping the dependencies
+
+2005-03-01  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* scripts/generate_testsuite.sh: updated to reflect the new name "AldorUnit" for the test library "AUnit"
+
+2004-11-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: updated to reflect the changes in configure
+
+	* configure: updates due to move from Aldoc to ADoc. Adding preconfigured doc target.
+
+	* doc/src/Makefile: Switched from Aldoc to ADoc. Asy files will be generated from .as files in $LIBDIR/$SRCDIR and ADoc-ified to exports.tex 
+
+2004-10-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure: added default MINIMALVERSIONAUnit="0.1.0". added an assert for the current library version in the generated include header file.
+
+	* scripts/generate_testsuite.sh: updated to meet the requirements of AUnit 0.2.0 and being backwards compatible
+
+	* configure.in: updated the defaults for MINIMALVERSIONAUnit
+
+-- release of version 0.1.0 ------------------------------------------

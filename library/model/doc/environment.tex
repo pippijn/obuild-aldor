@@ -1,0 +1,86 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+\usepackage[usenames]{color} 
+
+\newlength{\admissableWidth}
+\setlength{\admissableWidth}{\textwidth}%
+
+\newsavebox{\verbbox}
+
+\newenvironment{consoleOutput}[1]{%
+\center
+  \minipage{\admissableWidth}%
+  \begingroup
+  \lrbox{\verbbox}%
+    \minipage{\linewidth}%
+\center{output of {\tt #1}}%
+    \small%
+    \verbatim
+  }{%
+    \endverbatim
+    \endminipage
+  \endlrbox
+  \endgroup
+\noindent\fbox{\usebox{\verbbox}}
+\endminipage
+  }
+
+\newenvironment{console}%
+  {\list{}{\rightmargin0pt}\item\relax\verb}
+  {\endlist}
+
+\newcommand\systemCommand[1]{{\tt\##1}}
+\newcommand\target[1]{{\tt #1}}
+\newcommand\file[1]{{\tt #1}}
+\newcommand\filesuffix[1]{{\tt .#1}\xspace}
+
+\newcommand\inputSourceFile[2]{%
+ {\footnotesize%
+  \begin{longtable}{|l|}%  
+    \hline\\%
+    \centerline{{\tt#1} -- #2}\\%
+    \hline\\%
+    \input{examples/#1-prepared}\\%
+    \hline%
+  \end{longtable}%
+ }%
+}
+\newcommand\inputOutput[1]{%
+ {\footnotesize%
+  \begin{longtable}{|l|}%  
+    \hline\\%
+    \input{examples/#1.out}\\%
+    \hline%
+  \end{longtable}%
+ }%
+}
+
+\newcommand\shellvariable[1]{{\tt\$\{#1\}}}
+\newcommand\variable[1]{{\tt#1}}
+
+\newcommand\todo[1]{
+\index{todo}
+\marginpar{\footnotesize\fbox{\textcolor{Mulberry}{To Do}}}
+\textcolor{Mulberry}{TO-DO: #1}
+}
+
+\renewcommand{\theindexhook}{Page numbers with an asterisk (*) denote the page for the definition of the indexed category, domain, function, or constant.\\ \\ \\}
+
+\IfFileExists{environment-custom}{\input{environment-custom}}{}

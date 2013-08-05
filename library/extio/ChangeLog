@@ -1,0 +1,193 @@
+2006-04-11  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/datastru/eio_chtc.as: added.
+	* lib/src/datastru/eio_cht.as: updated to use ChainingHashTableWithCustomHashFunction.
+	* test/src/datastru/eio_htt.test.as: added.
+	* test/src/datastru/eio_cht.test.as: updated to use HashTableTester.
+	* test/src/datastru/eio_chtc.test.as: added.
+
+2006-04-10  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* updated to use LibModel of 2006-04-06
+	* configure.in: increased MINORVERSION to 1. Reset PATCHVERSION to 0.
+	* doc/src/datastructures.as: updated to reflect the switch from Aldor's HashTable to ChainingHashTable.
+	* include/src/body.as: removed macros supporting Aldor's HashTable.
+	* lib/src/cas/eio_matp.as: switch from Aldor's HashTable to ChainingHashTable. Comments updated.
+	* lib/src/datastru/eio_cht.as: added.
+	* lib/src/datastru/eio_hash.as: removed.
+	* lib/src/datastru/eio_repo.as: switch from Aldor's HashTable to ChainingHashTable.
+	* test/src/datastru/eio_cht.test.as: added.
+	* test/src/datastru/eio_hash.test.as: removed.
+
+2006-04-04  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/chars/eio_ansi.as: updated documentation.
+
+2006-04-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: increased PATCHVERSION to 5.
+
+-- release of version 1.0.4 ------------------------------------------
+
+2006-04-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* updated to use LibModel 0.1.4
+	* doc/src/datastructures.tex: Fixed typos.
+	* doc/src/exception.tex: Added the exception extensions of 2006-03-31.
+	* include/src/body.as(EMPTY?HASHTABLE): Fixed typo in documentation.
+	* include/src/body.as(NENTRIESHASHTABLE): Fixed typo in documentation.
+	* lib/src/datastru/eio_tree.as: Fixed typo in documentation.
+
+2006-03-31  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/exception.tex: added newly generated files in lib/src/exceptions.
+	* lib/src/exceptions/eio_aex.as: added.
+	* lib/src/exceptions/eio_fex.as: added.
+	* lib/src/exceptions/eio_gex.as: added.
+	* lib/src/exceptions/eio_lex.as: added.
+	* lib/src/exceptions/eio_rex.as: updated documentation.
+	* lib/src/exceptions/eio_rmx.as: added.
+	* lib/src/exceptions/eio_sex.as: added.
+	* lib/src/exceptions/eio_tex.as: added.
+	* test/src/exceptions/eio_ex.test.as: added.
+	* test/src/exceptions/eio_aex.test.as: added.
+	* test/src/exceptions/eio_fex.test.as: added.
+	* test/src/exceptions/eio_gex.test.as: added.
+	* test/src/exceptions/eio_lex.test.as: added.
+	* test/src/exceptions/eio_tex.test.as: added.
+	* test/src/exceptions/eio_sex.test.as: added.
+
+2006-01-22  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: increased PATCHVERSION to 4
+
+-- release of version 1.0.3 ------------------------------------------
+
+2006-01-22  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* updated to use LibModel 0.1.3
+
+2006-01-18  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/examples/linebreaker/linebreaker.as: added.
+	* doc/src/examples/linebreaker/Makefile: added.
+	* doc/src/misc.tex: incorporated StreamFormatter. Fixed Typo.
+	* lib/src/util/eio_linb.as: added.
+	* test/src/util/eio_linb.test.as: added.
+
+2006-01-04  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* include/src/body.as: Moved EMPTY?HASHTABLE and NENTRIESHASHTABLE from the CharSet library (version 0.9.1) to ExtIO.
+	* lib/src/datastru/eio_list.as: Fixed documentation typo.
+
+2005-12-13  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/datastru/eio_hash.as: speeded up contained? and =.
+
+2005-12-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/datastru/eio_list.as: added condenseRuns!
+
+2005-11-09  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: increased PATCHVERSION to 3
+
+-- release of version 1.0.2 ------------------------------------------
+
+2005-11-09  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/examples/aldor2cas/aldor2cas.as: added missing newline for the output of the expression tree.
+	* doc/src/exception.tex: correcting the naming of the exception example.
+	* doc/src/misc.tex: added example for Times.
+	* doc/src/examples/times/times.as: added.
+	* doc/src/examples/times/Makefile: added.
+	* doc/src/bibliography.bib: removed LibTool entry and added LibModel entry.
+
+2005-11-08  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: increased PATCHVERSION to 2
+
+-- release of version 1.0.1 ------------------------------------------
+
+2005-11-08  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* updating to use LibModel 0.1.2
+	* configure.in: added SUPPORTERS
+
+2005-10-31  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* updating documentation to use \clearpage instead of \pagebreak
+	* updating license information
+
+2005-10-30  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/bibliography.bib: updated to @internet instead of @article for references to urls
+
+2005-10-28  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* test/src/cas/eiomatp.test.as: fixed float testcases to check in epsilon tunnel.
+	* lib/src/datastru/eio_expl.as: fixed gmp support for copy.
+	
+2005-10-18  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: increased PATCHVERSION to 1
+
+-- release of version 1.0.0 ------------------------------------------
+
+2005-10-18  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* COPYING: added.
+	* added GPL header to all library and test source files
+	* doc/src/extio.tex: moved from doc/src/ExtIO.tex
+	* doc/src/ExtIO.tex: moved to doc/src/extio.tex
+	* doc/src/bibliography.bib: added LibModel
+
+2005-10-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/misc.tex: adjusted for Times.
+	* lib/src/util/eio_time.as (Times): created.
+
+2005-08-10  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/chars/eio_char.as: updated documentation
+
+2005-03-15  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/exceptions/eio_rex.as: created. (extend RunTimeError)
+	* lib/src/exceptions/eio_ext.as: added function to print the exception to a stream.
+
+2005-03-01  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* updates to reflect the name change of "AUnit" to "AldorUnit"
+
+2004-11-08  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/gfx/eio_brsh.as: created. (Brush)
+
+	* lib/src/gfx/eio_colr.as: created. (Color) 
+
+	* lib/src/gfx/eio_vgr.as: created. (VectorGraphicTypeRepository)
+	
+	* lib/src/util/eio_rept.as: created. (RepositoryType)
+
+	* lib/src/util/eio_repo.as: created. (Repository)
+	
+	* test/src/gfx/eio_ppnt.test.as: created. (TestPlanePoint)
+
+	* test/src/gfx/eio_colr.test.as: created. (TestColor)
+
+	* test/src/util/eio_repo.test.as: created (TestRepository) 
+
+2004-10-23  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/datastru/eio_hash.as: created. (extends Hashtable)
+
+2004-10-18  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/datastru/eio_tree.as: created. (provides Tree).
+
+2004-10-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: remove MINIMALVERSIONAUnit, since this is now default in LibModel
+
+-- release of version 0.0.1 ------------------------------------------

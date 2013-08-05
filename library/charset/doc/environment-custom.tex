@@ -1,0 +1,59 @@
+\newcommand\fileformat[1]{{\tt #1}\xspace}
+\newcommand\ELF{\fileformat{ELF}}
+\newcommand\DLL{\fileformat{DLL}}
+
+\newcommand\GNULinux{{\tt GNU\slash Linux}\xspace}
+\newcommand\Unix{{\tt Unix}\xspace}
+\newcommand\Windows{{\tt Windows}\xspace}
+\newcommand\MSDOS{{\tt MS-DOS}\xspace}
+
+\newcommand\platform[1]{{\tt #1}\xspace}
+\newcommand\xeightysix{\platform{x86}}
+\newcommand\msixtyeightk{\platform{m68k}}
+\newcommand\RSsixk{\platform{RS/6000}}
+\newcommand\Sparc{\platform{SPARC}}
+
+\newcommand\commandlineparameter[1]{{\tt #1}\xspace}
+\newcommand\commandline[1]{{\tt #1}\xspace}
+
+\newcommand{\exportedsymbol}{{\tt \_char\-set\_co\-her\-ent\-Auto\-re\-duced\-Set}\xspace}
+
+\newcommand\maplecode[1]{{\catcode`_=11 \tt #1}}
+\newenvironment{mapleprogram}{%
+  \footnotesize%
+  \center%
+  \verbatim%
+}{%
+  \endverbatim%
+  \endcenter%
+}
+
+\newcommand\mathematicacode[1]{{\catcode`_=11 \tt #1}}
+\newenvironment{mathematicaprogram}{%
+  \footnotesize%
+  \center%
+  \verbatim%
+}{%
+  \endverbatim%
+  \endcenter%
+}
+
+\newcommand\ccode[1]{{\catcode`_=11 \tt #1}}
+\newenvironment{cprogram}{%
+  \footnotesize%
+  \center%
+  \verbatim%
+}{%
+  \endverbatim%
+  \endcenter%
+}
+
+\newenvironment{filecontent}{%
+  \center%
+  \verbatim%
+}{%
+  \endverbatim%
+  \endcenter%
+}
+
+\newcommand\environmentvariable[1]{{\tt \$#1}}

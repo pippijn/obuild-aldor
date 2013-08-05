@@ -1,0 +1,17 @@
+"abcheck0.as", line 24: 
+makeRec: (a:I, b:I) :R == ratio(a,b) pretend R
+....................^
+[L24 C21] #1 (Error) Syntax error.
+
+"abcheck0.as", line 34: 
+                0 <= t and t < 1
+................^.^
+[L34 C17] #2 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+[L34 C19] #3 (Error) Syntax error.
+
+"abcheck0.as", line 83: 
+from Builtin                    -- ok
+.....................................^
+[L83 C38] #4 (Error) Cannot recover from earlier syntax errors.
+

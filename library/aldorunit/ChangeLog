@@ -1,0 +1,77 @@
+-- release of version 1.0.3 ------------------------------------------
+
+2006-04-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* updated to use LibModel 0.1.4
+	* doc/src/example.tex: removed formatting of section headers.
+
+2006-01-22  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: increased PATCHVERSION to 3
+
+-- release of version 1.0.2 ------------------------------------------
+
+2006-01-22  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* updated to use LibModel 0.1.2
+
+2005-12-05  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/framework/tst_tctl.as: added classification for unequal expression tree leaves when comparing expression trees. Fixed output of the path to the failed node for unequal expression trees in assertEqual for expression Trees.
+
+2005-12-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/framework/tst_tctl.as: added output of where and why assertEquals fails for ExpressionTrees
+
+2005-11-08  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: increased PATCHVERSION to 2
+
+-- release of version 1.0.1 ------------------------------------------
+
+2005-11-08  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* updating to use LibModel 0.1.2
+	* configure.in: added SUPPORTERS
+
+2005-10-31  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* updating to use LibModel 0.1.2
+	* updating documentation to use \clearpage instead of \pagebreak
+	* updating license information
+
+2005-10-30  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* doc/src/bibliography.bib: updated to @internet instead of @article for references to urls
+
+2005-10-18  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: increased PATCHVERSION to 1
+
+-- release of version 1.0.0 ------------------------------------------
+
+2005-10-18  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* COPYING: added.
+	* doc/src/bibliography.bib: added LibModel
+	* doc/src/examples/failing/Makefile: added GPL header
+	* doc/src/examples/simple/Makefile: added GPL header
+	* lib/src/exceptions/tst_afe.as: added GPL header
+	* lib/src/exceptions/tst_afet.as: added GPL header
+	* lib/src/framework/tst_tct.as: added GPL header
+	* lib/src/framework/tst_tctl.as: added GPL header
+	* lib/src/framework/tst_tstl.as: added GPL header
+	* test/src/framework/tst_tctl.test.as: added GPL header
+
+2005-06-06  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* reworked documentation of source files
+	* updates to reflect current LibModel
+
+2005-03-15  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/framework/tst_tstl.as (TestSuiteTools): if an unhandled exception occurs in a setUp, test, or tearDown function, the name of the thrown domain and additional informaiton (if available) is printed.
+
+2005-03-01  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	initial version

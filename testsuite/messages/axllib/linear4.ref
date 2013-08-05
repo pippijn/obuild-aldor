@@ -1,0 +1,5 @@
+"linear4.as", line 8: 
+        if a then
+........^
+[L8 C9] #1 (Fatal Error) Missing vital semantic information: please add `import from Boolean' to this scope!
+

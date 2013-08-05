@@ -1,0 +1,66 @@
+src/cas/eio_casc.ao:	\
+	src/datastru/eio_expt.ao
+src/cas/eio_cast.ao:	\
+	src/cas/eio_casc.ao	\
+	src/datastru/eio_repo.ao
+src/cas/eio_mapl.ao:	\
+	src/cas/eio_casc.ao
+src/cas/eio_math.ao:	\
+	src/cas/eio_casc.ao	\
+	src/cas/eio_matp.ao
+src/cas/eio_matp.ao:	\
+	src/chars/eio_char.ao	\
+	src/datastru/eio_cht.ao	\
+	src/datastru/eio_expt.ao
+src/chars/eio_ansi.ao:	\
+	src/util/eio_vers.ao
+src/chars/eio_char.ao:	\
+	src/util/eio_vers.ao
+src/datastru/eio_cht.ao:	\
+	src/datastru/eio_chtc.ao
+src/datastru/eio_chtc.ao:	\
+	src/datastru/eio_list.ao
+src/datastru/eio_expl.ao:	\
+	src/util/eio_vers.ao
+src/datastru/eio_expt.ao:	\
+	src/datastru/eio_list.ao
+src/datastru/eio_list.ao:	\
+	src/datastru/eio_expl.ao
+src/datastru/eio_repo.ao:	\
+	src/datastru/eio_cht.ao	\
+	src/datastru/eio_rept.ao	\
+	src/exceptions/eio_nfe.ao
+src/datastru/eio_rept.ao:	\
+	src/exceptions/eio_nfet.ao
+src/datastru/eio_tree.ao:	\
+	src/datastru/eio_list.ao
+src/exceptions/eio_aex.ao:	\
+	src/exceptions/eio_ext.ao
+src/exceptions/eio_ex.ao:	\
+	src/exceptions/eio_ext.ao
+src/exceptions/eio_ext.ao:	\
+	src/util/eio_vers.ao
+src/exceptions/eio_fex.ao:	\
+	src/exceptions/eio_ext.ao
+src/exceptions/eio_gex.ao:	\
+	src/exceptions/eio_ext.ao
+src/exceptions/eio_lex.ao:	\
+	src/exceptions/eio_ext.ao
+src/exceptions/eio_nfe.ao:	\
+	src/exceptions/eio_nfet.ao
+src/exceptions/eio_nfet.ao:	\
+	src/exceptions/eio_ext.ao
+src/exceptions/eio_rex.ao:	\
+	src/exceptions/eio_ext.ao
+src/exceptions/eio_rmx.ao:	\
+	src/exceptions/eio_ext.ao
+src/exceptions/eio_sex.ao:	\
+	src/exceptions/eio_ext.ao
+src/exceptions/eio_tex.ao:	\
+	src/exceptions/eio_ext.ao
+src/util/eio_linb.ao:	\
+	src/util/eio_vers.ao
+src/util/eio_stok.ao:	\
+	src/datastru/eio_list.ao
+src/util/eio_time.ao:	\
+	src/util/eio_vers.ao

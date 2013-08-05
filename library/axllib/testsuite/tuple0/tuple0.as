@@ -1,0 +1,1 @@
+../../../../.upstream/aldor/lib/axllib/test/tuple0.as

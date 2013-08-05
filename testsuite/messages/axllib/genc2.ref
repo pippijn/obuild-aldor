@@ -1,0 +1,5 @@
+"genc2.as", line 3: 
+#include "test1.as"
+^
+[L3 C1] #1 (Error) Could not open file `test1.as'.
+

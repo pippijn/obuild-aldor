@@ -1,0 +1,10 @@
+src/exceptions/tst_afe.ao:	\
+	src/exceptions/tst_afet.ao
+src/exceptions/tst_afet.ao:	\
+	src/version/tst_vers.ao
+src/framework/tst_tct.ao:	\
+	src/version/tst_vers.ao
+src/framework/tst_tctl.ao:	\
+	src/framework/tst_tstl.ao
+src/framework/tst_tstl.ao:	\
+	src/exceptions/tst_afe.ao

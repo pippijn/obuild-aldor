@@ -1,0 +1,14 @@
+"parse2.as", line 4: 
+#unknown system command
+^
+[L4 C1] #1 (Warning) Unknown system command.
+
+"parse2.as", line 5: 
+a == b
+^....^
+[L5 C1] #3 (Error) Have determined 0 possible types for the expression.
+  Subexpression `a':
+	Meaning 1: ? == b
+  Subexpression `b':
+[L5 C6] #2 (Error) No meaning for identifier `b'.
+

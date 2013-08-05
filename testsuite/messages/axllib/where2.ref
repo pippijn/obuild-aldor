@@ -1,0 +1,8 @@
+"where2.as", line 27: 
+EllipticCurveRationalPoints(x0, y0, z0, n): ECcat == ECdef where
+............................^...^...^...^
+[L27 C29] #1 (Error) Parameter type (for x0) must be specified explicitly or with default.
+[L27 C33] #2 (Error) Parameter type (for y0) must be specified explicitly or with default.
+[L27 C37] #3 (Error) Parameter type (for z0) must be specified explicitly or with default.
+[L27 C41] #4 (Error) Parameter type (for n) must be specified explicitly or with default.
+

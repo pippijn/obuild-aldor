@@ -1,0 +1,26 @@
+"macex0.as", line 5: 
+macro s == a + b
+...........^.^.^
+[L5 C12] #3 (Error) (After Macro Expansion) No meaning for identifier `a'.
+Expanded expression was: a
+[L5 C14] #2 (Error) (After Macro Expansion) There are no suitable meanings for the operator `+'.
+Expanded expression was: +
+[L5 C16] #4 (Error) (After Macro Expansion) No meaning for identifier `b'.
+Expanded expression was: b
+
+"macex0.as", line 6: 
+macro z == s * c
+.............^
+[L6 C14] #1 (Error) (After Macro Expansion) There are no suitable meanings for the operator `*'.
+Expanded expression was: *
+
+"macex0.as", line 8: 
+        c == 1 + 2
+.............^.^.^
+[L8 C14] #6 (Error) (After Macro Expansion) No meaning for identifier `1'.
+Expanded expression was: 1
+[L8 C16] #5 (Error) (After Macro Expansion) There are no suitable meanings for the operator `+'.
+Expanded expression was: +
+[L8 C18] #7 (Error) (After Macro Expansion) No meaning for integer-style literal `2'.
+Expanded expression was: 2
+

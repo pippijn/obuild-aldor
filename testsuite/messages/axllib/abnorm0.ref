@@ -1,0 +1,10 @@
+"abnorm0.as", line 21: 
+h == (a)()             +-> r2
+......^
+[L21 C7] #1 (Error) Expecting a comma separated list of parameters.
+
+"abnorm0.as", line 23: 
+h == (a)():R           +-> r4
+......^
+[L23 C7] #2 (Error) Expecting a comma separated list of parameters.
+

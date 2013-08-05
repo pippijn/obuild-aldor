@@ -1,0 +1,5 @@
+"scan2.as", line 6: 
+ab            -- Not ok: a Ctl-X Ctl-W b
+.^
+[L6 C2] #1 (Error) Syntax error: bad character in input.
+

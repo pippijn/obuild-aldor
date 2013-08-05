@@ -1,0 +1,5 @@
+"include0.as", line 6: 
+#include "includeA.as"
+^
+[L6 C1] #1 (Error) Could not open file `includeA.as'.
+

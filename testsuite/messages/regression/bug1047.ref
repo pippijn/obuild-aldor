@@ -1,0 +1,5 @@
+"bug1047.as", line 31: 
+        default bar(x:S,y:S):% == fooatt1(x,y)
+..................................^
+[L31 C35] #1 (Error) No meaning for identifier `fooatt1'.
+

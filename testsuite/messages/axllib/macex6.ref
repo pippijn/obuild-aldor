@@ -1,0 +1,42 @@
+"macex6.as", line 26: 
+macro f(x) == x + 1
+................^.^
+[L26 C17] #11 (Error) (After Macro Expansion) There are no suitable meanings for the operator `+'.
+Expanded expression was: +
+[L26 C19] #12 (Error) (After Macro Expansion) No meaning for identifier `1'.
+Expanded expression was: 1
+
+"macex6.as", line 28: 
+g(x: I): I == f(x)
+..^..^
+[L28 C3] #6 (Error) There are no suitable meanings for the operator `->'.
+[L28 C6] #5 (Error) No meaning for identifier `I'.
+
+"macex6.as", line 30: 
+macro per x == x @ T
+...................^
+[L30 C20] #1 (Error) (After Macro Expansion) No meaning for identifier `T'.
+Expanded expression was: T
+
+"macex6.as", line 32: 
+zz(x: Integer): Integer == per G x
+...^..^........................^
+[L32 C4] #3 (Error) There are no suitable meanings for the operator `->'.
+[L32 C7] #2 (Error) No meaning for identifier `Integer'.
+[L32 C32] #13 (Error) (After Macro Expansion) There are no suitable meanings for the operator `G'.
+Expanded expression was: G
+
+"macex6.as", line 34: 
+macro razob(a,b) == per(per(a) + per(b))
+...............................^
+[L34 C32] #14 (Error) (After Macro Expansion) There are no suitable meanings for the operator `+'.
+Expanded expression was: +
+
+"macex6.as", line 36: 
+razob(zz(1), zz(2))
+.........^......^
+[L36 C10] #15 (Error) (After Macro Expansion) No meaning for identifier `1'.
+Expanded expression was: 1
+[L36 C17] #16 (Error) (After Macro Expansion) No meaning for integer-style literal `2'.
+Expanded expression was: 2
+

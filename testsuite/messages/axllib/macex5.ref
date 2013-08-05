@@ -1,0 +1,12 @@
+"macex5.as", line 41: 
+            F == DoubleFloat
+.................^
+[L41 C18] #4 (Error) (After Macro Expansion) Duplicate selector/type pair within Record, RawRecord or Union.
+Expanded expression was: DoubleFloat
+
+"macex5.as", line 55: 
+        importRecord(DoubleFloat)
+.....................^
+[L55 C22] #1 (Error) (After Macro Expansion) Duplicate selector/type pair within Record, RawRecord or Union.
+Expanded expression was: DoubleFloat
+

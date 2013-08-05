@@ -1,0 +1,4 @@
+testsuite (aldor)
+
+# These tests depend on axllib
+testsuite.rst: $(find-c-package axllib)

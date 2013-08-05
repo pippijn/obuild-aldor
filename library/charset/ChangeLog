@@ -1,0 +1,55 @@
+2006-04-11  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/poly/cs_rcarr.as: reverted to HashTable, as the current Aldor compiler breaks the domain.
+	* updated to use LibModel of 2006-04-06
+
+2006-04-10  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: changed MINIMALVERSIONExtIO to "1.1.0"
+	* lib/src/poly/cs_ddegs.as: switched from Aldor's HashTable to ExtIO's ChainingHashTable.
+	* lib/src/poly/cs_dmdgs.as: switched from Aldor's HashTable to ExtIO's ChainingHashTable.
+	* lib/src/poly/cs_rcarr.as: switched from Aldor's HashTable to ExtIO's ChainingHashTable.
+
+2006-04-04  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* lib/src/algos/cs_astls.as: fixed documentation.
+	* lib/src/algos/cs_bssts.as: fixed documentation.
+	* lib/src/algos/cs_bstls.as: fixed documentation.
+	* lib/src/algos/cs_castl.as: fixed documentation.
+	* lib/src/algos/cs_chide.as: fixed documentation.
+	* lib/src/algos/cs_sgbal.as: fixed documentation.
+	* lib/src/algos/cs_resum.as: fixed documentation.
+	* lib/src/algos/cs_srgba.as: fixed documentation.
+	* lib/src/algos/cs_msat.as: fixed documentation.
+	* lib/src/exponent/cs_sle.as: fixed documentation.
+	* lib/src/util/cs_difpr.as: fixed documentation.
+	* lib/src/vars/cs_dv.as: fixed documentation.
+	* lib/src/vars/cs_dvt.as: fixed documentation.
+	* lib/src/vars/cs_odv.as: fixed documentation.
+	* lib/src/vars/cs_vmtls.as: fixed documentation.
+
+2006-04-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: increased PATCHVERSION to 2.
+
+-- release of version 1.0.1 ------------------------------------------
+
+2006-04-03  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* updated to use LibModel 0.1.4
+	* doc/src/cas-aldor.tex: removed formatting of section headers.
+	* doc/src/cas-maple.tex: removed formatting of section headers.
+	* doc/src/cas-mathematica.tex: removed formatting of section headers.
+	* doc/src/cas-mathematica-tm.tex: removed formatting of section headers.
+	* doc/src/pics/algos.pdf: added.
+	* doc/src/pics/algos2.pdf: added.
+	* doc/src/pics/commandline.eps: removed.
+	* doc/src/pics/commandline.fig: removed.
+	* doc/src/pics/mapleconnection.pdf: added.
+	* doc/src/pics/mccmprep.pdf: added.
+
+2006-01-22  Christian Aistleitner  <christian.aistleitner@gmx.at>
+
+	* configure.in: increased PATCHVERSION to 1
+
+-- release of version 1.0.0 ------------------------------------------

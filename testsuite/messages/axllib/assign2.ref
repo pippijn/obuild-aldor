@@ -1,0 +1,5 @@
+"assign2.as", line 28: 
+u : (Integer,Integer) == (1,2)
+^
+[L28 C1] #1 (Error) Improper form appearing within a declaration.
+

@@ -1,0 +1,54 @@
+"macex3.as", line 9: 
+        a == a1 - a2
+.............^..^.^
+[L9 C14] #19 (Error) (After Macro Expansion) No meaning for identifier `a1'.
+Expanded expression was: a1
+[L9 C17] #18 (Error) (After Macro Expansion) There are no suitable meanings for the operator `-'.
+Expanded expression was: -
+[L9 C19] #20 (Error) (After Macro Expansion) No meaning for identifier `a2'.
+Expanded expression was: a2
+
+"macex3.as", line 10: 
+        c == c1
+.............^
+[L10 C14] #14 (Error) (After Macro Expansion) There are no suitable meanings for the operator `c1'.
+Expanded expression was: c1
+
+"macex3.as", line 13: 
+f(x: Integer): Integer ==
+..^..^
+[L13 C3] #4 (Error) There are no suitable meanings for the operator `->'.
+[L13 C6] #3 (Error) No meaning for identifier `Integer'.
+
+"macex3.as", line 14: 
+  macro a == a2 - a1
+.............^..^.^
+[L14 C14] #16 (Error) (After Macro Expansion) No meaning for identifier `a2'.
+Expanded expression was: a2
+[L14 C17] #1 (Warning) Definition of macro `a' hides an outer definition.
+[L14 C17] #15 (Error) (After Macro Expansion) There are no suitable meanings for the operator `-'.
+Expanded expression was: -
+[L14 C19] #17 (Error) (After Macro Expansion) No meaning for identifier `a1'.
+Expanded expression was: a1
+
+"macex3.as", line 15: 
+  g(y : Integer): Integer ==
+....^...^
+[L15 C5] #8 (Error) There are no suitable meanings for the operator `->'.
+[L15 C9] #7 (Error) No meaning for identifier `Integer'.
+
+"macex3.as", line 16: 
+    macro i + j == concat(i,j)
+..........^........^
+[L16 C11] #2 (Warning) Definition of macro `+' hides an outer definition.
+[L16 C20] #11 (Error) (After Macro Expansion) There are no suitable meanings for the operator `concat'.
+Expanded expression was: concat
+
+"macex3.as", line 17: 
+    "Number" + stringify(y)             -- concat("Number",stringify(y))
+....^..........^
+[L17 C5] #12 (Error) (After Macro Expansion) No meaning for string-style literal `"Number"'.
+Expanded expression was: "Number"
+[L17 C16] #13 (Error) (After Macro Expansion) There are no suitable meanings for the operator `stringify'.
+Expanded expression was: stringify
+

@@ -1,0 +1,1 @@
+../../../../.upstream/aldor/lib/axllib/test/tinfer1.as

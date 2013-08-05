@@ -1,0 +1,35 @@
+"scan1.as", line 7: 
+add always and assert break but by case default define delay do
+....^
+[L7 C5] #3 (Error) Syntax error.
+
+"scan1.as", line 13: 
+<- >= +- +-> > >> ^ ^= <= < << - ~ ~= + ; #
+...^
+[L13 C4] #4 (Error) Syntax error.
+
+"scan1.as", line 14: 
+/ // * ** -> \/ /\ ( ) [ ] { } (| |)  {| |} [| |]
+..^
+[L14 C3] #5 (Error) Syntax error.
+
+"scan1.as", line 16: 
+#error The file was not included.
+^
+[L16 C1] #1 (Error)  The file was not included.
+
+"scan1.as", line 17: 
+local fib(x: X): Y ==  ++ Live from Pisa
+.......................^
+[L17 C24] #6 (Error) Syntax error.
+
+"scan1.as", line 22: 
+@@@~`!@#$%^&*()_-+=|\{[}]:;'<,>.?0/
+^
+[L22 C1] #7 (Error) Syntax error.
+
+"scan1.as", line 24: 
+#we are not a muse.
+^
+[L24 C1] #2 (Warning) Unknown system command.
+

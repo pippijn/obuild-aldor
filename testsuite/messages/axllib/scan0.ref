@@ -1,0 +1,16 @@
+"scan0.as", line 7: 
+#NowIs the time
+^
+[L7 C1] #1 (Warning) Unknown system command.
+
+"scan0.as", line 9: 
+  good men
+..^
+[L9 C3] #2 (Warning) Suspicious juxtaposition.  Check for missing `;'.
+Check indentation if you are using `#pile'.
+
+"scan0.as", line 10: 
+   to too
+...^
+[L10 C4] #3 (Error) Syntax error.
+

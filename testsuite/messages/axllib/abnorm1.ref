@@ -1,0 +1,10 @@
+"abnorm1.as", line 28: 
+    == add
+.......^
+[L28 C8] #1 (Error) The domain is missing some exports.
+	Missing nil: List
+	Missing cons: (Integer, List) -> List
+	Missing empty?: List -> Boolean
+	Missing first: List -> Integer
+	Missing rest: List -> List
+

@@ -1,0 +1,539 @@
+"rawcomplex.as", line 10: 
+RawComplex(R: Join(Field, DenseStorageCategory)):
+...........^..^....^......^
+[L10 C12] #85 (Error) There are no suitable meanings for the operator `->'.
+[L10 C15] #1 (Error) There are no suitable meanings for the operator `Join'.
+[L10 C20] #2 (Error) No meaning for identifier `Field'.
+[L10 C27] #3 (Error) No meaning for identifier `DenseStorageCategory'.
+
+"rawcomplex.as", line 11: 
+   Join(Field, DenseStorageCategory) with {
+........^......^.....................^
+[L11 C9] #23 (Error) No meaning for identifier `Field'.
+[L11 C16] #24 (Error) No meaning for identifier `DenseStorageCategory'.
+[L11 C38] #22 (Error) There are no suitable meanings for the operator `Join'.
+
+"rawcomplex.as", line 12: 
+        *: (R, %) -> %;
+............^.....^
+[L12 C13] #4 (Error) There are 0 meanings for `R' in this context.
+The possible types were:
+	  R: Join(Field, DenseStorageCategory), a local
+  The context requires an expression of type Tuple(Type).
+[L12 C13] #20 (Error) Have determined 1 possible types for the expression.
+	Meaning 1: Join(Field, DenseStorageCategory), Join(Field, DenseStorageCat...
+  The context requires an expression of type Tuple(Type).
+[L12 C13] #25 (Error) There are 0 meanings for `R' in this context.
+The possible types were:
+	  R: Join(Field, DenseStorageCategory), a local
+  The context requires an expression of type Tuple(Type).
+[L12 C19] #21 (Error) There are no suitable meanings for the operator `->'.
+
+"rawcomplex.as", line 16: 
+        *: (%, R) -> %;
+............^.....^
+[L16 C13] #17 (Error) Have determined 1 possible types for the expression.
+	Meaning 1: Join(Field, DenseStorageCategory) with 
+                      ...
+  The context requires an expression of type Tuple(Type).
+[L16 C19] #18 (Error) There are no suitable meanings for the operator `->'.
+
+"rawcomplex.as", line 24: 
+        complex: (R,R) -> %;
+..................^....^
+[L24 C19] #14 (Error) Have determined 1 possible types for the expression.
+	Meaning 1: Join(Field, DenseStorageCategory), Join(Field, DenseStorageCat...
+  The context requires an expression of type Tuple(Type).
+[L24 C24] #15 (Error) There are no suitable meanings for the operator `->'.
+
+"rawcomplex.as", line 28: 
+        real: % -> R;
+................^
+[L28 C17] #11 (Error) There are no suitable meanings for the operator `->'.
+
+"rawcomplex.as", line 40: 
+        conjugate: % -> %;
+.....................^
+[L40 C22] #9 (Error) There are no suitable meanings for the operator `->'.
+
+"rawcomplex.as", line 47: 
+        coerce: R -> %;
+..................^
+[L47 C19] #8 (Error) There are no suitable meanings for the operator `->'.
+
+"rawcomplex.as", line 49: 
+        copy!: (%, %) -> ();
+......................^
+[L49 C23] #6 (Error) There are no suitable meanings for the operator `->'.
+
+"rawcomplex.as", line 56: 
+        Rep == RawRecord(real: R, imag: R);
+........^......^...............^
+[L56 C9] #111 (Error) Have determined 0 possible types for the expression.
+  Subexpression `Rep':
+	Meaning 1: ? == RawRecord(real: R, imag: R)
+  Subexpression `RawRecord(real: R, imag: R)':
+[L56 C16] #29 (Error) There are no suitable meanings for the operator `RawRecord'.
+[L56 C32] #26 (Error) There are 0 meanings for `R' in this context.
+The possible types were:
+	  R: Join(Field, DenseStorageCategory), a local
+  The context requires an expression of type Tuple(Type).
+
+"rawcomplex.as", line 61: 
+        import from Rep;
+....................^
+[L61 C21] #30 (Error) There are 0 meanings for `Rep' in this context.
+The possible types were:
+	  Rep: ? == RawRecord(real: R, imag: R), a local
+  The context requires an expression of type Tuple(Type).
+
+"rawcomplex.as", line 66: 
+        complex(r: R, i: R): % == per [r, i];
+................^.................^...^
+[L66 C17] #62 (Error) Have determined 1 possible types for the expression.
+	Meaning 1: ?, ?
+  The context requires an expression of type Tuple(Type).
+[L66 C17] #63 (Error) There are no suitable meanings for the operator `->'.
+[L66 C35] #112 (Error) There are no suitable meanings for the operator `per'.
+[L66 C39] #113 (Error) There are no suitable meanings for the operator `bracket'.
+
+"rawcomplex.as", line 67: 
+        real(a: %): R          == rep(a).real;
+.............^....................^
+[L67 C14] #61 (Error) There are no suitable meanings for the operator `->'.
+[L67 C35] #114 (Error) There are no suitable meanings for the operator `rep(a)'.
+[L67 C35] #115 (Error) No meaning for identifier `rep'.
+
+"rawcomplex.as", line 68: 
+        imag(a: %): R          == rep(a).imag;
+..................................^
+[L68 C35] #116 (Error) There are no suitable meanings for the operator `rep(a)'.
+[L68 C35] #117 (Error) No meaning for identifier `rep'.
+
+"rawcomplex.as", line 70: 
+        norm(a: %): R          == real a * real a + imag a * imag a;
+..................................^.................^
+[L70 C35] #118 (Error) Argument 1 of `*' did not match any possible parameter type.
+    The rejected type is R.
+    Expected type %.
+
+"rawcomplex.as", line 71: 
+        conjugate(a: %): %     == complex(real a, -imag a);
+..................^................................^
+[L71 C19] #60 (Error) There are no suitable meanings for the operator `->'.
+[L71 C52] #120 (Error) Argument 1 of `-' did not match any possible parameter type.
+    The rejected type is R.
+    Expected one of:
+      -- %
+      -- a: %, b: %
+
+"rawcomplex.as", line 73: 
+        coerce(n: SingleInteger): % == n::R::%;
+...............^..^.......................^
+[L73 C16] #59 (Error) There are no suitable meanings for the operator `->'.
+[L73 C19] #58 (Error) No meaning for identifier `SingleInteger'.
+[L73 C43] #121 (Error) There are no suitable meanings for the operator `coerce'.
+   The possible types of the left hand side are:
+          -- SingleInteger
+
+"rawcomplex.as", line 74: 
+        coerce(n: Integer): % == n::R::%;
+...............^..^.................^
+[L74 C16] #57 (Error) There are no suitable meanings for the operator `->'.
+[L74 C19] #56 (Error) No meaning for identifier `Integer'.
+[L74 C37] #122 (Error) There are no suitable meanings for the operator `coerce'.
+   The possible types of the left hand side are:
+          -- Integer
+
+"rawcomplex.as", line 75: 
+        coerce(x: R): % == complex(x, 0);
+...............^......................^
+[L75 C16] #55 (Error) There are no suitable meanings for the operator `->'.
+[L75 C39] #123 (Error) Argument 2 of `complex' did not match any possible parameter type.
+    The rejected type is %.
+    Expected type R.
+
+"rawcomplex.as", line 77: 
+        0:  % == complex(0, 0);
+.........................^
+[L77 C26] #124 (Error) Argument 1 of `complex' did not match any possible parameter type.
+    The rejected type is %.
+    Expected type R.
+
+"rawcomplex.as", line 78: 
+        1:  % == complex(1, 0);
+.........................^
+[L78 C26] #125 (Error) Argument 1 of `complex' did not match any possible parameter type.
+    The rejected type is %.
+    Expected type R.
+
+"rawcomplex.as", line 79: 
+        %i: % == complex(0, 1);
+.........................^
+[L79 C26] #126 (Error) Argument 1 of `complex' did not match any possible parameter type.
+    The rejected type is %.
+    Expected type R.
+
+"rawcomplex.as", line 81: 
+        - (a: %): % == complex(- real a, - imag a);
+.................................^.........^
+[L81 C34] #127 (Error) Argument 1 of `-' did not match any possible parameter type.
+    The rejected type is R.
+    Expected one of:
+      -- %
+      -- a: %, b: %
+
+"rawcomplex.as", line 84: 
+        (a: %) + (b: %): % == complex(real a + real b,  imag a + imag b);
+.........^............................^.................^
+[L84 C10] #54 (Error) There are no suitable meanings for the operator `->'.
+[L84 C39] #129 (Error) Argument 1 of `+' did not match any possible parameter type.
+    The rejected type is R.
+    Expected type %.
+
+"rawcomplex.as", line 85: 
+        (a: %) - (b: %): % == complex(real a - real b,  imag a - imag b);
+......................................^.................^
+[L85 C39] #131 (Error) Argument 1 of `-' did not match any possible parameter type.
+    The rejected type is R.
+    Expected type %.
+
+"rawcomplex.as", line 86: 
+        (r: R) * (a: %): % == complex(r * real a, r * imag a);
+.........^............................^...........^
+[L86 C10] #52 (Error) Have determined 1 possible types for the expression.
+	Meaning 1: ?, Type == RawComplex(R)
+  The context requires an expression of type Tuple(Type).
+[L86 C10] #53 (Error) There are no suitable meanings for the operator `->'.
+[L86 C39] #133 (Error) Argument 1 of `*' did not match any possible parameter type.
+    The rejected type is R.
+    Expected type %.
+
+"rawcomplex.as", line 87: 
+        (a: %) * (r: R): % == complex(real(a) * r, imag(a) * r);
+.........^............................^............^
+[L87 C10] #50 (Error) Have determined 1 possible types for the expression.
+	Meaning 1: Type == RawComplex(R), ?
+  The context requires an expression of type Tuple(Type).
+[L87 C10] #51 (Error) There are no suitable meanings for the operator `->'.
+[L87 C39] #135 (Error) Argument 1 of `*' did not match any possible parameter type.
+    The rejected type is R.
+    Expected type %.
+
+"rawcomplex.as", line 89: 
+            complex(real a * real b - imag a * imag b,
+....................^.................^
+[L89 C21] #137 (Error) Argument 1 of `*' did not match any possible parameter type.
+    The rejected type is R.
+    Expected type %.
+
+"rawcomplex.as", line 90: 
+                    real a * imag b + imag a * real b);
+....................^.................^
+[L90 C21] #139 (Error) Argument 1 of `*' did not match any possible parameter type.
+    The rejected type is R.
+    Expected type %.
+
+"rawcomplex.as", line 95: 
+        (a: %) / (r: R): % == complex(real(a) / r, imag(a) / r);
+......................................^............^
+[L95 C39] #141 (Error) Argument 1 of `/' did not match any possible parameter type.
+    The rejected type is R.
+    Expected type %.
+
+"rawcomplex.as", line 98: 
+            d: R == real b * real b  + imag b * imag b;
+....................^..................^
+[L98 C21] #143 (Error) Argument 1 of `*' did not match any possible parameter type.
+    The rejected type is R.
+    Expected type %.
+
+"rawcomplex.as", line 99: 
+            complex((real a *real b  + imag a * imag b)/d,
+.....................^.................^
+[L99 C22] #145 (Error) Argument 1 of `*' did not match any possible parameter type.
+    The rejected type is R.
+    Expected type %.
+
+"rawcomplex.as", line 100: 
+                    (imag a *real b  - real a * imag b)/d);
+.....................^.................^
+[L100 C22] #147 (Error) Argument 1 of `*' did not match any possible parameter type.
+    The rejected type is R.
+    Expected type %.
+
+"rawcomplex.as", line 103: 
+        pow(T) ==> power$BinaryPowering(Rep, mult!, T);
+........................^^
+[L103 C25] #163 (Error) (After Macro Expansion) There are no suitable meanings for the operator `power$BinaryPowering(Rep, mult!, Integer)'.
+Expanded expression was: power$BinaryPowering(Rep, mult!, Integer)
+[L103 C26] #100 (Error) (After Macro Expansion) There are no suitable meanings for the operator `BinaryPowering'.
+Expanded expression was: BinaryPowering
+
+"rawcomplex.as", line 105: 
+        mult!(a: Rep, b: Rep): Rep == {
+..............^
+[L105 C15] #48 (Error) Have determined 1 possible types for the expression.
+	Meaning 1: ?, ?
+  The context requires an expression of type Tuple(Type).
+[L105 C15] #49 (Error) There are no suitable meanings for the operator `->'.
+
+"rawcomplex.as", line 106: 
+                x := a.real * b.real - a.imag * b.imag;
+................^.....^........^........^........^
+[L106 C17] #149 (Error) No meaning for identifier `x'.
+[L106 C23] #150 (Error) There are no suitable meanings for the operator `a'.
+[L106 C32] #151 (Error) There are no suitable meanings for the operator `b'.
+[L106 C41] #152 (Error) There are no suitable meanings for the operator `a'.
+[L106 C50] #153 (Error) There are no suitable meanings for the operator `b'.
+
+"rawcomplex.as", line 107: 
+                y := a.real * b.imag + a.imag * b.real;
+................^.....^........^........^........^
+[L107 C17] #154 (Error) No meaning for identifier `y'.
+[L107 C23] #155 (Error) There are no suitable meanings for the operator `a'.
+[L107 C32] #156 (Error) There are no suitable meanings for the operator `b'.
+[L107 C41] #157 (Error) There are no suitable meanings for the operator `a'.
+[L107 C50] #158 (Error) There are no suitable meanings for the operator `b'.
+
+"rawcomplex.as", line 108: 
+                a.real := x;
+.................^
+[L108 C18] #159 (Error) There are no suitable meanings for the operator `set!'.
+  There is no `set!' definition with this number of arguments.
+
+"rawcomplex.as", line 109: 
+                a.imag := y;
+.................^
+[L109 C18] #160 (Error) There are no suitable meanings for the operator `set!'.
+  There is no `set!' definition with this number of arguments.
+
+"rawcomplex.as", line 112: 
+        (a: %) ^ (n: Integer): % == 
+.........^...........^
+[L112 C10] #44 (Error) Have determined 1 possible types for the expression.
+	Meaning 1: Type == RawComplex(R), ?
+  The context requires an expression of type Tuple(Type).
+[L112 C10] #45 (Error) There are no suitable meanings for the operator `->'.
+[L112 C22] #43 (Error) No meaning for identifier `Integer'.
+
+"rawcomplex.as", line 113: 
+                if n < 0 then inv (a^(-n)) else
+.....................^.................^
+[L113 C22] #99 (Error) There are no suitable meanings for the operator `<'.
+[L113 C40] #161 (Error) Argument 1 of `-' did not match any possible parameter type.
+    The rejected type is Integer.
+    Expected one of:
+      -- %
+      -- a: %, b: %
+
+"rawcomplex.as", line 114: 
+                per pow(Integer)      ([1,0], [real a, imag a], n);
+................^.......^..............^......^
+[L114 C17] #162 (Error) There are no suitable meanings for the operator `per'.
+[L114 C25] #101 (Error) (After Macro Expansion) No meaning for identifier `Integer'.
+Expanded expression was: Integer
+[L114 C40] #164 (Error) There are no suitable meanings for the operator `bracket'.
+
+"rawcomplex.as", line 116: 
+        (a: %) = (b: %): Boolean ==
+.........^...............^
+[L116 C10] #41 (Error) There are no suitable meanings for the operator `->'.
+[L116 C26] #40 (Error) No meaning for identifier `Boolean'.
+
+"rawcomplex.as", line 117: 
+            real a = real b and imag a = imag b;
+............^...................^
+[L117 C13] #166 (Error) Argument 1 of `=' did not match any possible parameter type.
+    The rejected type is R.
+    Expected type %.
+
+"rawcomplex.as", line 119: 
+        (a: %) ~= (b: %): Boolean == ~(a = b);
+..........................^..........^
+[L119 C27] #87 (Error) No meaning for identifier `Boolean'.
+[L119 C38] #168 (Error) There are no suitable meanings for the operator `~'.
+
+"rawcomplex.as", line 120: 
+        zero?(a: %): Boolean      == a = 0;
+..............^......^
+[L120 C15] #38 (Error) There are no suitable meanings for the operator `->'.
+[L120 C22] #37 (Error) No meaning for identifier `Boolean'.
+
+"rawcomplex.as", line 125: 
+        divide(a: %, b: %): (%, %) == (a/b, 0);
+...............^
+[L125 C16] #36 (Error) There are no suitable meanings for the operator `->'.
+
+"rawcomplex.as", line 127: 
+        copy!(x:%, y:%):() ==
+..............^
+[L127 C15] #35 (Error) There are no suitable meanings for the operator `->'.
+
+"rawcomplex.as", line 129: 
+                xp:Rep := rep x;
+..........................^
+[L129 C27] #169 (Error) There are no suitable meanings for the operator `rep'.
+
+"rawcomplex.as", line 130: 
+                yp:Rep := rep y;
+..........................^
+[L130 C27] #170 (Error) There are no suitable meanings for the operator `rep'.
+
+"rawcomplex.as", line 132: 
+                xp.real := yp.real;
+..................^..........^
+[L132 C19] #171 (Error) There are no suitable meanings for the operator `set!'.
+  There is no `set!' definition with this number of arguments.
+[L132 C30] #172 (Error) There are no suitable meanings for the operator `yp'.
+
+"rawcomplex.as", line 133: 
+                xp.imag := yp.imag;
+..................^..........^
+[L133 C19] #173 (Error) There are no suitable meanings for the operator `set!'.
+  There is no `set!' definition with this number of arguments.
+[L133 C30] #174 (Error) There are no suitable meanings for the operator `yp'.
+
+"rawcomplex.as", line 136: 
+        (p: TextWriter) << (a: %): TextWriter ==
+.........^..^
+[L136 C10] #32 (Error) Have determined 1 possible types for the expression.
+	Meaning 1: ?, Type == RawComplex(R)
+  The context requires an expression of type Tuple(Type).
+[L136 C10] #33 (Error) There are no suitable meanings for the operator `->'.
+[L136 C13] #31 (Error) No meaning for identifier `TextWriter'.
+
+"rawcomplex.as", line 137: 
+                p << "(" << real a << " + " << imag a << " %i)";
+.....................^................^..................^
+[L137 C22] #175 (Error) No meaning for string-style literal `"("'.
+[L137 C39] #176 (Error) No meaning for string-style literal `" + "'.
+[L137 C58] #177 (Error) No meaning for string-style literal `" %i)"'.
+
+"rawcomplex.as", line 141: 
+        import from Machine;
+....................^
+[L141 C21] #64 (Error) No meaning for identifier `Machine'.
+
+"rawcomplex.as", line 143: 
+        PackedArrayNew(n:BSInt):BArr ==
+.......................^.^......^
+[L143 C24] #83 (Error) There are no suitable meanings for the operator `->'.
+[L143 C26] #81 (Error) No meaning for identifier `BSInt'.
+[L143 C33] #82 (Error) No meaning for identifier `BArr'.
+
+"rawcomplex.as", line 144: 
+                PackedArrayNew(n + n)$R;
+...............................^.....^
+[L144 C32] #179 (Error) Argument 1 of `+' did not match any possible parameter type.
+    The rejected type is BSInt.
+    Expected type %.
+[L144 C38] #178 (Error) There are no suitable meanings for the operator `PackedArrayNew$R'.
+
+"rawcomplex.as", line 146: 
+        PackedArrayGet(a:BArr, i:BSInt):% == {
+.......................^.^.......^
+[L146 C24] #79 (Error) Have determined 1 possible types for the expression.
+	Meaning 1: ?, ?
+  The context requires an expression of type Tuple(Type).
+[L146 C24] #80 (Error) There are no suitable meanings for the operator `->'.
+[L146 C26] #77 (Error) No meaning for identifier `BArr'.
+[L146 C34] #78 (Error) No meaning for identifier `BSInt'.
+
+"rawcomplex.as", line 149: 
+                re := PackedArrayGet(a, i + i)$R;
+........................................^.....^
+[L149 C41] #181 (Error) Argument 1 of `+' did not match any possible parameter type.
+    The rejected type is BSInt.
+    Expected type %.
+[L149 C47] #180 (Error) There are no suitable meanings for the operator `PackedArrayGet$R'.
+
+"rawcomplex.as", line 150: 
+                im := PackedArrayGet(a, i + i + 1)$R;
+........................................^.........^
+[L150 C41] #183 (Error) Argument 1 of `+' did not match any possible parameter type.
+    The rejected type is BSInt.
+    Expected type %.
+[L150 C51] #182 (Error) There are no suitable meanings for the operator `PackedArrayGet$R'.
+
+"rawcomplex.as", line 154: 
+        PackedArraySet(a:BArr, i:BSInt, e:%):% == {
+.......................^.^.......^
+[L154 C24] #75 (Error) Have determined 1 possible types for the expression.
+	Meaning 1: ?, ?, Type == RawComplex(R)
+  The context requires an expression of type Tuple(Type).
+[L154 C24] #76 (Error) There are no suitable meanings for the operator `->'.
+[L154 C26] #73 (Error) No meaning for identifier `BArr'.
+[L154 C34] #74 (Error) No meaning for identifier `BSInt'.
+
+"rawcomplex.as", line 159: 
+                PackedArraySet(a, i + i, re)$R;
+..................................^.........^
+[L159 C35] #185 (Error) Argument 1 of `+' did not match any possible parameter type.
+    The rejected type is BSInt.
+    Expected type %.
+[L159 C45] #184 (Error) There are no suitable meanings for the operator `PackedArraySet$R'.
+
+"rawcomplex.as", line 160: 
+                PackedArraySet(a, i + i + 1, im)$R;
+..................................^.............^
+[L160 C35] #187 (Error) Argument 1 of `+' did not match any possible parameter type.
+    The rejected type is BSInt.
+    Expected type %.
+[L160 C49] #186 (Error) There are no suitable meanings for the operator `PackedArraySet$R'.
+
+"rawcomplex.as", line 164: 
+        PackedRecordSet(p:BPtr, e:%):% ==
+........................^.^
+[L164 C25] #71 (Error) Have determined 1 possible types for the expression.
+	Meaning 1: ?, Type == RawComplex(R)
+  The context requires an expression of type Tuple(Type).
+[L164 C25] #72 (Error) There are no suitable meanings for the operator `->'.
+[L164 C27] #70 (Error) No meaning for identifier `BPtr'.
+
+"rawcomplex.as", line 170: 
+                PackedArraySet(p pretend BArr, 0, re)$R;
+.........................................^...........^
+[L170 C42] #108 (Error) No meaning for identifier `BArr'.
+[L170 C54] #188 (Error) There are no suitable meanings for the operator `PackedArraySet$R'.
+
+"rawcomplex.as", line 171: 
+                PackedArraySet(p pretend BArr, 1, im)$R;
+.....................................................^
+[L171 C54] #189 (Error) There are no suitable meanings for the operator `PackedArraySet$R'.
+
+"rawcomplex.as", line 175: 
+        PackedRecordGet(p:BPtr):% ==
+........................^.^
+[L175 C25] #69 (Error) There are no suitable meanings for the operator `->'.
+[L175 C27] #68 (Error) No meaning for identifier `BPtr'.
+
+"rawcomplex.as", line 179: 
+                re := PackedArrayGet(p pretend BArr, 0)$R;
+...............................................^.......^
+[L179 C48] #110 (Error) No meaning for identifier `BArr'.
+[L179 C56] #190 (Error) There are no suitable meanings for the operator `PackedArrayGet$R'.
+
+"rawcomplex.as", line 180: 
+                im := PackedArrayGet(p pretend BArr, 1)$R;
+.......................................................^
+[L180 C56] #191 (Error) There are no suitable meanings for the operator `PackedArrayGet$R'.
+
+"rawcomplex.as", line 184: 
+        PackedRepSize():BSInt ==
+........^...............^
+[L184 C9] #66 (Error) There are no suitable meanings for the operator `->'.
+[L184 C25] #65 (Error) No meaning for identifier `BSInt'.
+
+"rawcomplex.as", line 186: 
+                local dsize:BSInt := PackedRepSize()$R;
+....................................................^
+[L186 C53] #192 (Error) There are no suitable meanings for the operator `PackedRepSize$R'.
+
+"rawcomplex.as", line 187: 
+                dsize + dsize;
+................^
+[L187 C17] #193 (Error) Argument 1 of `+' did not match any possible parameter type.
+    The rejected type is BSInt.
+    Expected type %.
+

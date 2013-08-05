@@ -1,0 +1,44 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+\clearpage
+\section{Analysis of needs}
+
+In the course of dealing with the topic of ``programmer tests'', the following needs have been identified:
+
+\begin{itemize}
+
+\item Tests have to run without any user input.
+\item Tests should give reproducible results.
+
+\item Failing tests should not crash the environment.
+\item Possibility to trace segmentation faults down to the point where they occur.
+\item Starting every test in a clean environment.
+\item Providing a way to trap even errors that cannot be foreseen and proceed with the other tests.
+
+\item Hiding unnecessary information from the user.
+\item Leading the tester to the point, where a failure occurs.
+\item Being verbose on failed tests -- but only on failed tests.
+\item Only require the plain tests from the developer.
+
+\item Being able to assert equality.
+\item Being able to assert thrown exceptions.
+\item Being able to indicate a failure without assertions.
+
+\end{itemize}

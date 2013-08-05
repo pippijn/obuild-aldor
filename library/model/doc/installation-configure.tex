@@ -1,0 +1,31 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+
+\ifthenelse{\equal{\projectplainname}{LibModel}}{}{%
+%print only if the project is NOT LibModel
+\projectname is based on \LibModel{}\footnote{\LibModel is a framework providing Makefiles and scripts for \Aldor projects.}\cite{LibModel} and uses \LibModel's features for installing libraries. Therefore, the documentation for \LibModel can be used to obtain further information about the installion procedure.
+}
+
+First of all, \projectname needs to be adapted to the current system. Therefore,
+\begin{console}
+./configure
+\end{console}
+is executed in \projectname's root directory. This script investigates executables and libraries found on the current system. As the execution of the script progresses, all found and missing libraries and programs are reported. If some mandatory executable or library cannot be located, the script stops and reports about it. \refsec{advancedconfiguration} shows how \file{configure} can be hinted to the missing components. If every mandatory library and executable can be found, a summary is presented. This summary also informs about optional parts of the library.
+

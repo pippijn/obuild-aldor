@@ -1,0 +1,263 @@
+src/algos/cs_astls.ao:	\
+	src/algos/cs_bssts.ao	\
+	src/reduction/cs_trred.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_bssts.ao:	\
+	src/algos/cs_umsat.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_bstls.ao:	\
+	src/algos/cs_umsat.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_castl.ao:	\
+	src/algos/cs_bssts.ao	\
+	src/algos/cs_resum.ao	\
+	src/reduction/cs_trred.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_ccomp.ao:	\
+	src/algos/cs_castl.ao	\
+	src/algos/cs_decom.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_chide.ao:	\
+	src/algos/cs_ccomp.ao	\
+	src/algos/cs_zdchi.ao	\
+	src/poly/cs_dpcom.ao	\
+	src/poly/cs_dpgcd.ao	\
+	src/poly/cs_dpidm.ao	\
+	src/reduction/cs_prem.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_cstls.ao:	\
+	src/algos/cs_castl.ao	\
+	src/dpoly/cs_dedpr.ao	\
+	src/dpoly/cs_dr.ao	\
+	src/exponent/cs_ce.ao	\
+	src/exponent/cs_cpde.ao	\
+	src/exponent/cs_le.ao	\
+	src/exponent/cs_lse.ao	\
+	src/exponent/cs_sle.ao	\
+	src/order/cs_dvleo.ao	\
+	src/order/cs_dvlo.ao	\
+	src/order/cs_dvoo.ao	\
+	src/poly/cs_rarr.ao	\
+	src/reduction/cs_dpred.ao	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_dv.ao
+src/algos/cs_decom.ao:	\
+	src/reduction/cs_as.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_gbalg.ao:	\
+	src/util/cs_versi.ao
+src/algos/cs_gbtls.ao:	\
+	src/algos/cs_gbalg.ao	\
+	src/reduction/cs_trred.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_msat.ao:	\
+	src/algos/cs_trang.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_resum.ao:	\
+	src/algos/cs_trang.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_rgbal.ao:	\
+	src/algos/cs_gbalg.ao	\
+	src/algos/cs_trang.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_rgbtl.ao:	\
+	src/algos/cs_astls.ao	\
+	src/algos/cs_gbtls.ao	\
+	src/algos/cs_rgbal.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_sdecm.ao:	\
+	src/algos/cs_decom.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_sgbal.ao:	\
+	src/algos/cs_gbalg.ao	\
+	src/reduction/cs_redut.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_sgbpr.ao:	\
+	src/algos/cs_rgbtl.ao	\
+	src/algos/cs_srgba.ao	\
+	src/exponent/cs_sle.ao	\
+	src/poly/cs_dplto.ao	\
+	src/reduction/cs_prwd.ao	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_vmtls.ao
+src/algos/cs_srgba.ao:	\
+	src/algos/cs_rgbal.ao	\
+	src/algos/cs_sgbal.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_trang.ao:	\
+	src/reduction/cs_as.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_umsat.ao:	\
+	src/algos/cs_msat.ao	\
+	src/util/cs_versi.ao
+src/algos/cs_zdchi.ao:	\
+	src/algos/cs_sdecm.ao	\
+	src/algos/cs_sgbpr.ao	\
+	src/util/cs_versi.ao
+src/dpoly/cs_dedpr.ao:	\
+	src/dpoly/cs_depr.ao	\
+	src/util/cs_versi.ao
+src/dpoly/cs_depr.ao:	\
+	src/dpoly/cs_dprpt.ao	\
+	src/util/cs_versi.ao
+src/dpoly/cs_detot.ao:	\
+	src/util/cs_versi.ao
+src/dpoly/cs_dprpt.ao:	\
+	src/dpoly/cs_detot.ao	\
+	src/dpoly/cs_dprt.ao	\
+	src/util/cs_versi.ao
+src/dpoly/cs_dprt.ao:	\
+	src/util/cs_rank.ao	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_dvt.ao
+src/dpoly/cs_dr.ao:	\
+	src/dpoly/cs_dt.ao	\
+	src/util/cs_versi.ao
+src/dpoly/cs_dt.ao:	\
+	src/util/cs_versi.ao
+src/exponent/cs_ce.ao:	\
+	src/exponent/cs_ect.ao	\
+	src/util/cs_versi.ao
+src/exponent/cs_cpde.ao:	\
+	src/exponent/cs_ect.ao	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_eodvt.ao
+src/exponent/cs_ect.ao:	\
+	src/util/cs_versi.ao
+src/exponent/cs_le.ao:	\
+	src/exponent/cs_ect.ao	\
+	src/util/cs_versi.ao
+src/exponent/cs_lse.ao:	\
+	src/exponent/cs_ect.ao	\
+	src/util/cs_versi.ao
+src/exponent/cs_sle.ao:	\
+	src/exponent/cs_ect.ao	\
+	src/util/cs_versi.ao
+src/order/cs_dveot.ao:	\
+	src/order/cs_dvot.ao	\
+	src/util/cs_versi.ao
+src/order/cs_dvleo.ao:	\
+	src/order/cs_dveot.ao	\
+	src/util/cs_versi.ao
+src/order/cs_dvlo.ao:	\
+	src/order/cs_dvot.ao	\
+	src/util/cs_versi.ao
+src/order/cs_dvmo.ao:	\
+	src/order/cs_dvleo.ao	\
+	src/util/cs_versi.ao
+src/order/cs_dvoeo.ao:	\
+	src/order/cs_dveot.ao	\
+	src/util/cs_versi.ao
+src/order/cs_dvoo.ao:	\
+	src/order/cs_dvot.ao	\
+	src/util/cs_versi.ao
+src/order/cs_dvot.ao:	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_dvt.ao
+src/poly/cs_ddegs.ao:	\
+	src/util/cs_versi.ao
+src/poly/cs_dmain.ao:	\
+	src/util/cs_versi.ao
+src/poly/cs_dmdeg.ao:	\
+	src/util/cs_versi.ao
+src/poly/cs_dmdgs.ao:	\
+	src/util/cs_versi.ao
+src/poly/cs_dpcom.ao:	\
+	src/util/cs_rank.ao	\
+	src/util/cs_versi.ao
+src/poly/cs_dpgcd.ao:	\
+	src/reduction/cs_redut.ao	\
+	src/util/cs_rank.ao	\
+	src/util/cs_versi.ao
+src/poly/cs_dpidm.ao:	\
+	src/util/cs_rank.ao	\
+	src/util/cs_versi.ao
+src/poly/cs_dplto.ao:	\
+	src/util/cs_rank.ao	\
+	src/util/cs_versi.ao
+src/poly/cs_pgcd.ao:	\
+	src/reduction/cs_redut.ao	\
+	src/util/cs_rank.ao	\
+	src/util/cs_versi.ao
+src/poly/cs_plain.ao:	\
+	src/util/cs_versi.ao
+src/poly/cs_rarpr.ao:	\
+	src/util/cs_versi.ao
+src/poly/cs_rarr.ao:	\
+	src/util/cs_versi.ao
+src/poly/cs_rcarr.ao:	\
+	src/util/cs_versi.ao
+src/reduction/cs_as.ao:	\
+	src/reduction/cs_redut.ao	\
+	src/util/cs_rank.ao	\
+	src/util/cs_versi.ao
+src/reduction/cs_dpred.ao:	\
+	src/dpoly/cs_dprt.ao	\
+	src/reduction/cs_trred.ao	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_eodvt.ao
+src/reduction/cs_pred.ao:	\
+	src/reduction/cs_trred.ao	\
+	src/util/cs_versi.ao
+src/reduction/cs_prem.ao:	\
+	src/reduction/cs_as.ao	\
+	src/util/cs_versi.ao
+src/reduction/cs_prwd.ao:	\
+	src/reduction/cs_trred.ao	\
+	src/util/cs_versi.ao
+src/reduction/cs_redut.ao:	\
+	src/util/cs_versi.ao
+src/reduction/cs_trred.ao:	\
+	src/reduction/cs_as.ao	\
+	src/util/cs_versi.ao
+src/util/cs_difpr.ao:	\
+	src/dpoly/cs_dt.ao	\
+	src/exponent/cs_lse.ao	\
+	src/poly/cs_dpgcd.ao	\
+	src/poly/cs_dpidm.ao	\
+	src/poly/cs_dplto.ao	\
+	src/reduction/cs_prem.ao	\
+	src/util/cs_integ.ao	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_ovl2.ao
+src/util/cs_integ.ao:	\
+	src/util/cs_versi.ao
+src/util/cs_rank.ao:	\
+	src/util/cs_versi.ao
+src/vars/cs_dv.ao:	\
+	src/order/cs_dvoeo.ao	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_dvtls.ao	\
+	src/vars/cs_eodvt.ao
+src/vars/cs_dvt.ao:	\
+	src/dpoly/cs_dt.ao	\
+	src/util/cs_versi.ao
+src/vars/cs_dvtls.ao:	\
+	src/dpoly/cs_detot.ao	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_dvt.ao
+src/vars/cs_eodvt.ao:	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_dvt.ao
+src/vars/cs_mvt.ao:	\
+	src/util/cs_versi.ao
+src/vars/cs_odv.ao:	\
+	src/order/cs_dvoeo.ao	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_dvtls.ao	\
+	src/vars/cs_eodvt.ao	\
+	src/vars/cs_odvt.ao
+src/vars/cs_odvt.ao:	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_dvt.ao
+src/vars/cs_ovl2.ao:	\
+	src/util/cs_versi.ao
+src/vars/cs_ovlh.ao:	\
+	src/util/cs_versi.ao
+src/vars/cs_vmrgr.ao:	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_mvt.ao
+src/vars/cs_vmtls.ao:	\
+	src/util/cs_versi.ao	\
+	src/vars/cs_ovl2.ao	\
+	src/vars/cs_vmrgr.ao

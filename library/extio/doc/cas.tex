@@ -1,0 +1,40 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+\clearpage
+\section{Computer algebra systems}
+
+\adtype{ComputerAlgebraSystemTools},
+\adtype{ComputerAlgebraSystemType},
+\adtype{MapleTools},
+\adtype{MathematicaFullFormTools}, and
+\adtype{MathematicaFullFormParser} constitute the computer algebra system part of \projectname.
+
+\adtype{ComputerAlgebraSystemType} is a category that encapsulates functions for converting between \Aldor's expressions and expressions in the syntax of a computer algebra systems. 
+
+\adtype{MapleTools} implements \adtype{ComputerAlgebraSystemType} for the syntax of \Maple. 
+
+\adtype{MathematicaFullFormTools} implements \adtype{ComputerAlgebraSystemType} for the syntax of \Mathematica. 
+
+\adtype{MathematicaFullFormParser} is a \adtype{ParserReader} for the FullForm syntax of \Mathematica. This parser is used by \adtype{MathematicaFullFormTools}. 
+
+\adtype{ComputerAlgebraSystemTools} is a repository for implementations of \adtype{ComputerAlgebraSystemType}s. 
+
+\inputSourceFile{aldor2cas/aldor2cas.as}{An example of converting \Aldor expressions}
+\inputOutput{aldor2cas/aldor2cas}

@@ -1,0 +1,10 @@
+"linear2.as", line 19: 
+        ++ This comment
+........^
+[L19 C9] #1 (Error) Syntax error.
+
+"linear2.as", line 45: 
+        if a 
+.............^
+[L45 C14] #2 (Error) Syntax error.
+

@@ -1,0 +1,38 @@
+\clearpage
+\section{Differential domains}
+\defsec{dpolys}
+
+The differenial domains part of \LibCharSet consists of
+
+\begin{itemize}
+\item \adtype{DifferentialType},
+\item \adtype{DifferentialPolynomialRingType},
+\item \adtype{DifferentiallyExtendedDistributivePolynomialRing},
+\item \adtype{DifferentiallyExtendedPolynomialRing},
+\item \adtype{DifferentialRational},
+\item \adtype{DifferentialPolynomialRingParsingTools}, and
+\item \adtype{DifferentialExpressionTreeOperatorTools}.
+\end{itemize}
+
+\adtype{DifferentialType} is used to model ``application of a derivation''. 
+\adtype{DifferentialPolynomialRingType} is a category for differential polynomial rings.
+\adtype{DifferentiallyExtendedDistributivePolynomialRing} and \adtype{DifferentiallyExtendedPolynomialRing} extend algebraic polynomial rings to differential polynomial rings.
+\adtype{DifferentialRational} implements rational numbers with trivial derivation.
+\adtype{DifferentialPolynomialRingParsingTools}, \adtype{DifferentialExpressionTreeOperatorTools} provide tools for converting differential entities.
+
+
+
+The ``application of a derviation'' for \adtype{DifferentialType} can refer to letting a derivation act on an object (as fo example in differential rings). But it is not limited to this behaviour, as \adtype{DifferentialType} is also used to model differential indeterminates (see \refsec{indeterminates}). Differential domains are modelled by joining \adtype{DifferentialType} and an algebraic domain. For example to represent a differential field,
+\begin{adsnippet}
+with {
+  DifferentialType;
+  Field
+}
+\end{adsnippet}
+can be used. This category does not yet determine what kind of derivations are to be used. These issues have to be addressed solely in the implementation of such a category.
+
+In \LibCharSet, differential polynomial rings are typically modelled by adding differential structure to an algebraic polynomial ring. Therefore, the algebraic polynomial ring has to take its indeterminates from a \adtype{DifferentialVariableType} and its coefficients have to be some differential domain. Then \adtype{DifferentiallyExtendedDistributivePolynomialRing} and \adtype{DifferentiallyExtendedPolynomialRing} can be used to lift this algebraic polynomial ring to a differential polynomial ring. The file \file{dpoly/dpoly.as} gives an example for such a lifting.
+
+\inputSourceFile{dpoly/dpoly.as}{Lifting to a differential polynomial ring}
+
+\inputOutput{dpoly/dpoly}

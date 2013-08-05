@@ -1,0 +1,139 @@
+--* From carolinem@denham  Tue Jul 29 11:57:00 1997
+--* Received: from nagmx1.nag.co.uk by red.nag.co.uk via SMTP (920330.SGI/920502.SGI)
+--* 	for /home/red5/axiom/support/recvbug id AA04321; Tue, 29 Jul 97 11:57:00 +0100
+--* Received: from denham.nag.co.uk (denham.nag.co.uk [192.156.217.190])
+--*           by nagmx1.nag.co.uk (8.8.4/8.8.4) with SMTP
+--* 	  id LAA00846; Tue, 29 Jul 1997 11:59:18 +0100 (BST)
+--* Received: by denham.nag.co.uk with Microsoft Exchange (IMC 4.0.837.3)
+--* 	id <01BC9C16.B1BC6A20@denham.nag.co.uk>; Tue, 29 Jul 1997 11:58:14 +0100
+--* Message-Id: <c=GB%a=_%p=Numerical_Algori%l=DENHAM-970729105758Z-1998@denham.nag.co.uk>
+--* From: Caroline Murphy <carolinem@denham>
+--* To: alan <alan@nag.co.uk>, alang <alang@nag.co.uk>,
+--*         Alison Cadle
+--* 	 <alison@denham>, All Nag <all-nag-oxford@nag.co.uk>,
+--*         andrew <andrew@nag.co.uk>, Andrew Giles <andrewg@denham>
+--* To: Andrew Rushby <andrewr@denham>, anna <anna@nag.co.uk>,
+--*         anthonyc <anthonyc@nag.co.uk>, arnoldk <arnoldk@nag.co.uk>,
+--*         astrid <astrid@nag.co.uk>, Athanasia Papara <nancy@nag.co.uk>
+--* To: ax-bugs <ax-bugs@nag.co.uk>, ax-code <ax-code@nag.co.uk>,
+--*         ax-doc
+--* 	 <ax-doc@nag.co.uk>, barry <barry@nag.co.uk>,
+--*         bbs <bbs@nag.co.uk>, bbs_cal <bbs_cal@nag.co.uk>
+--* To: bbs_mail <bbs_mail@nag.co.uk>, bobs <bobs@nag.co.uk>,
+--*         bode
+--* 	 <bode@nag.co.uk>, brian <brian@nag.co.uk>,
+--*         cameron
+--* 	 <cameron@nag.co.uk>, Caroline Murphy <carolinem@denham>
+--* To: Cathy Glenn <cathy@denham>, Chris <chris@denham>,
+--*         colinp <colinp@nag.co.uk>, csgdesk <csgdesk@denham>,
+--*         david <david@nag.co.uk>, David O Brien <davido@nag.co.uk>
+--* To: David Yearling <davidy@denham>, davidf <davidf@nag.co.uk>,
+--*         davidk <davidk@nag.co.uk>, Diana Meadowcroft <diana@denham>,
+--*         dina <dina@nag.co.uk>, doug <doug@nag.co.uk>
+--* To: Ela Koncka <ela@denham>, Eleanor Hudson
+--* 	 <eleanor@denham>,
+--*         emma <emma@nag.co.uk>, Emma Mackenzie
+--* 	 <emmam@denham>,
+--*         Exchange Admin
+--* 	 <exadmin@denham>, f90_soft <f90_soft@nag.co.uk>
+--* To: focus <focus@nag.co.uk>, Forooz Saedi <Forooz@denham>,
+--*         foroozs
+--* 	 <foroozs@nag.co.uk>, Frances Iles <frances@denham>,
+--*         fssgi
+--* 	 <fssgi@nag.co.uk>, Gareth Hudson <gareth@denham>
+--* To: gareths <gareths@nag.co.uk>, geoff <geoff@nag.co.uk>,
+--*         george
+--* 	 <george@nag.co.uk>, Guy Cook <guy@nag.co.uk>,
+--*         Help Desk
+--* 	 <helpdesk@denham>, Ian  Reid on UNIX <ianr@nag.co.uk>
+--* To: Ian Reid on Exchange <ianreid@denham>, ianb <ianb@nag.co.uk>,
+--*         ianh <ianh@nag.co.uk>, ianm <ianm@nag.co.uk>,
+--*         ie-mods <ie-mods@nag.co.uk>, ifip96 <ifip96@nag.co.uk>
+--* To: Info Desk <infodesk@denham>, james <james@nag.co.uk>,
+--*         jeremy
+--* 	 <jeremy@nag.co.uk>, jeremyw <jeremyw@nag.co.uk>,
+--*         John Piper
+--* 	 <johnp@denham>, julia <julia@nag.co.uk>
+--* To: Karen Goodall <kareng@denham>, kate <kate@nag.co.uk>,
+--*         kathy
+--* 	 <kathy@nag.co.uk>, katrina <katrina@nag.co.uk>,
+--*         ken
+--* 	 <ken@nag.co.uk>, Ken Ashdown <kena@denham>
+--* To: Kevin Day <kevin@denham>, kevint <kevint@nag.co.uk>,
+--*         Lawrence
+--* 	 <lawrence@nag.co.uk>, Linda Winter <linda@denham>,
+--*         Lisa Knight <lisak@denham>, Liz Jupe <liz@denham>
+--* To: Logical Purchase <purchase@nag.co.uk>, Louise Murphy
+--* 	 <louise@denham>,
+--*         luz <luz@nag.co.uk>, Lynne Bennett
+--* 	 <lynne@denham>,
+--*         malcolm <malcolm@nag.co.uk>, Margaret Day
+--* 	 <Margaretd@denham>
+--* To: Mathwise <mathwise@denham>, mick <mick@nag.co.uk>,
+--*         "Microsoft Schedule+ Free/Busy Connector (DENHAM)" <AdminSch@NAGNTD.NumericalAlgorithmsGroup.com>,
+--*         mike <mike@nag.co.uk>, miked <miked@nag.co.uk>,
+--*         mikeg <mikeg@nag.co.uk>
+--* To: miker <miker@nag.co.uk>, mikew <mikew@nag.co.uk>,
+--*         mishi
+--* 	 <mishi@nag.co.uk>, nagflm <nagflm@nag.co.uk>,
+--*         naginc
+--* 	 <naginc@nag.co.uk>, nagssc <nagssc@nag.co.uk>
+--* To: neil <neil@nag.co.uk>, Nicola Munday <nicolam@denham>,
+--*         nld
+--* 	 <nld@nag.co.uk>, pamela <pamela@nag.co.uk>,
+--*         Patrick Craig
+--* 	 <patrick@nag.co.uk>, Paul Mitchell <paul@denham>
+--* To: peterb <peterb@nag.co.uk>, philip <philip@nag.co.uk>,
+--*         philipg
+--* 	 <philipg@nag.co.uk>, psd <psd@nag.co.uk>,
+--*         Rachel Foot
+--* 	 <rachel@denham>, richardw <richardw@nag.co.uk>
+--* To: Robert Dyson on NT <rdd@denham>, Robert Dyson on UNIX
+--* 	 <robd@nag.co.uk>,
+--*         Robert Morrell <robertm@denham>, Roger Gerke-Bonet <roger@denham>,
+--*         Sales <sales@nag.co.uk>, Sarah Brooks <sarahb@denham>
+--* To: Sarah Naisby <sarahn@denham>, Sarah Roberts
+--* 	 <sarahr@denham>,
+--*         saraht <saraht@nag.co.uk>, sastri
+--* 	 <sastri@nag.co.uk>,
+--*         sed <sed@nag.co.uk>, shah <shah@nag.co.uk>
+--* To: Shamim Begum <shamim@denham>, Sharon Fagan
+--* 	 <sharon@denham>,
+--*         Sharon Light
+--* 	 <sharonl@denham>, stef <stef@nag.co.uk>,
+--*         stephen
+--* 	 <stephen@nag.co.uk>, Steve Hague <steve@denham>
+--* To: stewart <stewart@nag.co.uk>, Support <support@denham>,
+--*         susani
+--* 	 <susani@nag.co.uk>, susans <susans@nag.co.uk>,
+--*         sven
+--* 	 <sven@nag.co.uk>, techdesk <techdesk@nag.co.uk>
+--* To: Teresa Gomez Diaz <teresa@nag.co.uk>, Terry Burgess
+--* 	 <terry@denham>,
+--*         themos <themos@nag.co.uk>, Tim Nash
+--* 	 <nash@cict.fr>,
+--*         Valerie Scadeng <valeries@denham>, Vanda Szczepanik <vanda@denham>
+--* To: vince <vince@nag.co.uk>, visitor <Visitor@denham>,
+--*         WWW Administrator <wwwadmin@denham>, Yvonne Fry <yvonne@denham>,
+--*         zohair <zohair@nag.co.uk>
+--* Subject: Fridge - WHS F1
+--* Date: Tue, 29 Jul 1997 11:57:58 +0100
+--* Return-Receipt-To: <carolinem@denham>
+--* X-Mailer:  Microsoft Exchange Server Internet Mail Connector Version 4.0.837.3
+--* Mime-Version: 1.0
+--* Content-Type: text/plain; charset="us-ascii"
+--* Content-Transfer-Encoding: 7bit
+
+--@ Fixed  by: <Who> <Date>
+--@ Tested by: <Name of new or existing file in test directory>
+--@ Summary:   <Description of real problem and the fix>
+
+This is just to let you all know that the Fridge upstairs (the big one -
+finance side) will be turned off tomorrow morning to be defrosted.
+
+Please ensure that any items belonging to you are removed or it will be
+thrown away.
+
+Thank you in advance.
+
+Caroline.

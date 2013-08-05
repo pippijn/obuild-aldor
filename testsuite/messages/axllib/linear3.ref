@@ -1,0 +1,10 @@
+"linear3.as", line 14: 
+                b,              -- Syntax error: "else" encloses ","
+....................................................................^
+[L14 C69] #1 (Error) Syntax error.
+
+"linear3.as", line 33: 
+]
+^
+[L33 C1] #2 (Error) Cannot recover from earlier syntax errors.
+

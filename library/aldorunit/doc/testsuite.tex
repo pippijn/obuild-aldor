@@ -1,0 +1,67 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+\clearpage
+\section{Working with the test suite}
+\defsec{executingtestsuite}
+
+After compiling and linking is finished, the result is an executable test suite. In \LibModel~environments this file is typically called \file{\$\{TESTDIR\}/TestSuite}. Executing this file starts the test suite. If no options are sepcified, the test suite only prints details for failed tests and a final a summary. If \projectname~has been built with the library \LibAlgebra, \projectname will even highlight failures in red. 
+
+\inputOutput{simple/TestSuite}
+
+It can easily be observed that hardly no information about test cases or individual tests can be seen in the output. This is the desired default behaviour. Only if a test fails, information about it is presented. If a test succeeds, no information about it is printed. Nevertheless the test gets executed and counted of course. By this, it is possible if for example only two out of 700 tests fail that the relavant information is presented immediately on one screen without having to scan through the output of the 700 tests and search the failed tests.
+
+However, this is only the default behaviour of the test suite. Calling the test suite with the option {\tt?} shows the further options and usage.
+
+\catcode`\_=8
+\inputOutput{simple/TestSuite_-?}
+
+Useng the option {\tt t}, it can be defined which test cases are executed. The default setting is to run all test cases. The {\tt t} option can be sepcified several times, which allows to execute several test cases. More important is the switch \verb|d|. With the help of it, one can adjust the verbosity and accuracy of the program. As mentioned above, the default is to print a summary and details of those tests, that failed. 
+
+In order to get a closer look of what is happening, the test suite is called with a debug level of $300$.
+
+\inputOutput{simple/TestSuite_-d_300}
+
+Furthermore, there is the option {\tt m} to disable Ansi characters (which are only availabe, if \projectname~has been built with \LibExtIO). The intention of this is to get a nice and clean file, when piping the output of the test suite into another program or a file.
+
+For long running test suites it is hard to say, whether the program is in an endless loop, or it is still working properly. Therefore the option {\tt p} has been introduced. (Again this option is only possible if \projectname~has been built with \LibExtIO.) With this option enabled, one gets to see a character on the screen that rotates everytime a test has been completed.
+
+Since \Aldor~itself does (currently) not support to set the return value of a program, the option {\tt n} can be used to print the number of failed tests to the standard error stream. This output can then be used in scripts to determine, if the test suite succeeded wihtout failures or not.
+
+\subsection{Segmentation faults in tests}
+
+The default behaviour of the test suite is more than suitable, if most tests succeed, and there is no segmentation fault in a test. But if in some test a segmentation fault occurs, the approach of printing information about a test, after it has either failed or succeeded is not feasible. In this case default debug level does not print any information about the test causing the segmentation fault. So one should use a more verbose debug level ($>=300$). Then every possible information is printed out immediately. This problem is explained with the help of the \file{failing/errors.test.as}.
+
+\inputSourceFile{failing/errors.test.as}{A Test Case that will segfault}
+
+
+Executing the built test suite without altering the debug level might be misleading. As the output of \file{failing/TestSuite -m} shows.
+
+\inputOutput{failing/TestSuite_-m}
+
+Besides two tests, which intentionally failed, one can see that the output suddenly stops. No summary has been printed. A segmentation fault has occurred.
+The output suggests that the segmentation fault took place right after the {\tt ThrowingException} test. But the \adname{testAssertingException} has been called afterwards and succeeded. The segmentation fault occurred in \adname{testSegFaulting}.
+
+This however cannot be seen without altering the debug level. In order to get more insight, the test suite is started with a debug level of $300$.
+
+\inputOutput{failing/TestSuite_-m_-d_300}
+
+Here now, one can see that the test {\tt Failing} and {\tt ThrowingException} failed, while the test {\tt AssertingException} succeeded. Then the last test is {\tt SegFaulting}. It is started and the setup of the test succeeded. The \adname{assertNotEquals} succeeded, and then the output stops. This means that a line after the call of \adname{assertNotEquals} caused the segmentation fault. This is indeed true. The segmentation fault is due to the statement \adcode|[7,8,9].5|, because one cannot acces the fifth element in a list with only three elements. Since the used domain is \adtype{List} and not \adtype{CheckingList} this results in an segmentation fault.
+
+So with the help of the debug levels in the test suite, one can easily track down segmentation faults to the very statement they occur.

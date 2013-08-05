@@ -1,0 +1,1 @@
+../.upstream/aldor/aldor/src/compcfg.h

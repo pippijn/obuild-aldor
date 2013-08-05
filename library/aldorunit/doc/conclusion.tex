@@ -1,0 +1,25 @@
+% Copyright (C) 2005  Research Institute for Symbolic Computation, J.    
+% Kepler University, Linz, Austria                                       
+%                                                                        
+% Written by Christian Aistleitner                                       
+%                                                                        
+% This program is free software; you can redistribute it and/or          
+% modify it under the terms of the GNU General Public License version 2, 
+% as published by the Free Software Foundation.                          
+%                                                                        
+% This program is distributed in the hope that it will be useful,        
+% but WITHOUT ANY WARRANTY; without even the implied warranty of         
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          
+% GNU General Public License for more details.                           
+%                                                                        
+% You should have received a copy of the GNU General Public License      
+% along with this program; if not, write to the Free Software            
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,             
+% MA  02110-1301, USA.                                                   
+%
+\clearpage
+\section{Conclusion}
+
+With the given examples it was tried to make clear, what can be achieved with \projectname~at the present stage.
+
+Writing tests is simple and intuitive. It is supported by some \adcode{assert...} functions along with a checked way to retract \adtype{Partial} values. Putting tests together into test cases comes quite natural and is supported by generating the signatures automatically. Then several test cases are put together in a test suite, which can then in turn be executed. The test suite itself does not only tell the developer how many tests failed and succeeded, but also gives information which tests failed an succeeded and shows what assertions failed. In addition to this, the standard behaviour is to hide debug information for succeeded tests and only show the failed ones. This can be easily overridden and thereby the test suite can become a handy tool for tracking down segmentation faults.

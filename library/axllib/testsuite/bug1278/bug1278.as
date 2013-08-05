@@ -1,0 +1,1 @@
+../../../../.upstream/aldor/lib/axllib/test/bug1278.as

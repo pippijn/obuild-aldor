@@ -90,6 +90,6 @@ install Library ".DEFAULT" [
 
   AldorRequires [
     "aldor";
-    (*"algebra";*)
+    "algebra";
   ];
 ]

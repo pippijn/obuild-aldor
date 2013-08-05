@@ -31,3 +31,8 @@ $(testresultdir)/testreport.html: $(scriptdir)/testreport $(COLORDIFF) $(LEVENSH
 
 # Produce test report on make check.
 check: $(testresultdir)/testreport.html
+
+.PHONY: update-issues
+update-issues: $(scriptdir)/testissues
+  # Update issues from github
+  $(scriptdir)/testissues AldorRequires .as pippijn aldor

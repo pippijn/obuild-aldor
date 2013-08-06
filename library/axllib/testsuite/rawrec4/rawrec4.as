@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/rawrec4.as
+../../../../.upstream/aldor/lib/axllib/test/rawrec4/rawrec4.as

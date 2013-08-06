@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/arrepl1a.as
+../../../../.upstream/aldor/lib/axllib/test/arrepl1a/arrepl1a.as

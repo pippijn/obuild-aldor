@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/enum0.as
+../../../../.upstream/aldor/lib/axllib/test/enum0/enum0.as

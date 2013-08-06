@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/bigmand.as
+../../../../.upstream/aldor/lib/axllib/test/bigmand/bigmand.as

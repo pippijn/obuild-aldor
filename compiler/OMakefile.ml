@@ -4,7 +4,7 @@
 
 install Library ".DEFAULT" [
   (* Target *)
-  Name	"alcomp";
+  Name		"alcomp";
   Description	"Aldor compiler library";
   Version	"1.1.0";
 
@@ -360,6 +360,9 @@ install Library ".DEFAULT" [
     "m";
   ];
 
+  Var ("CC", "clang");
+
+  Var ("OM_CFLAGS", "$(STRICT_CFLAGS)");
   Var ("OM_CPPFLAGS", "-DTEST_ALL=1");
 
   Var ("SHARED", "false");

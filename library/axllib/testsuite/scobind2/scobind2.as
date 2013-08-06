@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/scobind2.as
+../../../../.upstream/aldor/lib/axllib/test/scobind2/scobind2.as

@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/for0.as
+../../../../.upstream/aldor/lib/axllib/test/for0/for0.as

@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/record1.as
+../../../../.upstream/aldor/lib/axllib/test/record1/record1.as

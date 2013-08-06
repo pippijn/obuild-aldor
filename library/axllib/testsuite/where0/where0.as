@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/where0.as
+../../../../.upstream/aldor/lib/axllib/test/where0/where0.as

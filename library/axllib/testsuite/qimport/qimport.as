@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/qimport.as
+../../../../.upstream/aldor/lib/axllib/test/qimport/qimport.as

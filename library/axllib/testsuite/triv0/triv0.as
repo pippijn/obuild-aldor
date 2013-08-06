@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/triv0.as
+../../../../.upstream/aldor/lib/axllib/test/triv0/triv0.as

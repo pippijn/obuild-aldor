@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/union2.as
+../../../../.upstream/aldor/lib/axllib/test/union2/union2.as

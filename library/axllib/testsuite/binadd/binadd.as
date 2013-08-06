@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/binadd.as
+../../../../.upstream/aldor/lib/axllib/test/binadd/binadd.as

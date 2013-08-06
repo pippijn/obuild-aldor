@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/catdef1.as
+../../../../.upstream/aldor/lib/axllib/test/catdef1/catdef1.as

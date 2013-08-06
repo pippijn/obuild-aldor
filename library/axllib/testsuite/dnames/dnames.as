@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/dnames.as
+../../../../.upstream/aldor/lib/axllib/test/dnames/dnames.as

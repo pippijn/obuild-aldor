@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/oslowtst.as
+../../../../.upstream/aldor/lib/axllib/test/oslowtst/oslowtst.as

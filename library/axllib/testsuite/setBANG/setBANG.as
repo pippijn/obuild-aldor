@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/setBANG.as
+../../../../.upstream/aldor/lib/axllib/test/setBANG/setBANG.as

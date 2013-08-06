@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/algebra/src/test/tst_mint.as
+../../../../.upstream/aldor/lib/algebra/test/mint/mint.as

@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/hide0.as
+../../../../.upstream/aldor/lib/axllib/test/hide0/hide0.as

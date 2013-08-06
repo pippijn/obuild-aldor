@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/mandel_t.as
+../../../../.upstream/aldor/lib/axllib/test/mandel_t/mandel_t.as

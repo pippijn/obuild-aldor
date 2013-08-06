@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/defarg10.as
+../../../../.upstream/aldor/lib/axllib/test/defarg10/defarg10.as

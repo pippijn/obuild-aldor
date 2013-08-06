@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/numeral1.as
+../../../../.upstream/aldor/lib/axllib/test/numeral1/numeral1.as

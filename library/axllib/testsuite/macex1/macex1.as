@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/macex1.as
+../../../../.upstream/aldor/lib/axllib/test/macex1/macex1.as

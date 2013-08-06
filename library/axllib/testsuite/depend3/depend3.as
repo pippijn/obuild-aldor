@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/depend3.as
+../../../../.upstream/aldor/lib/axllib/test/depend3/depend3.as

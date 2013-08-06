@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/algebra/src/test/tst_random.as
+../../../../.upstream/aldor/lib/algebra/test/random/random.as

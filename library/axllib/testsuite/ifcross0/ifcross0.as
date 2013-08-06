@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/ifcross0.as
+../../../../.upstream/aldor/lib/axllib/test/ifcross0/ifcross0.as

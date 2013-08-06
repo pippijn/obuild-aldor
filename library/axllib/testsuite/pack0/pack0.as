@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/pack0.as
+../../../../.upstream/aldor/lib/axllib/test/pack0/pack0.as

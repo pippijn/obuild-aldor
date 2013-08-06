@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/bug1272.as
+../../../../.upstream/aldor/lib/axllib/test/bug1272/bug1272.as

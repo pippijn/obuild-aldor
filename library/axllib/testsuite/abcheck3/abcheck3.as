@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/abcheck3.as
+../../../../.upstream/aldor/lib/axllib/test/abcheck3/abcheck3.as

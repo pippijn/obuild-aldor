@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/ratio0.as
+../../../../.upstream/aldor/lib/axllib/test/ratio0/ratio0.as

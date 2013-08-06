@@ -1,2 +1,0 @@
-foo()$A = 42 (ought to be 42)
-foo()$B = 84 (ought to be 84)

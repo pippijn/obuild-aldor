@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/builtin1.as
+../../../../.upstream/aldor/lib/axllib/test/builtin1/builtin1.as

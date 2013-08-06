@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/funvar.as
+../../../../.upstream/aldor/lib/axllib/test/funvar/funvar.as

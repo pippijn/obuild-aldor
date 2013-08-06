@@ -1,2 +1,0 @@
-foo("very bad bug") = "very bad bug"
-foo(42) = 84

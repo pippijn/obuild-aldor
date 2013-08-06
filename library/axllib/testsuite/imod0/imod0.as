@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/imod0.as
+../../../../.upstream/aldor/lib/axllib/test/imod0/imod0.as

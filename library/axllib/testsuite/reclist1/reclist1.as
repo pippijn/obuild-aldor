@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/reclist1.as
+../../../../.upstream/aldor/lib/axllib/test/reclist1/reclist1.as

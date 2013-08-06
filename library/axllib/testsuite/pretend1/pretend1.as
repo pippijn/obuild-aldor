@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/pretend1.as
+../../../../.upstream/aldor/lib/axllib/test/pretend1/pretend1.as

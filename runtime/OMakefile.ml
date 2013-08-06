@@ -4,7 +4,7 @@
 
 install Library ".DEFAULT" [
   (* Target *)
-  Name	"runtime";
+  Name		"runtime";
   Description	"Aldor runtime library";
   Version	"1.1.0";
 
@@ -38,6 +38,9 @@ install Library ".DEFAULT" [
     "m";
   ];
 
+  Var ("CC", "clang");
+
+  Var ("OM_CFLAGS", "$(STRICT_CFLAGS)");
   Var ("OM_CPPFLAGS", "-DFOAM_RTS=1 -I../compiler");
 
   Var ("STATIC", "false");

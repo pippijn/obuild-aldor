@@ -1,3 +1,1 @@
-#assert CB
-#assert C2
-#include "../bug954a/ralhex.as"
+../../../../.upstream/aldor/lib/axllib/test/bug954e/bug954e.as

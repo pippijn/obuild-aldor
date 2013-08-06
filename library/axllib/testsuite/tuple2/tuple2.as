@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/tuple2.as
+../../../../.upstream/aldor/lib/axllib/test/tuple2/tuple2.as

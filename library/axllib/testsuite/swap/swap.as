@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/swap.as
+../../../../.upstream/aldor/lib/axllib/test/swap/swap.as

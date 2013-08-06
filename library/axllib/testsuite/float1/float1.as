@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/float1.as
+../../../../.upstream/aldor/lib/axllib/test/float1/float1.as

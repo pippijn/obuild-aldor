@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/embed.as
+../../../../.upstream/aldor/lib/axllib/test/embed/embed.as

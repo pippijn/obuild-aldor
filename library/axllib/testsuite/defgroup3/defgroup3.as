@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/defgroup3.as
+../../../../.upstream/aldor/lib/axllib/test/defgroup3/defgroup3.as

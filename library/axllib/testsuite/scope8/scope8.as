@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/scope8.as
+../../../../.upstream/aldor/lib/axllib/test/scope8/scope8.as

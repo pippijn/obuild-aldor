@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/tinfer1.as
+../../../../.upstream/aldor/lib/axllib/test/tinfer1/tinfer1.as

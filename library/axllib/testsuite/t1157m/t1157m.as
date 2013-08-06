@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/t1157m.as
+../../../../.upstream/aldor/lib/axllib/test/t1157m/t1157m.as

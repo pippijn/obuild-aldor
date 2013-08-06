@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/axllib/test/const3.as
+../../../../.upstream/aldor/lib/axllib/test/const3/const3.as

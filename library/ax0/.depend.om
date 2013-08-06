@@ -1,0 +1,112 @@
+src/ax/basecliq.ao:	\
+	src/lang.ao	\
+	src/stub.ao	\
+	src/attrib.ao
+src/ax/equation1.ao:	\
+	src/ax/basecliq.ao
+src/ax/aggcat.ao:	\
+	src/ax/equation1.ao
+src/ax/any.ao:	\
+	src/ax/sex.ao
+src/ax/array1.ao:	\
+	src/ax/aggcat.ao
+src/ax/array2.ao:	\
+	src/ax/array1.ao
+src/ax/equation2.ao:	\
+	src/ax/aggcat.ao	\
+	src/ax/fspace.ao
+src/ax/float.ao:	\
+	src/ax/sf.ao
+src/ax/fraction.ao:	\
+	src/ax/fr.ao
+src/ax/fr.ao:	\
+	src/ax/aggcat.ao	\
+	src/ax/si.ao	\
+	src/ax/equation2.ao
+src/ax/fspace.ao:	\
+	src/ax/kl.ao	\
+	src/ax/multpoly.ao
+src/ax/indexedp.ao:	\
+	src/ax/basecliq.ao
+src/ax/integer.ao:	\
+	src/ax/si.ao
+src/ax/kl.ao:	\
+	src/ax/aggcat.ao	\
+	src/ax/pattern.ao
+src/ax/list.ao:	\
+	src/ax/aggcat.ao
+src/ax/matcat.ao:	\
+	src/ax/array2.ao	\
+	src/ax/vector.ao
+src/ax/matrix.ao:	\
+	src/ax/matcat.ao
+src/ax/misc.ao:	\
+	src/ax/basecliq.ao
+src/ax/mkfunc.ao:	\
+	src/ax/any.ao
+src/ax/multpoly.ao:	\
+	src/ax/polycat.ao	\
+	src/ax/indexedp.ao	\
+	src/ax/symbol.ao	\
+	src/ax/variable.ao
+src/ax/op.ao:	\
+	src/ax/basecliq.ao	\
+	src/ax/any.ao	\
+	src/ax/list.ao
+src/ax/patmatch1.ao:	\
+	src/ax/kl.ao
+src/ax/patmatch2.ao:	\
+	src/ax/patmatch1.ao	\
+	src/ax/fraction.ao
+src/ax/pattern.ao:	\
+	src/ax/any.ao	\
+	src/ax/op.ao
+src/ax/polycat.ao:	\
+	src/ax/patmatch1.ao	\
+	src/ax/misc.ao	\
+	src/ax/integer.ao
+src/ax/poly.ao:	\
+	src/ax/polycat.ao	\
+	src/ax/variable.ao	\
+	src/ax/indexedp.ao
+src/ax/seg.ao:	\
+	src/ax/stream.ao
+src/ax/sex.ao:	\
+	src/ax/aggcat.ao
+src/ax/sf.ao:	\
+	src/ax/patmatch1.ao
+src/ax/si.ao:	\
+	src/ax/sf.ao
+src/ax/stream.ao:	\
+	src/ax/aggcat.ao
+src/ax/symbol.ao:	\
+	src/ax/patmatch1.ao	\
+	src/ax/kl.ao
+src/ax/variable.ao:	\
+	src/ax/pattern.ao
+src/ax/vector.ao:	\
+	src/ax/sf.ao
+
+src/attrib.ao:	\
+	src/lang.ao
+src/axextend.ao:	\
+	src/ax/basecliq.ao	\
+	src/ax/symbol.ao	\
+	src/ax/seg.ao	\
+	src/ax/integer.ao	\
+	src/ax/vector.ao	\
+	src/axlit.ao	\
+	src/lang.ao	\
+	src/minimach.ao	\
+	src/stub.ao
+src/axlit.ao:	\
+	src/ax/basecliq.ao	\
+	src/ax/symbol.ao	\
+	src/ax/integer.ao	\
+	src/attrib.ao	\
+	src/lang.ao	\
+	src/stub.ao
+src/minimach.ao:	\
+	src/lang.ao
+src/stub.ao:	\
+	src/lang.ao

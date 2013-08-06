@@ -1,1 +1,1 @@
-../../../../.upstream/aldor/lib/algebra/test/complex/complex.as
+../../../../.upstream/aldor/lib/algebra/test/tst_complex.as

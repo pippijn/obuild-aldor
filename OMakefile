@@ -1,17 +1,25 @@
-STRICT_CFLAGS[] =
-  -Wall
-  -Wextra
-  -Werror
-  -Wno-empty-body
-  -Wno-enum-compare
-  -Wno-enum-conversion
-  -Wno-missing-field-initializers
-  -Wno-shift-overflow
-  -Wno-sign-compare
-  -Wno-tautological-compare
-  -Wno-unused
-  -Wno-unused-parameter
-  -Wno-error=type-limits
-  -Wno-error=parentheses
+STRICT_CFLAGS () =
+  FLAGS[] =
+    -Wall
+    -Wextra
+    -Werror
+    -Wno-empty-body
+    -Wno-enum-compare
+    -Wno-missing-field-initializers
+    -Wno-sign-compare
+    -Wno-unused
+    -Wno-unused-parameter
+    -Wno-error=type-limits
+    -Wno-error=parentheses
+
+  switch $(basename $(CC))
+  case clang:
+    FLAGS[] +=
+      -Wno-enum-conversion
+      -Wno-shift-overflow
+      -Wno-tautological-compare
+    export
+
+  value $(FLAGS)
 
 recurse-into ($(glob D, *))

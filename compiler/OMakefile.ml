@@ -367,5 +367,9 @@ install Library ".DEFAULT" [
   Var ("STATIC", "true");
 
   (* Install headers into include/aldor *)
-  Code "$(pkg-config-name $(Name)): $(install-target $(includedir)/aldor, $(Headers))";
+  Rule (
+    "$(pkg-config-name $(Name))",
+    "$(install-target $(includedir)/aldor, $(Headers))",
+    []
+  );
 ]

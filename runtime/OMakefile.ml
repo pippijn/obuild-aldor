@@ -44,9 +44,17 @@ install Library ".DEFAULT" [
   Var ("STATIC", "false");
   Var ("SHARED", "true");
 
-  Code "%.c: ../compiler/%.c\n  ln-or-cp $< $@";
-  Code "%.h: ../compiler/%.h\n  ln-or-cp $< $@";
+  Rule ("%.c", "../compiler/%.c", [
+    "ln-or-cp $< $@";
+  ]);
+  Rule ("%.h", "../compiler/%.h", [
+    "ln-or-cp $< $@";
+  ]);
 
   (* Install the headers and along with the runtime library. *)
-  Code "$(pkg-config-name $(Name)): $(install-target $(includedir), $(Headers))";
+  Rule (
+    "$(pkg-config-name $(Name))",
+    "$(install-target $(includedir), $(Headers))",
+    []
+  );
 ]

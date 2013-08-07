@@ -1,5 +1,0 @@
-"intcat0.as", line 4: 
-#include "ax0"
-^
-[L4 C1] #1 (Error) Could not open file `ax0'.
-

@@ -2,7 +2,7 @@
 #include "ax0"
 import from AxiomLib;
 
-#library IntLib "intcat0.ao"
+#library IntLib "../intcat0/intcat0.ao"
 import from IntLib;
 
 INS : Category == with {

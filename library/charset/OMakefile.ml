@@ -91,5 +91,6 @@ install Library ".DEFAULT" [
   AldorRequires [
     "aldor";
     "algebra";
+    "extio";
   ];
 ]

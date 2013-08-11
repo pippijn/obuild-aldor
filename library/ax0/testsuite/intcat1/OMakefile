@@ -1,5 +1,8 @@
 EXTRADEP[] =
   ../intcat0/intcat0.ao
 
+OM_AFLAGS[] +=
+  -Y../intcat0
+
 test_AFLAGS[] +=
-  -Y ../intcat0
+  -Y../intcat0

@@ -1,1 +1,1 @@
-../../../.upstream/aldor/lib/libax0/src/minimach.as
+../../../.upstream/aldor/lib/ax0/src/minimach.as

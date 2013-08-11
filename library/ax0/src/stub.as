@@ -1,1 +1,1 @@
-../../../.upstream/aldor/lib/libax0/src/stub.as
+../../../.upstream/aldor/lib/ax0/src/stub.as

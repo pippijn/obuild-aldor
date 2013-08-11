@@ -1,1 +1,1 @@
-../../../.upstream/aldor/lib/libax0/src/attrib.as
+../../../.upstream/aldor/lib/ax0/src/attrib.as

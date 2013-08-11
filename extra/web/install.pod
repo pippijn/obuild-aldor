@@ -1,0 +1,169 @@
+=head1 Installing Aldor
+
+=head2 Windows
+
+Just download the L<installer|#> and launch it. Alternatively, if you
+have Microsoft Windows Installer version 3.0 or higher (you probably do, if
+you have Windows XP SP 2 or higher), you can download and install the MS
+installer L<package|#>.
+
+To verify the installer and package, you can use their L<MD5|aldor-md5.txt>
+and L<SHA1|aldor-sha1.txt> sums.
+
+
+=head2 Linux
+
+=head3 Installing pre-built packages (@packages)
+
+Debian users can simply add the Xinutec repository to their
+F</etc/apt/sources.list>:
+
+   deb http://debian.xinutec.org/ etch main non-free
+
+Currently, only Debian etch packages are provided. These should work with
+newer releases, though. Ubuntu users may also have luck with this package.
+To install, issue the following command as root:
+
+   # aptitude install aldor
+
+If you want the package signatures to be checked, you need to accept my key.
+The easiest way to do this is by installing the C<xinutec-archive-keyring>
+package from my repository:
+
+   # aptitude install xinutec-archive-keyring
+
+Alternatively, you can manually add the key to the trusted keyring:
+
+   # gpg --keyserver pgp.mit.edu --recv-keys 0x635D0E0A
+   # gpg --armor --export 0x635D0E0A | apt-key add -
+
+=back
+
+
+=head3 Installing from sources (@source)
+
+B<This is currently disabled due to licence uncertainness.>
+
+=over
+
+=item 1. Download the L<AGPL source package|#> and L<APL source package|aldor-1.1.0-1_apl.tar.gz>
+
+   % wget http://xinutec.org/~pippijn/en/aldor-1.1.0-1_agpl.tar.gz
+   % wget http://xinutec.org/~pippijn/en/aldor-1.1.0-1_apl.tar.gz
+
+=item 2. Extract the package.
+
+   % gunzip -c aldor-1.1.0-1_agpl.tar.gz | tar x
+   % gunzip -c aldor-1.1.0-1_apl.tar.gz | tar x
+
+=item 3. Enter the source directory.
+
+   % cd aldor-1.1.0-1
+
+=item 4. Run the configure script.
+
+   % ./configure
+
+This script takes a few options controlling compile-time options of the C
+compiler and the source files and run-time behaviour of the Aldor compiler.
+Most interesting for you should be the options controlling debugging and
+optimisation flags for the C compiler. By default, aldor is built with debug
+information. To see the options, pass the C<--help> option to the script:
+
+   % ./configure --help
+
+If you want to install it anywhere else than the default installation path
+(usually F</usr/local>), you need to provide a C<prefix>. Here we install
+aldor into the F<$HOME/aldor> directory.
+
+   % ./configure --prefix=$HOME/aldor
+
+This will look for required functions and libraries and prepare makefiles for
+the build.
+
+=item 5. Set environment variables (@setenv)
+
+In case you use the bourne shell or one of its derivatives (C<bash>, C<zsh>,
+C<dash>, ...), use the following command:
+
+   % source setenv.sh
+
+For C shell and equivalents (C<csh>, C<tcsh>, those that use C<setenv> instead
+of C<export>...), use this command:
+
+   % source setenv.csh
+
+If both of those fail, make sure you have the following environment setup:
+
+   ALDORROOT       = $PWD/obj
+   PATH            = $PWD/obj/bin:$PATH
+   LD_LIBRARY_PATH = $PWD/obj/lib
+
+=begin small
+
+If you open the file setenv.sh, you will notice that LD_LIBRARY_PATH
+also contains something with icc. This is something I use on my system
+which is required for the Intel&copy; C++ Compiler to work.
+
+=end small
+
+=item 6. Build the compiler
+
+   % make
+
+Parallel building is not supported by all parts of the build, but you can
+speed up compilation by building in steps:
+
+   % make prepare -j4
+   % make compiler -j4
+   % make libraries3
+
+You can also use C<make libraries2>. This will limit the library building to
+at most two jobs at a time. No more than three jobs are supported at this
+time.
+
+=item 6.1. Run the testsuite
+
+This step is optional. You can use it to verify that the compiler works the
+same way as it does on my system. This will take a long time.
+
+=begin small
+
+Note that some of these tests test whether the compiler works like it does
+here and some test whether the compiler does what it should. I collected as
+many correct test results as I could, but still some (or many, but not all)
+tests will fail.
+
+=end small
+
+   % make testcases -j4
+   % make check -j4
+
+=item 7. Install aldor
+
+   % make install
+
+=back
+
+Now you should have a directory at F<$HOME/aldor> containing the Aldor
+compiler and libraries, include files, configuration files and
+internationalisation files.
+
+You will need to set the C<ALDORROOT> environment variable to the directory
+given as C<prefix>. Usually, this is C</usr/local>.
+
+If anything went wrong, don't hesitate to L<contact|contact> me.
+
+Here is the entire script without the prompt (%):
+
+   wget http://xinutec.org/~pippijn/en/aldor-1.1.0-1_agpl.tar.gz
+   wget http://xinutec.org/~pippijn/en/aldor-1.1.0-1_apl.tar.gz
+   gunzip -c aldor-1.1.0-1_agpl.tar.gz | tar x
+   gunzip -c aldor-1.1.0-1_apl.tar.gz | tar x
+   cd aldor-1.1.0-1
+   ./configure --prefix=$HOME/aldor
+   source setenv.sh
+   make prepare -j4
+   make compiler -j4
+   make libraries3
+   make install

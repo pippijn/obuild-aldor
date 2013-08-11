@@ -1,0 +1,100 @@
+=head1 Changes against the original release
+
+The Aldor compiler was written a long time ago, when compilers were stupid and
+C was unportable. Nowadays, many operating system interfaces have been unified
+and C compilers have gained massive improvements. Computers are also much faster
+than in the old days.
+
+This project aims to modernise and clean up the Aldor compiler. The following is
+a non-exhaustive list of changes. For a full list. see the git log.
+
+=over
+
+=item Removed garbage collector
+
+The compiler itself no longer uses garbage collection. A precise GC is planned
+for Aldor code, but for now, the option to use Boehm's GC exists.
+
+=item Replaced macros with functions
+
+The code is fast enough so we don't need macros everywhere. Many macros have
+been replaced with out-of-line functions. That way, profiling and error checking
+gets easier.
+
+=item Removed untestable OS support
+
+The original compiler supports operating systems that we cannot test. Such
+systems include DOS, VMS, CMS and MacOS 7. These have been removed. In addition,
+the operating system dependent layer has been reduced and certain functions that
+can be implemented in pure C have been implemented thusly.
+
+=item Split up the compiler into many small libraries
+
+The "generic" layer containing utilities and non-specific data structures (list,
+hash table, tree, buffer, ...) has been split into 30 smaller libraries. This is
+an ongoing effort, because proper splitting is not entirely possible in struct
+and phases. These layers have several issues, including the fact that struct
+depends on phases.
+
+=item Removed edit levels
+
+All edit levels have been removed, one at a time. This history has been
+preserved in the git log. One edit level was kept and turned into a C<configure>
+option (the new hash code algorithm).
+
+=item Privatised data structures
+
+Data hiding principles have been applied in several places (Foam, AbSyn,
+Buffer, ...). All accesses now go through get and set functions.
+
+=item Runtime type checking
+
+Aldor uses two major polymorphic data types: AbSyn and Foam. Casting between
+instance types of this data type is undefined in the general case. There are
+some valid casts, though. Runtime checks have been implemented to ensure that
+the casts are valid. A few potential bugs have been fixed this way.
+
+=item Fixed bug in constant folding
+
+There were some bugs in constant folding that caused 2 + 4 to equal 4, because
+argument 1 was added to argument 1.
+
+=item Removed SSA
+
+The original compiler contains an unfinished implementation of a Foam to SSA
+pass, which doesn't even compile. There is enough existing code to work with, so
+this code was removed.
+
+=item Added unit tests
+
+Unit tests and regression tests have been automated. We developed a continuous
+integration system for the Aldor compiler, so we can validate changes on several
+different platforms.
+
+=item Use the GNU build system
+
+Instead of handwritten makefiles, we now use automake, autoconf and libtool.
+
+=item Generate more code
+
+We want to move towards writing less code and achieving more. Domain specific
+languages were developed to aid in code generation, reducing redundancy and
+error-proneness.
+
+=item Stub out C library calls
+
+No part of the compiler calls the C library directly, anymore (except the parts
+that do C<setjmp>/C<longjmp>). All calls go through a C stub library, which can
+do additional argument checking and modification. It can supplement the C
+library with non-existent functions and reduce the dependency on a full C<libc>
+implementation, thereby increasing portability to embedded platforms.
+
+=item Reduced knowledge
+
+The files C<cconfig.h> and C<compiler.h> contained a lot of compiler specific
+knowledge. This has mostly been removed and we now use behaviour checks provided
+by autoconf, instead. Also, the dependency on endianness has mostly been lifted.
+We now use a possibly slower but more portable way. The performance hit is not
+noticable.
+
+=back

@@ -1,0 +1,138 @@
+=head1 Aldor Programming Language
+
+L<Git repository|https://github.com/pippijn/aldor>
+
+L<Main website|http://pippijn.github.io/aldor/>
+
+=begin code Aldor
+
+   #include "aldor"
+
+   stderr << "Hello world" << newline;
+
+=end code Aldor
+
+
+=head2 The Language
+
+From L<Wikipedia|http://en.wikipedia.org/wiki/Aldor>:
+
+Aldor is a programming language. It is the successor of A# as the extension
+language of the Axiom computer algebra system.
+
+The Aldor language combines imperative, functional, and object-oriented
+features. It has an elaborate dependent type system[citation needed], allowing
+types to be used as first-class values. Aldor's syntax is heavily influenced by
+Pascal, but it is optionally indentation-sensitive, like Python. In its current
+implementation, it is compiled, but an interactive listener is provided.
+
+
+=head2 Why Aldor?
+
+This is of course the question every language developer is asked: Why do we need
+another language? Can't we do all that with other languages, already? What about
+the community, the library support, etc? Why do I even bother developing Aldor?
+
+There are several reasons why I personally like Aldor very much:
+
+=over
+
+=item Easy syntax
+
+The Aldor grammar is consistent and unambiguous. Both a compiler and a human
+reader can immediately know what a piece of code means. The meaning and semantic
+effect of syntax does not depend on the context.
+
+=item Few built-ins
+
+Without a library, Aldor is pretty much an empty language. There are no
+integers, strings, arrays, etc. All that is defined within a library. By
+importing C<Integer> into the current scope, integer literals gain meaning.
+Before that, the lexical structure of integer literals is defined by the
+compiler, but the value is not known. Only when a library implements a function
+from C<Literal> to C<Integer>, the literal can be assigned a value. Such a thing
+has recently been added to C++0x, but it's still far from what Aldor can do.
+
+=item Everything is a value
+
+The difference between types, functions and objects as it exists in C does not
+exist in Aldor. Aldor differentiates between constants and variables. Types,
+functions and objects are all values in Aldor. You may pass types to functions
+and let those functions return a new type based on that old type. For example,
+the C<List> "type" is actually a function that returns a type, "C<List of T>"
+where C<T> is the type passed to the C<List> function.
+
+=item Return type overloading
+
+In C++, Java, C# and other languages, you can overload functions by their
+argument types and count. In Aldor, you can additionally overload them by return
+type. You can also overload constants, which might be seen as nullary functions
+that don't need the function application operator.
+
+=begin code Aldor
+
+   -- "zero"-values for different types
+   z: Boolean == false;
+   z: Integer == 0;
+   z: String == "";
+
+   -- returns the argument matching the wanted return type
+   get (i: Integer, b: Boolean): Integer == i;
+   get (i: Integer, b: Boolean): Boolean == b;
+
+   -- need to explicitly state the type for disambiguation
+   i : Integer := get (1, true);
+   b : Boolean := get (1, true);
+
+=end code Aldor
+
+=item Dependent types
+
+These are a little like C++ templates. Basically, it means that you can have a
+type that depends on a value. You can then use regular Aldor control structures
+to construct a type based on that value.
+
+=begin code Aldor
+
+   #include "aldor"
+   #include "aldorio"
+
+   -- import operations (Literal, quo, mod, +, ~=) on Integers
+   -- into the current scope
+   import from Integer;
+
+   define FooType(i: Integer): Category == with {
+      foo: () -> Integer;
+
+      -- provide a default implementation dividing integers by 2
+      default {
+         foo(): Integer == i quo 2;
+      }
+   }
+
+   -- template<int i> class Foo;
+   -- actually a function returning a type
+   Foo(i: Integer): FooType(i) == add {
+      -- override the default implementation only if i is not divisible by 2
+      if i mod 2 ~= 0 then {
+         foo(): Integer == i + 1;
+      }
+   }
+
+   -- call foo() in domain Foo(3) (template class Foo<3>)
+   stdout << foo()$Foo(3) << newline;
+   stdout << foo()$Foo(4) << newline;
+
+=end code Aldor
+
+The output from the above code would be:
+
+   4
+   2
+
+The value a type depends on may be any constant value of any type, unlike in
+C++, where only types, integers, templates and pointers are allowed. Since types
+are values in Aldor, you can also have types depending on other types, which
+would be the C<< template&lt;typename T&gt; >> construct in C++.
+
+=back

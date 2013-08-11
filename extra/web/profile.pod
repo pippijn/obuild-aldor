@@ -1,0 +1,290 @@
+=head1 Profiling
+
+=head2 Garbage Collection
+
+The Aldor Garbage Collector seems to perform reasonably well in some tests,
+but until now I was unable to get profiling data that backs this up. Using
+several tools, I collected data about Aldor running with different allocators.
+Each of the following tests was executing
+
+  aldor -ginterp sieve.as
+
+With the sieve example from the
+L<Aldor User Guide|http://www.aldor.org/docs/HTML/index.html>.
+
+
+=head3 oprofile
+
+L<oprofile|http://oprofile.sourceforge.net/news/> is a kernel-space profiler
+that yields high resolution with almost zero overhead.
+
+=over
+
+=item C<boehm>
+
+  CPU: Core 2, speed 1995 MHz (estimated)
+  Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (Unhalted core cycles) count 100000
+  CPU_CLK_UNHALT...|
+    samples|      %|
+  ------------------
+     209129 65.3469 libstruct.so
+      48470 15.1455 libgc.so.1.0.2
+      25435  7.9477 libpthread-2.3.6.so
+      19431  6.0716 libc-2.3.6.so
+       8457  2.6426 no-vmlinux
+       2514  0.7856 libgeneral.so
+
+
+You can see how the Boehm garbage collector uses about 15% of CPU time. 8%
+goes to threading. This is due to the fact that Boehm's GC is threaded.
+C<no-vmlinux> is the kernel and C<libgeneral.so> is basic data structures and
+utilities such as bigint, btree and C code generation (both unused in this
+case), fluid variable support, floating point utilities, etc. The largest
+CPU user is C<libstruct.so>, which is where the FOAM interpreter and other
+more high-level functionality lives. The following table shows top CPU users
+from this last library.
+
+  CPU: Core 2, speed 1995 MHz (estimated)
+  Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (Unhalted core cycles) count 100000
+  samples  %        symbol name
+  160231   76.6183  fintEval
+  35231    16.8465  fintStmt
+  12315     5.8887  fintGetReference
+  638       0.3051  .plt
+  116       0.0555  fintSetMFmt
+  82        0.0392  skipProg
+  80        0.0383  symeIndex
+
+Indeed, the FOAM interpreter (C<fintEval>) is the function that interprets
+FOAM bytecode. It would probably not make sense to further investigate what
+exactly within this function is used most, since it highly depends on the
+actual code it is interpreting.
+
+C<libgeneral.so> has no surprises:
+
+  CPU: Core 2, speed 1995 MHz (estimated)
+  Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (Unhalted core cycles) count 100000
+  samples  %        symbol name
+  382      47.3358  stoDAlloc
+  199      24.6592  .plt
+  45        5.5762  fiArrNew_Word
+  37        4.5849  tblElt
+
+C<stoDAlloc> is the function that calls the system allocation routines, in this
+C<GC_malloc> in this case.
+  
+=item C<aldor>
+
+  CPU: Core 2, speed 1995 MHz (estimated)
+  Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (Unhalted core cycles) count 100000
+  CPU_CLK_UNHALT...|
+    samples|      %|
+  ------------------
+    1659809 90.7706 libgeneral.so
+      77243  4.2242 no-vmlinux
+      24524  1.3412 libvorbis.so.0.3.1
+      12010  0.6568 libncursesw.so.5.5
+      [...]
+       1688  0.0923 libstruct.so
+
+With the B-Tree based garbage collector as provided by the Aldor compiler, 90%
+of all CPU time goes into the memory management and other general utilities.
+In C<libstruct.so> the top CPU users are similar to before:
+
+  CPU: Core 2, speed 1995 MHz (estimated)
+  Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (Unhalted core cycles) count 100000
+  samples  %        symbol name
+  867      51.3626  fintEval
+  167       9.8934  fintStmt
+  89        5.2725  fintGetReference
+  72        4.2654  symeIndex
+  71        4.2062  skipProg
+  58        3.4360  .plt
+  28        1.6588  symeEqual0
+
+This should be no surprise in this, the distribution of CPU time is about the
+same. Note that I interrupted the execution after five minutes because it
+wasn't leading anywhere.
+
+Top CPU users in C<libgeneral.so> are:
+
+  CPU: Core 2, speed 1995 MHz (estimated)
+  Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (Unhalted core cycles) count 100000
+  samples  %        symbol name
+  1658425  99.9166  stoGcMarkAndSweep
+  1039      0.0626  stoGcMarkRange
+  120       0.0072  stoDAlloc
+  32        0.0019  stoDFree
+  30        0.0018  tblElt
+  20        0.0012  .plt
+  12       7.2e-04  ptrlistNConcat
+
+Now 99.9% (almost all) of the CPU time goes into the garbage collection
+routine. This is likely the memory scanning. Why is it, though, that the Aldor
+GC takes 90% where Boehm's GC takes 15%?
+
+=item C<aldor> with C<-fno-inline>
+
+Next, I tested the Aldor GC with inlining forced off. This yielded a very
+interesting result.
+
+  CPU: Core 2, speed 1995 MHz (estimated)
+  Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (Unhalted core cycles) count 100000
+  CPU_CLK_UNHALT...|
+    samples|      %|
+  ------------------
+      98090 73.4894 libstruct.so
+      26084 19.5422 libgeneral.so
+       6857  5.1373 no-vmlinux
+        632  0.4735 libncursesw.so.5.5
+        484  0.3626 libc-2.3.6.so
+
+As you can see from the table above, C<libstruct.so> is now using more CPU
+time than even using Boehm's GC. This can only be good, since most of the time
+should be going to the FOAM interpreter.
+
+  CPU: Core 2, speed 1995 MHz (estimated)
+  Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (Unhalted core cycles) count 100000
+  samples  %        symbol name
+  12318    47.2244  stoGcMarkRange
+  3503     13.4297  isInHeap
+  3096     11.8693  stoDAlloc
+  2256      8.6490  stoGcSweepFixed
+  1458      5.5896  piecesGetFixed
+  1283      4.9187  qmDivNo
+  386       1.4798  pgOf
+
+C<libgeneral.so> shows that the GC function C<stoGcMarkRange> is using most of
+the time, but in fact, it is using relatively little time. C<isInHeap> is a
+function that gets called many times by C<stoGcMarkRange> and does two
+machine word comparisons as its only job.
+
+  CPU: Core 2, speed 1995 MHz (estimated)
+  Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (Unhalted core cycles) count 100000
+  samples  %        symbol name
+  75996    77.4758  fintEval
+  15743    16.0495  fintStmt
+  5517      5.6244  fintGetReference
+  323       0.3293  .plt
+  68        0.0693  skipProg
+
+The results are very similar to the ones yielded from the tests with Boehm's
+GC. This is nothing surprising.
+
+=back
+
+
+=head3 callgrind
+
+C<callgrind> is part of L<valgrind|http://valgrind.org/>, a runtime
+instrumentation framework. It does cache profiling and generates callgraphs.
+Cache profiling is done by simulating the I1, D1 and L2 caches. In contrast to
+C<oprofile>, C<callgrind> causes a huge performance impact. Programs run about
+50 times slower than normal.
+
+=over
+
+=item C<boehm>
+
+Boehm's GC crashed valgrind with a segmentation fault, so I was unable to
+collect any information on its runtime behaviour in valgrind.
+
+=item C<aldor> with C<-fno-inline>
+
+Callgrind shows the number of instruction fetches, not the cost of each fetch.
+
+  --------------------------------------------------------
+             Ir
+  --------------------------------------------------------
+  2,263,424,641  PROGRAM TOTALS
+
+  --------------------------------------------------------
+           Ir  file:function
+  --------------------------------------------------------
+  893,422,322  store.c:stoGcMarkRange [libgeneral.so]
+  561,961,088  store.c:isInHeap [libgeneral.so]
+  300,471,582  fint.c:fintEval'2 [libstruct.so]
+  200,995,825  store.c:stoGcMarkRange'2 [libgeneral.so]
+   50,342,347  fint.c:fintStmt'2 [libstruct.so]
+   27,747,760  fint.c:fintGetReference [libstruct.so]
+   27,526,300  store.c:stoDAlloc [libgeneral.so]
+   20,873,701  store.c:stoGcSweepFixed [libgeneral.so]
+   16,840,111  syme.c:symeIndex [libstruct.so]
+   10,816,357  fint.c:skipProg'2 [libstruct.so]
+
+The results look similar to the ones from C<oprofile>. It seems that about 48%
+of the instruction fetches goes into C<stoGcMarkRange>.
+
+=item C<aldor>
+
+  --------------------------------------------------------
+             Ir 
+  --------------------------------------------------------
+  1,506,123,564  PROGRAM TOTALS
+
+  --------------------------------------------------------
+           Ir  file:function
+  --------------------------------------------------------
+  727,450,808  store.c:stoGcMarkRange [libgeneral.so]
+  300,471,582  fint.c:fintEval'2 [libstruct.so]
+  198,328,024  store.c:stoGcMarkRange'2 [libgeneral.so]
+   50,342,347  fint.c:fintStmt'2 [libstruct.so]
+   35,131,895  store.c:stoDAlloc [libgeneral.so]
+   27,747,760  fint.c:fintGetReference [libstruct.so]
+   21,504,263  store.c:stoGcMarkAndSweep [libgeneral.so]
+   16,840,111  syme.c:symeIndex [libstruct.so]
+   10,816,357  fint.c:skipProg'2 [libstruct.so]
+
+This result is not particularly surprising. The total number of instruction
+fetches has reduced considerably due to inlining and therefore heavier
+optimisation. When comparing this to the C<oprofile> results, however,
+differences are huge.
+
+=back
+
+
+=head3 Real time measurement
+
+I also measured real time with the zsh built-in C<time> command.
+
+=over
+
+=item Aldor GC, not inlined
+
+  aldor -ginterp sieve.as  25.08s user 0.08s system 99% cpu 25.338 total
+
+=item Aldor GC, inlined
+
+Unmeasurable. I killed the process after 10 minutes. It had not yet calculated
+more than the &lt;= 1000 primes.
+
+=item Boehm GC
+
+  aldor -ginterp sieve.as  29.32s user 0.06s system 99% cpu 29.404 total
+
+=back
+
+
+=head3 Conclusion
+
+=over
+
+=item In C<oprofile>, Boehm's GC gets better results than a fully optimised Aldor GC.
+
+=item In C<oprofile>, a non-inlined Aldor GC gets much better results than the inlined version.
+
+=item In C<oprofile>, a non-inlined Aldor GC gets better results than Boehm's GC.
+
+=item In C<callgrind>, Boehm's GC fails to execute.
+
+=item In C<callgrind>, the strange behaviour in C<oprofile> regarding inlined code does not show.
+
+=item The non-inlined Aldor GC outperforms Boehm on real time measurement.
+
+=back
+
+The question is, why does the Aldor GC perform so much worse when compiled
+with inlining? A possible reason could be that due to inlining and heavy
+optimisation, the instruction cache is badly utilised. This would be a gcc bug,
+a misoptimisation. Next, I will do the allocation tests with the two memory
+managers, again. This time, I will use a non-inlined Aldor GC.

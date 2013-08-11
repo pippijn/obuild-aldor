@@ -39,8 +39,9 @@ install Program ".DEFAULT" [
     "m";
   ];
 
-  Rule ("check", "$(Name)$(EXEEXT)", [
-    "$< > $(Name).log"
+  Rule ("check", "$(Name).log", []);
+  Rule ("$(Name).log", "$(Name)$(EXEEXT)", [
+    "$< > $@"
   ]);
 
   Var ("OM_CPPFLAGS", "-I$(includedir)/aldor");

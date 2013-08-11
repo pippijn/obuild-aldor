@@ -1,0 +1,1 @@
+../../../../.upstream/aldor/lib/axllib/test/string_t/string_t.as

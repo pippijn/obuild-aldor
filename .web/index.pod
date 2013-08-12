@@ -4,13 +4,15 @@ L<Git repository|https://github.com/pippijn/aldor>
 
 L<Main website|http://pippijn.github.io/aldor/>
 
-=begin code Aldor
+L<Try it online|http://pippijn.github.io/aldor/eval/>
 
-   #include "aldor"
+=begin code aldor
 
-   stderr << "Hello world" << newline;
+  #include "aldor"
 
-=end code Aldor
+  stderr << "Hello world" << newline;
+
+=end code
 
 
 =head2 The Language
@@ -69,22 +71,22 @@ argument types and count. In Aldor, you can additionally overload them by return
 type. You can also overload constants, which might be seen as nullary functions
 that don't need the function application operator.
 
-=begin code Aldor
+=begin code aldor
 
-   -- "zero"-values for different types
-   z: Boolean == false;
-   z: Integer == 0;
-   z: String == "";
+  -- "zero"-values for different types
+  z: Boolean == false;
+  z: Integer == 0;
+  z: String == "";
 
-   -- returns the argument matching the wanted return type
-   get (i: Integer, b: Boolean): Integer == i;
-   get (i: Integer, b: Boolean): Boolean == b;
+  -- returns the argument matching the wanted return type
+  get (i: Integer, b: Boolean): Integer == i;
+  get (i: Integer, b: Boolean): Boolean == b;
 
-   -- need to explicitly state the type for disambiguation
-   i : Integer := get (1, true);
-   b : Boolean := get (1, true);
+  -- need to explicitly state the type for disambiguation
+  i : Integer := get (1, true);
+  b : Boolean := get (1, true);
 
-=end code Aldor
+=end code
 
 =item Dependent types
 
@@ -92,43 +94,43 @@ These are a little like C++ templates. Basically, it means that you can have a
 type that depends on a value. You can then use regular Aldor control structures
 to construct a type based on that value.
 
-=begin code Aldor
+=begin code aldor
 
-   #include "aldor"
-   #include "aldorio"
+  #include "aldor"
+  #include "aldorio"
 
-   -- import operations (Literal, quo, mod, +, ~=) on Integers
-   -- into the current scope
-   import from Integer;
+  -- import operations (Literal, quo, mod, +, ~=) on Integers
+  -- into the current scope
+  import from Integer;
 
-   define FooType(i: Integer): Category == with {
-      foo: () -> Integer;
+  define FooType(i: Integer): Category == with {
+     foo: () -> Integer;
 
-      -- provide a default implementation dividing integers by 2
-      default {
-         foo(): Integer == i quo 2;
-      }
-   }
+     -- provide a default implementation dividing integers by 2
+     default {
+        foo(): Integer == i quo 2;
+     }
+  }
 
-   -- template<int i> class Foo;
-   -- actually a function returning a type
-   Foo(i: Integer): FooType(i) == add {
-      -- override the default implementation only if i is not divisible by 2
-      if i mod 2 ~= 0 then {
-         foo(): Integer == i + 1;
-      }
-   }
+  -- template<int i> class Foo;
+  -- actually a function returning a type
+  Foo(i: Integer): FooType(i) == add {
+     -- override the default implementation only if i is not divisible by 2
+     if i mod 2 ~= 0 then {
+        foo(): Integer == i + 1;
+     }
+  }
 
-   -- call foo() in domain Foo(3) (template class Foo<3>)
-   stdout << foo()$Foo(3) << newline;
-   stdout << foo()$Foo(4) << newline;
+  -- call foo() in domain Foo(3) (template class Foo<3>)
+  stdout << foo()$Foo(3) << newline;
+  stdout << foo()$Foo(4) << newline;
 
-=end code Aldor
+=end code
 
 The output from the above code would be:
 
-   4
-   2
+  4
+  2
 
 The value a type depends on may be any constant value of any type, unlike in
 C++, where only types, integers, templates and pointers are allowed. Since types

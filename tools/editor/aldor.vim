@@ -27,10 +27,8 @@ syn match       aldorComment            "++.*" contains=aldorTodo
 syn match       aldorComment            "--.*" contains=aldorTodo
 syn match       aldorPreproc            "\v#(if \w*|elseif \w*|else|endif|assert \w*|unassert \w*)"
 
-syn match       aldorExternal           "\v^#(include|library)(Dir)?\s+[^ \t]+" contains=aldorString
-syn match       aldorString             "\v^(#include\s+)\zs[^ \t]+" contained
-syn match       aldorError              "\v^(\s+#|#\s+|\s+#\s+)(include|library)(Dir)?\s+[^ \t]+" contains=aldorString
-syn match       aldorError              "\v^#include\s+[^ \t]+\s.*"
+syn match       aldorExternal           "\v^\s*#(include|library)(Dir)?\s+[^ \t]+" contains=aldorString
+syn match       aldorString             "\v^\s*(#include\s+)\zs[^ \t]+" contained
 syn match       aldorExternal           "\v^#(pile|endpile|quit)$"
 syn match       aldorExternal           "\v^#(int|error).+$" contains=aldorNothing
 syn match       aldorNothing            "\v^#(int|error)\zs.*" contained

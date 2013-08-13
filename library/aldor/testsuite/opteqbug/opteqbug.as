@@ -1,1 +1,0 @@
-../../../../.upstream/aldor/lib/aldor/test/opteqbug/opteqbug.as

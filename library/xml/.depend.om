@@ -1,0 +1,25 @@
+src/xml_Doc.ao:	\
+	src/xml_Dom1.ao
+src/xml_Dom0.ao:	\
+	src/xml_basiccats.ao
+src/xml_Dom1.ao:	\
+	src/xml_Dom0.ao
+src/xml_Out.ao:	\
+	src/xml_Doc.ao
+src/xml_base.ao:	\
+	src/xml_basics.ao
+src/xml_basiccats.ao:	\
+	src/xml_base.ao
+src/xml_basics.ao:	\
+	src/xml_mygen.ao	\
+	src/xml_unicode.ao
+src/xml_dt.ao:	\
+	src/xml_Dom1.ao
+src/xml_gener.ao:	\
+	src/xml_boot.ao
+src/xml_mygen.ao:	\
+	src/xml_gener.ao
+src/xml_parsef.ao:	\
+	src/xml_Out.ao
+src/xml_unicode.ao:	\
+	src/xml_boot.ao

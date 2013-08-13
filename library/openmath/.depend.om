@@ -1,0 +1,6 @@
+src/om_base.ao:	\
+	src/om_boot.ao
+src/om_cdq.ao:	\
+	src/om_boot.ao
+src/om_stsq.ao:	\
+	src/om_boot.ao

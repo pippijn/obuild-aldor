@@ -1,0 +1,1 @@
+../../../../.upstream/aldor/lib/aldor/test/hang/hang.as

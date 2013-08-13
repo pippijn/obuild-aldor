@@ -1,0 +1,1 @@
+../../../../.upstream/aldor/lib/aldor/test/bugreport_1356/bugreport_1356.as

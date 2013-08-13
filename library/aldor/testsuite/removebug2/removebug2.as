@@ -1,0 +1,1 @@
+../../../../.upstream/aldor/lib/aldor/test/removebug2/removebug2.as

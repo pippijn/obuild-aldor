@@ -1,0 +1,1 @@
+$(aldor-as-outputs avl-set2): ord-set-type.as

@@ -1,0 +1,4 @@
+$(aldor-as-outputs tstSprsUniPol): support.ao
+
+Domains[] +=
+  support

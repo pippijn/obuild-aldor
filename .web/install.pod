@@ -37,8 +37,6 @@ Alternatively, you can manually add the key to the trusted keyring:
    # gpg --keyserver pgp.mit.edu --recv-keys 0x635D0E0A
    # gpg --armor --export 0x635D0E0A | apt-key add -
 
-=back
-
 
 =head3 Installing from sources (@source)
 

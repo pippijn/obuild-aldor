@@ -7,6 +7,7 @@ install Program ".DEFAULT" [
     "abquick.c";
     "testall.c";
     "testlib.c";
+    "test_abcheck.c";
     "test_ablogic.c";
     "test_absyn.c";
     "test_bitv.c";

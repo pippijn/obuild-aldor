@@ -606,6 +606,8 @@ src/numbers/sit_primgen.ao:	\
 src/numbers/sit_prmroot.ao:	\
 	src/numbers/sit_primgen.ao	\
 	src/util/alg_version.ao
+src/numbers/sit_prmword.ao:	\
+	src/numbers/sit_primgen.ao
 src/numbers/sit_prmtabl.ao:	\
 	src/categories/sit_gexpcat.ao	\
 	src/util/alg_version.ao

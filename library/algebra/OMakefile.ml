@@ -168,6 +168,7 @@ install Library ".DEFAULT" [
     "src/numbers/sit_primgen";
     "src/numbers/sit_prmroot";
     "src/numbers/sit_prmtabl";
+    "src/numbers/sit_prmword";
     "src/polyfactor0/sit_fhensel";
     "src/polyfactor0/sit_zfactor";
     "src/polyfactor0/sit_zfring";

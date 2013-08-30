@@ -128,7 +128,7 @@ src/categories/sit_integer.ao:	\
 	src/categories/alg_modcmp.ao	\
 	src/categories/sit_char0.ao	\
 	src/categories/sit_spzble.ao	\
-	src/numbers/sit_primgen.ao
+	src/numbers/sit_prmword.ao
 src/categories/sit_intgmp.ao:	\
 	src/categories/sit_integer.ao	\
 	src/univpoly/gcd/sit_gcdint.ao
@@ -580,3 +580,7 @@ src/polyfactor0/sit_zfringg.ao:	\
 	src/polyfactor0/sit_zfactor.ao
 src/test/tst_assert.ao:	\
 	src/categories/sit_abmon.ao
+src/test/tst_ring.ao:	\
+	src/test/tst_assert.ao	\
+	src/test/tst_tstcat.ao	\
+	src/categories/sit_ring.ao

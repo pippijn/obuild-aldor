@@ -208,6 +208,7 @@ install Library ".DEFAULT" [
     "src/univpoly/sit_upolc";
     "src/util/alg_version";
     "src/test/tst_assert";
+    "src/test/tst_ring";
     "src/test/tst_tstcat";
     "src/categories/sit_intgmp";
     "src/mat/modular/sit_zcrtla";

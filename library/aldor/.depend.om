@@ -127,6 +127,8 @@ src/datastruc/sal_data.ao:	\
 	src/base/sal_char.ao
 src/datastruc/sal_ddata.ao:	\
 	src/datastruc/sal_bdata.ao
+src/datastruc/sal_fold.ao:	\
+	src/datastruc/sal_list.ao
 src/datastruc/sal_fstruc.ao:	\
 	src/datastruc/sal_lstruc.ao
 src/datastruc/sal_hash.ao:	\

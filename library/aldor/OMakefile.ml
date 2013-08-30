@@ -54,6 +54,7 @@ install Library ".DEFAULT" [
     "src/datastruc/sal_ckmembk";
     "src/datastruc/sal_data";
     "src/datastruc/sal_ddata";
+    "src/datastruc/sal_fold";
     "src/datastruc/sal_fstruc";
     "src/datastruc/sal_hash";
     "src/datastruc/sal_kntry";

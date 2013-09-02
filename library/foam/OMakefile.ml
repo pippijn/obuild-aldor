@@ -44,4 +44,5 @@ install Library ".DEFAULT" [
   ];
 
   Var ("ALDOR_JLIB", "true");
+  Var ("ALDOROPT", "$(ALDOROPT) -Qinline-all");
 ]

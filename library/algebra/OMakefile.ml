@@ -244,7 +244,4 @@ install Library ".DEFAULT" [
   AldorRequires [
     "aldor";
   ];
-
-  (* Heavy optimisation breaks libalgebra. *)
-  Var ("ALDOROPT", "-Q1");
 ]

@@ -9,6 +9,7 @@ install Program ".DEFAULT" [
     "testlib.c";
     "test_abcheck.c";
     "test_ablogic.c";
+    "test_abnorm.c";
     "test_absyn.c";
     "test_bitv.c";
     "test_flog.c";

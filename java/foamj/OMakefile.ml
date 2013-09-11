@@ -21,5 +21,6 @@ install Program ".DEFAULT" [
     "m";
   ];
 
+  Var ("OM_CFLAGS", "$(STRICT_CFLAGS)");
   Var ("OM_CPPFLAGS", "-I$(includedir)/aldor");
 ];

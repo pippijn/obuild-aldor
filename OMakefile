@@ -11,6 +11,7 @@ STRICT_CFLAGS () =
     -Wno-unused-parameter
     -Wno-error=type-limits
     -Wno-error=parentheses
+    -Wno-error=char-subscripts
 
   switch $(basename $(CC))
   case clang:

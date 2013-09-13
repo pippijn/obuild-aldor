@@ -54,7 +54,15 @@ install Library ".DEFAULT" [
     "include/ax0";
   ];
 
+  Includes [
+    "include/axllib";
+  ];
+
   Rule ("src/lang.as", "../axllib/src/lang.as", [
+    "ln-or-cp $< $@";
+  ]);
+
+  Rule ("include/axllib.as", "../axllib/include/axllib.as", [
     "ln-or-cp $< $@";
   ]);
 

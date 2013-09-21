@@ -44,7 +44,7 @@ jQuery(function ($) {
 
       $('#run').attr("disabled", "disabled");
 
-      $.post('http://xinutec.org:9090/', {
+      $.post('http://ra.xinutec.org:9090/', {
          code: $('#code').val(),
          line: $('#line').val()
       }, function (data) {

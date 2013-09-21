@@ -4,6 +4,8 @@ L<Git repository|https://github.com/pippijn/aldor>
 
 L<Main website|http://pippijn.github.io/aldor/>
 
+L<Aldor User Guide|http://www.aldor.org/docs/aldorug.pdf>
+
 L<Try it online|http://pippijn.github.io/aldor/eval/>
 
 =begin code aldor

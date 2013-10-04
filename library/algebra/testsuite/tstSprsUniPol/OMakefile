@@ -1,4 +1,4 @@
 $(aldor-as-outputs tstSprsUniPol): support.ao
 
-Domains[] +=
+Aldor-Sources[] +=
   support

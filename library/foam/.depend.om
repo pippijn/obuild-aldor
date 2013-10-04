@@ -1,13 +1,50 @@
-src/aldorcatrep.ao:	src/basictuple.ao src/catdispatchvector.ao src/catobj.ao src/stringtable.ao src/
-src/aldordomainrep.ao:	src/basictuple.ao src/domain.ao src/catobj.ao src/stringtable.ao src/
-src/catdispatchvector.ao:	src/box.ao src/domain.ao src/
-src/catobj.ao:	src/basictuple.ao src/domain.ao src/catdispatchvector.ao src/ptrcache.ao src/
-src/dd.ao:	src/basictuple.ao src/dv.ao src/stringtable.ao src/
-src/dispatchvector.ao:	src/basictuple.ao src/box.ao src/
-src/domain.ao:	src/basictuple.ao src/dispatchvector.ao
-src/dv.ao:	src/basictuple.ao src/box.ao src/
-src/lazyimport.ao:	src/box.ao src/domain.ao src/
-src/pointerdomain.ao:	src/basictuple.ao src/dispatchvector.ao src/domain.ao src/
-src/ptrcache.ao:	src/basictuple.ao src/
-src/ptrcatobj.ao:	src/catdispatchvector.ao src/catobj.ao src/
-src/runtime.ao:	src/domain.ao src/aldordomainrep.ao src/aldorcatrep.ao src/ptrcatobj.ao src/pointerdomain.ao src/lazyimport.ao src/ptrcache.ao src/
+src/aldorcatrep.ao:	\
+	src/basictuple.ao	\
+	src/catdispatchvector.ao	\
+	src/catobj.ao	\
+	src/stringtable.ao
+src/aldordomainrep.ao:	\
+	src/basictuple.ao	\
+	src/domain.ao	\
+	src/catobj.ao	\
+	src/stringtable.ao
+src/catdispatchvector.ao:	\
+	src/box.ao	\
+	src/domain.ao
+src/catobj.ao:	\
+	src/basictuple.ao	\
+	src/domain.ao	\
+	src/catdispatchvector.ao	\
+	src/ptrcache.ao
+src/dd.ao:	\
+	src/basictuple.ao	\
+	src/dv.ao	\
+	src/stringtable.ao
+src/dispatchvector.ao:	\
+	src/basictuple.ao	\
+	src/box.ao
+src/domain.ao:	\
+	src/basictuple.ao	\
+	src/dispatchvector.ao
+src/dv.ao:	\
+	src/basictuple.ao	\
+	src/box.ao
+src/lazyimport.ao:	\
+	src/box.ao	\
+	src/domain.ao
+src/pointerdomain.ao:	\
+	src/basictuple.ao	\
+	src/dispatchvector.ao	\
+	src/domain.ao
+src/ptrcache.ao:	\
+	src/basictuple.ao
+src/ptrcatobj.ao:	\
+	src/catdispatchvector.ao	\
+	src/catobj.ao
+src/runtime.ao:	src/domain.ao	\
+	src/aldordomainrep.ao	\
+	src/aldorcatrep.ao	\
+	src/ptrcatobj.ao	\
+	src/pointerdomain.ao	\
+	src/lazyimport.ao	\
+	src/ptrcache.ao

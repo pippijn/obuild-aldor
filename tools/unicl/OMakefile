@@ -1,0 +1,13 @@
+Name = unicl
+
+C-Sources[] =
+  unicl.c
+
+C-Requires[] =
+  alcomp
+  m
+
+OM_CPPFLAGS = -I$(includedir)/aldor
+
+TARGET = $(program-install)
+.DEFAULT: $(TARGET)

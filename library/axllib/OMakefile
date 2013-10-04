@@ -1,0 +1,60 @@
+Name = axllib
+AldorName = Axl
+Description = AxiomXL standard library
+
+Aldor-Sources[] =
+  src/array
+  src/axlcat
+  src/basic
+  src/axl_boolean
+  src/bpower
+  src/axl_byte
+  src/axl_char
+  src/complex
+  src/debug
+  src/dfloat
+  src/efuns
+  src/except
+  src/file
+  src/axl_float
+  src/fmtout
+  src/fname
+  src/format
+  src/fprint
+  src/fstring
+  src/gener
+  src/hinteger
+  src/ieeectl
+  src/imod
+  src/integer
+  src/lang
+  src/langx
+  src/list
+  src/list2
+  src/machine
+  src/object
+  src/opsys
+  src/oslow
+  src/parray
+  src/partial
+  src/pfloat
+  src/pkarray
+  src/pointer
+  src/ratio
+  src/ref
+  src/rtexns
+  src/segment
+  src/sfloat
+  src/sinteger
+  src/sort
+  src/string
+  src/table
+  src/textread
+  src/textwrit
+  src/tuple
+  src/uarray
+
+Interfaces = include/axllib
+
+TARGET = $(library-install)
+.DEFAULT: $(TARGET)

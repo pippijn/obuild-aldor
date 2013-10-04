@@ -1,25 +1,82 @@
-src/array.ao:	src/foamcat.ao src/tuple.ao src/sinteger.ao src/parray.ao src/
-src/basic.ao:	src/lang.ao src/machine.ao
-src/bool.ao:	src/foamcat.ao
-src/character.ao:	src/foamcat.ao
-src/file.ao:	src/foamcat.ao src/fname.ao
-src/fname.ao:	src/foamcat.ao src/parray.ao src/string.ao src/oslow.ao
-src/foamcat.ao:	src/basic.ao
-src/format.ao:	src/foamcat.ao src/sinteger.ao
-src/gener.ao:	src/foamcat.ao
+src/array.ao:	\
+	src/foamcat.ao	\
+	src/tuple.ao	\
+	src/sinteger.ao	\
+	src/parray.ao
+src/basic.ao:	\
+	src/lang.ao	\
+	src/machine.ao
+src/bool.ao:	\
+	src/foamcat.ao
+src/character.ao:	\
+	src/foamcat.ao
+src/file.ao:	\
+	src/foamcat.ao	\
+	src/fname.ao
+src/fname.ao:	\
+	src/foamcat.ao	\
+	src/parray.ao	\
+	src/string.ao	\
+	src/oslow.ao
+src/foamcat.ao:	\
+	src/basic.ao
+src/format.ao:	\
+	src/foamcat.ao	\
+	src/sinteger.ao
+src/gener.ao:	\
+	src/foamcat.ao
 src/lang.ao:
-src/langx.ao:	src/lv.ao src/foamcat.ao src/tuple.ao src/sinteger.ao src/list.ao
-src/list.ao:	src/foamcat.ao src/tuple.ao src/segment.ao src/sinteger.ao src/pointer.ao
-src/lv.ao:	src/basic.ao
-src/machine.ao:	src/lang.ao
-src/opsys.ao:	src/foamcat.ao src/oslow.ao src/file.ao
-src/oslow.ao:	src/foamcat.ao src/parray.ao src/pointer.ao src/string.ao
-src/parray.ao:	src/foamcat.ao src/sinteger.ao
-src/partial.ao:	src/foamcat.ao src/pointer.ao
-src/pointer.ao:	src/foamcat.ao
-src/segment.ao:	src/foamcat.ao src/bool.ao
-src/sfloat.ao:	src/foamcat.ao src/sinteger.ao
-src/sinteger.ao:	src/foamcat.ao src/segment.ao
-src/string.ao:	src/foamcat.ao src/character.ao src/array.ao
-src/textwrit.ao:	src/foamcat.ao src/fname.ao src/file.ao src/array.ao src/opsys.ao
-src/tuple.ao:	src/foamcat.ao
+src/langx.ao:	\
+	src/lv.ao	\
+	src/foamcat.ao	\
+	src/tuple.ao	\
+	src/sinteger.ao	\
+	src/list.ao
+src/list.ao:	\
+	src/foamcat.ao	\
+	src/tuple.ao	\
+	src/segment.ao	\
+	src/sinteger.ao	\
+	src/pointer.ao
+src/lv.ao:	\
+	src/basic.ao
+src/machine.ao:	\
+	src/lang.ao
+src/opsys.ao:	\
+	src/foamcat.ao	\
+	src/oslow.ao	\
+	src/file.ao
+src/oslow.ao:	\
+	src/foamcat.ao	\
+	src/parray.ao	\
+	src/pointer.ao	\
+	src/string.ao
+src/parray.ao:	\
+	src/foamcat.ao	\
+	src/sinteger.ao
+src/partial.ao:	\
+	src/foamcat.ao	\
+	src/pointer.ao
+src/pointer.ao:	\
+	src/foamcat.ao
+src/segment.ao:	\
+	src/foamcat.ao	\
+	src/bool.ao
+src/sfloat.ao:	\
+	src/foamcat.ao	\
+	src/sinteger.ao
+src/sinteger.ao:	\
+	src/foamcat.ao	\
+	src/segment.ao
+src/string.ao:	\
+	src/foamcat.ao	\
+	src/character.ao	\
+	src/array.ao
+src/textwrit.ao:	\
+	src/foamcat.ao	\
+	src/fname.ao	\
+	src/file.ao	\
+	src/array.ao	\
+	src/opsys.ao
+src/tuple.ao:	\
+	src/foamcat.ao

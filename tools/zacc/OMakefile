@@ -1,0 +1,18 @@
+Name = zacc
+
+C-Sources[] =
+  cenum.c
+  zacc.c
+  zaccgram.y
+  zaccscan.l
+
+C-Headers[] =
+  cenum.h
+  zacc.h
+  zaccgram.h
+  zcport.h
+
+OM_YFLAGS = -d
+
+TARGET = $(program-install)
+.DEFAULT: $(TARGET)

@@ -1,0 +1,21 @@
+Name = aldor
+
+C-Sources[] =
+  main.c
+
+C-Requires[] =
+  alcomp
+  m
+
+Configs[] =
+  aldor.conf
+  basic.typ
+  sample.terminfo
+
+OM_CPPFLAGS = -I$(includedir)/aldor
+
+# Install config files along with the compiler program.
+$(bindir)/$(Name)$(EXEEXT): $(install-target $(includedir), $(Configs))
+
+TARGET = $(program-install)
+.DEFAULT: $(TARGET)

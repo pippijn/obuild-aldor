@@ -1,0 +1,27 @@
+Name = axldem
+Description = AxiomXL demo library
+
+Aldor-Sources[] =
+  src/dirprod
+  src/gb
+  src/ibits
+  src/lmdict
+  src/matopdom
+  src/matrix
+  src/nni
+  src/poly
+  src/poly3
+  src/polycat
+  src/prime
+  src/quanc8
+  src/random
+  src/spf
+  src/vector
+
+Aldor-Requires[] =
+  axllib
+
+Interfaces = include/axldem
+
+TARGET = $(library-install)
+.DEFAULT: $(TARGET)

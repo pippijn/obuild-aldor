@@ -1,5 +1,6 @@
-# Build libraries and run tests.
-recurse-into ($(glob D, *))
+.SYSTEM:
+
+recurse ()
 
 # Used for producing test report.
 static.	=
@@ -13,7 +14,7 @@ $(builddir)/levenshtein$(EXEEXT): $(scriptdir)/levenshtein.c
 
 # All diff files from testsuite.
 private.diffs =
-  foreach (x, $(glob D, */testsuite/*)):
+  foreach (x => ..., $(glob D, */testsuite/*)):
     value $x/$(basename $x).i.diff
 
 # Generate HTML report.

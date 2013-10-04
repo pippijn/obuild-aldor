@@ -1,0 +1,7 @@
+Name = msgcat
+
+C-Sources[] =
+  msgcat.c
+
+TARGET = $(program-install)
+.DEFAULT: $(TARGET)

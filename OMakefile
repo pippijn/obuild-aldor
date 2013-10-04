@@ -1,4 +1,6 @@
-STRICT_CFLAGS () =
+.SYSTEM:
+
+STRICT_CFLAGS =
   FLAGS[] =
     -Wall
     -Wextra
@@ -23,4 +25,6 @@ STRICT_CFLAGS () =
 
   value $(FLAGS)
 
-recurse-into ($(glob D, *))
+Version = 1.1.0
+
+recurse ()

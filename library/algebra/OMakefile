@@ -147,11 +147,21 @@ Aldor-Sources[] =
   src/multpoly/multpolycat/alg_poltype
   src/multpoly/multpolycat/alg_stdfrng
   src/multpoly/multpolycat/sm_famr0
+  src/multpoly/multpolycat/sm_polring
   src/multpoly/multpolycat/sm_polring0
+  src/multpoly/multpolycat/sm_rmpcat0
   src/multpoly/multpolydata/sm_delist
+  src/multpoly/multpolydom/alg_smp
   src/multpoly/multpolydom/sm_dmp0
   src/multpoly/multpolydom/sm_dmp1
+  src/multpoly/multpolydom/sm_rmp
+  src/multpoly/multpolydom/sm_rmpz
+  src/multpoly/multpolydom/sm_rmpzx
   src/multpoly/multpolypkg/alg_bivarpk
+  src/multpoly/multpolypkg/alg_disolve
+  src/multpoly/multpolypkg/alg_expo
+  src/multpoly/multpolypkg/alg_ezgcd
+  src/multpoly/multpolypkg/alg_mhensel
   src/multpoly/multpolypkg/alg_mresbiv
   src/multpoly/multpolypkg/alg_ZpUVres
   src/multpoly/multpolytest/alg_bivtst1
@@ -208,12 +218,6 @@ Aldor-Sources[] =
   src/test/tst_tstcat
   src/categories/sit_intgmp
   src/mat/modular/sit_zcrtla
-  src/multpoly/multpolycat/sm_polring
-  src/multpoly/multpolycat/sm_rmpcat0
-  src/multpoly/multpolydom/alg_smp
-  src/multpoly/multpolydom/sm_rmp
-  src/multpoly/multpolydom/sm_rmpz
-  src/multpoly/multpolydom/sm_rmpzx
   src/polyfactor0/sit_zfringg
   src/univpoly/gcd/sit_gcdintg
 

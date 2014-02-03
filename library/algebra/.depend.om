@@ -584,3 +584,14 @@ src/test/tst_ring.ao:	\
 	src/test/tst_assert.ao	\
 	src/test/tst_tstcat.ao	\
 	src/categories/sit_ring.ao
+src/multpoly/multpolypkg/alg_disolve.ao:	\
+	src/multpoly/multpolydom/alg_smp.ao	\
+	src/univpoly/alg_unitool.ao
+src/multpoly/multpolypkg/alg_mhensel.ao:	\
+	src/multpoly/multpolypkg/alg_disolve.ao
+src/multpoly/multpolypkg/alg_ezgcd.ao:	\
+	src/multpoly/multpolypkg/alg_mhensel.ao	\
+	src/multpoly/exponent/sm_fvt.ao
+src/multpoly/multpolypkg/alg_expo.ao:	\
+	src/categories/sit_idxfalg.ao	\
+	src/categories/sit_gexpcat.ao

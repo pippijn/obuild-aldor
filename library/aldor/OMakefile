@@ -70,6 +70,7 @@ Aldor-Sources[] =
   src/gmp/sal_gmptls
   src/gmp/sal_intgmp
   src/lang/sal_lang
+  src/test/tst_assert
   src/util/ald_trace
   src/util/eio_rsto
   src/util/rtexns

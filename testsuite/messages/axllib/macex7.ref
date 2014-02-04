@@ -29,8 +29,8 @@ Expanded expression was: 0
   == add
 .....^
 [L30 C6] #6 (Error) The domain is missing some exports.
-	Missing =: (%, %) -> Boolean
 	Missing 0: %
+	Missing =: (%, %) -> Boolean
 
 "macex7.as", line 34: 
       zero? x => 0$%

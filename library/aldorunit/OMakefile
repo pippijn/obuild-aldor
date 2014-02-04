@@ -22,4 +22,4 @@ OM_AFLAGS[] =
   -DLibraryAldorUnitRequiresLibraryAlgebra
 
 TARGET = $(library-install)
-.DEFAULT: $(TARGET)
+#.DEFAULT: $(TARGET)

@@ -1,1 +1,0 @@
-../../../../.upstream/aldor/lib/algebra/src/test/tst_assert.as

@@ -2,9 +2,9 @@
     == add
 .......^
 [L28 C8] #1 (Error) The domain is missing some exports.
-	Missing nil: List
-	Missing cons: (Integer, List) -> List
-	Missing empty?: List -> Boolean
-	Missing first: List -> Integer
 	Missing rest: List -> List
+	Missing first: List -> Integer
+	Missing empty?: List -> Boolean
+	Missing cons: (Integer, List) -> List
+	Missing nil: List
 

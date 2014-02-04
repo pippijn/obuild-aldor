@@ -578,12 +578,14 @@ src/polyfactor0/sit_zfring.ao:	\
 src/polyfactor0/sit_zfringg.ao:	\
 	src/categories/sit_intgmp.ao	\
 	src/polyfactor0/sit_zfactor.ao
-src/test/tst_assert.ao:	\
+src/test/alg_assert.ao:	\
 	src/categories/sit_abmon.ao
 src/test/tst_ring.ao:	\
-	src/test/tst_assert.ao	\
-	src/test/tst_tstcat.ao	\
+	src/test/alg_assert.ao	\
+	src/test/tst_test.ao	\
 	src/categories/sit_ring.ao
+src/test/tst_test.ao:	\
+	src/util/alg_version.ao
 src/multpoly/multpolypkg/alg_disolve.ao:	\
 	src/multpoly/multpolydom/alg_smp.ao	\
 	src/univpoly/alg_unitool.ao

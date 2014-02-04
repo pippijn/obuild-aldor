@@ -1,1 +1,0 @@
-../../../../.upstream/aldor/lib/algebra/test/tst_mint.as

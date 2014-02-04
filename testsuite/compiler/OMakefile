@@ -8,7 +8,9 @@ C-Sources[] =
   test_ablogic.c
   test_abnorm.c
   test_absyn.c
+  test_bigint.c
   test_bitv.c
+  test_float.c
   test_flog.c
   test_fname.c
   test_foam.c
@@ -17,6 +19,7 @@ C-Sources[] =
   test_list.c
   test_ostream.c
   test_printf.c
+  test_retyp.c
   test_scobind.c
   test_srcpos.c
   test_stab.c

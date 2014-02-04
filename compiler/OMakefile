@@ -68,6 +68,7 @@ C-Sources[] =
   format_t.c
   fortran.c
   freevar.c
+  ftype.c
   genc.c
   gencpp.c
   genfoam.c
@@ -110,7 +111,7 @@ C-Sources[] =
   of_killp.c
   of_loops.c
   of_peep.c
-  of_retyp.c
+  of_retyp2.c
   of_rrfmt.c
   of_util.c
   opsys.c
@@ -142,6 +143,7 @@ C-Sources[] =
   strops_t.c
   symbol.c
   symbol_t.c
+  symcoinfo.c
   syme.c
   syscmd.c
   table.c
@@ -233,6 +235,7 @@ C-Headers[] =
   format.h
   fortran.h
   freevar.h
+  ftype.h
   genc.h
   gencpp.h
   genfoam.h
@@ -319,6 +322,7 @@ C-Headers[] =
   string.h0
   strops.h
   symbol.h
+  symcoinfo.h
   syme.h
   syscmd.h
   table.h

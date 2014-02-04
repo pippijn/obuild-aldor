@@ -45,4 +45,4 @@ OM_AFLAGS[] =
   -DLibraryExtIORequiresLibraryAlgebra
 
 TARGET = $(library-install)
-.DEFAULT: $(TARGET)
+#.DEFAULT: $(TARGET)

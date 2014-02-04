@@ -1,0 +1,1 @@
+../../../../.upstream/aldor/lib/algebra/src/test/doc_intpoly.as

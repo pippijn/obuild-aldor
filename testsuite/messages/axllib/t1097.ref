@@ -1,3 +1,10 @@
+"t1097.as", line 44: 
+} == add { 
+.....^
+[L44 C6] #2 (Error) 
+	Missing where not R has FiniteField
+		Missing foo: P -> P
+
 "t1097.as", line 52: 
                         inv(down a) * a;
 ........................^

@@ -208,3 +208,5 @@ src/util/sal_timer.ao:	\
 	src/arith/sal_pointer.ao
 src/util/sal_version.ao:	\
 	src/datastruc/sal_string.ao
+src/test/tst_assert.ao:	\
+	src/datastruc/sal_string.ao

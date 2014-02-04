@@ -87,4 +87,4 @@ Aldor-Requires[] =
   extio
 
 TARGET = $(library-install)
-.DEFAULT: $(TARGET)
+#.DEFAULT: $(TARGET)

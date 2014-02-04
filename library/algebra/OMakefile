@@ -213,9 +213,9 @@ Aldor-Sources[] =
   src/univpoly/sit_ufacpol
   src/univpoly/sit_upolc
   src/util/alg_version
-  src/test/tst_assert
+  src/test/alg_assert
   src/test/tst_ring
-  src/test/tst_tstcat
+  src/test/tst_test
   src/categories/sit_intgmp
   src/mat/modular/sit_zcrtla
   src/polyfactor0/sit_zfringg

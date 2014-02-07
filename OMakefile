@@ -4,7 +4,7 @@ STRICT_CFLAGS =
   FLAGS[] =
     -Wall
     -Wextra
-    -Werror
+    #-Werror
     -Wno-empty-body
     -Wno-enum-compare
     -Wno-missing-field-initializers

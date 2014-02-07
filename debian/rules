@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+DESTDIR = $(CURDIR)/debian/tmp
+
+include $(shell obuild --where)/debian/rules.common
+
+%:
+	dh $@

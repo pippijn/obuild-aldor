@@ -8,10 +8,12 @@ Description = Aldor runtime library
 C-Sources[] =
   bigint.c
   btree.c
+  compopt.c
   dword.c
   foam_c.c
   foam_cfp.c
   foam_i.c
+  foamopt.c
   opsys.c
   output.c
   stdc.c
@@ -34,8 +36,8 @@ C-Requires[] =
 OM_CFLAGS = $(STRICT_CFLAGS)
 OM_CPPFLAGS = -DFOAM_RTS=1 -I../compiler
 
-STATIC = false
-SHARED = true
+STATIC = true
+SHARED = false
 
 %.c: ../compiler/%.c
   ln-or-cp $< $@

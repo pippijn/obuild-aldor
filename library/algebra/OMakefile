@@ -1,5 +1,5 @@
-Name = algebra
-Description = Mathematical library
+Name		= algebra
+Description	= Mathematical library
 
 Aldor-Sources[] =
   src/algext/sit_algext

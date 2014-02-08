@@ -1,4 +1,4 @@
-Name = aldor-test
+Name		= aldor-test
 
 C-Sources[] =
   abquick.c

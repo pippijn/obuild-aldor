@@ -2,8 +2,8 @@
 # :: Compiler
 #*******************************************************
 
-Name = alcomp
-Description = Aldor compiler library
+Name		= alcomp
+Description	= Aldor compiler library
 
 C-Sources[] =
   abcheck.c
@@ -356,8 +356,9 @@ C-Headers[] =
 C-Requires[] =
   m
 
-OM_CFLAGS = $(STRICT_CFLAGS)
-OM_CPPFLAGS = -DTEST_ALL=1
+OM_CFLAGS	= $(STRICT_CFLAGS)
+OM_CPPFLAGS	= -DTEST_ALL=1
+
 SHARED = false
 STATIC = true
 

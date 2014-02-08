@@ -1,12 +1,13 @@
-Name = model
-Description = Sample library
-Version = 0.1.4
+Name		= model
+Description	= Sample library
+Version		= 0.1.4
 
 Aldor-Sources[] =
   src/dm_demo
   src/dm_vers
 
-Interfaces = include/model
+Interfaces[] =
+  include/model
 
 Aldor-Requires[] =
   aldor

@@ -1,5 +1,5 @@
-Name = axldem
-Description = AxiomXL demo library
+Name		= axldem
+Description	= AxiomXL demo library
 
 Aldor-Sources[] =
   src/dirprod

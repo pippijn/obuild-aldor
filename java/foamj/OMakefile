@@ -1,4 +1,4 @@
-Name = foamj
+Name		= foamj
 
 C-Sources[] =
   genjava.c
@@ -15,8 +15,8 @@ C-Requires[] =
   alcomp
   m
 
-OM_CFLAGS = $(STRICT_CFLAGS)
-OM_CPPFLAGS = -I$(includedir)/aldor
+OM_CFLAGS	= $(STRICT_CFLAGS)
+OM_CPPFLAGS	= -I$(includedir)/aldor
 
 TARGET = $(program-install)
 .DEFAULT: $(TARGET)

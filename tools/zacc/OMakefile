@@ -1,4 +1,4 @@
-Name = zacc
+Name		= zacc
 
 C-Sources[] =
   cenum.c

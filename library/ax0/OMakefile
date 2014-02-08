@@ -1,6 +1,6 @@
-Name = ax0
-AldorName = Axiom
-Description = Axiom bridge
+Name		= ax0
+AldorName	= Axiom
+Description	= Axiom bridge
 
 Aldor-Sources[] =
   src/ax/aggcat
@@ -44,8 +44,11 @@ Aldor-Sources[] =
   src/minimach
   src/stub
 
-Interfaces = include/ax0
-Includes = include/axllib
+Interfaces[] =
+  include/ax0
+
+Includes[] =
+  include/axllib
 
 src/lang.as: ../axllib/src/lang.as
   ln-or-cp $< $@

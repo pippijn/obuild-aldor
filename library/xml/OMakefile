@@ -1,6 +1,6 @@
-Name = xml
-Description = Aldor XML Library
-Version = 0.0.1
+Name		= xml
+Description	= Aldor XML Library
+Version		= 0.0.1
 
 Aldor-Sources[] =
   src/xml_base
@@ -15,7 +15,8 @@ Aldor-Sources[] =
   src/xml_Out
   src/xml_unicode
 
-Interfaces = include/xmllib
+Interfaces[] =
+  include/xmllib
 
 Aldor-Requires[] =
   aldor

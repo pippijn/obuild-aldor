@@ -1,6 +1,6 @@
-Name = foamlib
-AldorName = Axl
-Description = FOAM runtime support library
+Name		= foamlib
+AldorName	= Axl
+Description	= FOAM runtime support library
 
 Aldor-Sources[] =
   src/array

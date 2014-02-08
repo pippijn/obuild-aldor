@@ -1,6 +1,6 @@
-Name = openmath
-Description = OpenMath Library
-Version = 0.0.1
+Name		= openmath
+Description	= OpenMath Library
+Version		= 0.0.1
 
 Aldor-Sources[] =
   src/om_base
@@ -8,7 +8,8 @@ Aldor-Sources[] =
   src/om_cdq
   src/om_stsq
 
-Interfaces = include/openmath
+Interfaces[] =
+  include/openmath
 
 Aldor-Requires[] =
   aldor

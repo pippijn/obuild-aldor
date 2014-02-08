@@ -1,4 +1,4 @@
-Name = msgcat
+Name		= msgcat
 
 C-Sources[] =
   msgcat.c

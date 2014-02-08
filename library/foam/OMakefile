@@ -1,6 +1,6 @@
-Name = foam
-AldorName = Runtime
-Description = Aldor runtime library
+Name		= foam
+AldorName	= Runtime
+Description	= Aldor runtime library
 
 Aldor-Sources[] =
   src/runtime

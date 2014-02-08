@@ -1,6 +1,6 @@
-Name = aldorunit
-Description = Aldor unit testing
-Version = 1.0.3
+Name		= aldorunit
+Description	= Aldor unit testing
+Version		= 1.0.3
 
 Aldor-Sources[] =
   src/exceptions/tst_afe
@@ -10,7 +10,8 @@ Aldor-Sources[] =
   src/framework/tst_tstl
   src/version/tst_vers
 
-Interfaces = include/aldorunit
+Interfaces[] =
+  include/aldorunit
 
 Aldor-Requires[] =
   aldor

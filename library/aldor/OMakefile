@@ -1,5 +1,5 @@
-Name = aldor
-Description = Aldor standard library
+Name		= aldor
+Description	= Aldor standard library
 
 Aldor-Sources[] =
   src/arith/sal_arith

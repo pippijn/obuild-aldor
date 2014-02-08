@@ -1,6 +1,6 @@
-Name = charset
-Description = Library for characteristic sets
-Version = 1.0.1
+Name		= charset
+Description	= Library for characteristic sets
+Version		= 1.0.1
 
 Aldor-Sources[] =
   src/algos/cs_astls

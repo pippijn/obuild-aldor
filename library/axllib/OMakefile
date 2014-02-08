@@ -1,6 +1,6 @@
-Name = axllib
-AldorName = Axl
-Description = AxiomXL standard library
+Name		= axllib
+AldorName	= Axl
+Description	= AxiomXL standard library
 
 Aldor-Sources[] =
   src/array

@@ -1,6 +1,6 @@
-Name = extio
-Description = Extended I/O
-Version = 1.0.4
+Name		= extio
+Description	= Extended I/O
+Version		= 1.0.4
 
 Aldor-Sources[] =
   src/cas/eio_casc
@@ -35,7 +35,8 @@ Aldor-Sources[] =
   src/util/eio_time
   src/util/eio_vers
 
-Interfaces = include/extio
+Interfaces[] =
+  include/extio
 
 Aldor-Requires[] =
   aldor

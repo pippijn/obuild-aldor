@@ -28,6 +28,10 @@ src/complex.ao:	\
 src/debug.ao:	\
 	src/langx.ao	\
 	src/textwrit.ao
+src/assert.ao:	\
+	src/buffer.ao
+src/buffer.ao:	\
+	src/textwrit.ao
 src/dfloat.ao:	\
 	src/langx.ao	\
 	src/sfloat.ao

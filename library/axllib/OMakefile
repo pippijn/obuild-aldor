@@ -4,10 +4,12 @@ Description	= AxiomXL standard library
 
 Aldor-Sources[] =
   src/array
+  src/assert
   src/axlcat
   src/basic
   src/axl_boolean
   src/bpower
+  src/buffer
   src/axl_byte
   src/axl_char
   src/complex

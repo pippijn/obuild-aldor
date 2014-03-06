@@ -1,0 +1,52 @@
+#*******************************************************
+# :: C part of the runtime library
+#*******************************************************
+
+Name		= runtime
+Description	= Aldor runtime library
+
+C-Sources[] =
+  bigint.c
+  btree.c
+  compopt.c
+  dword.c
+  foam_c.c
+  foam_cfp.c
+  foam_i.c
+  foamopt.c
+  opsys.c
+  output.c
+  stdc.c
+  store.c
+  table.c
+  timer.c
+  util.c
+  xfloat.c
+
+C-Headers[] =
+  cconfig.h
+  foam_c.h
+  foamopt.h
+  optcfg.h
+  platform.h
+
+C-Requires[] =
+  m
+
+OM_CFLAGS	= $(STRICT_CFLAGS)
+OM_CPPFLAGS	= -DFOAM_RTS=1 -I../../compiler
+
+STATIC = true
+SHARED = false
+
+%.c: ../../compiler/%.c
+  ln-or-cp $< $@
+
+%.h: ../../compiler/%.h
+  ln-or-cp $< $@
+
+# Install the headers and along with the runtime library.
+$(pkg-config-name $(Name)): $(install-target $(includedir), $(C-Headers))
+
+TARGET = $(library-install)
+.DEFAULT: $(TARGET)

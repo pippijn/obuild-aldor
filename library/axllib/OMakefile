@@ -4,7 +4,6 @@ Description	= AxiomXL standard library
 
 Aldor-Sources[] =
   src/array
-  src/assert
   src/axlcat
   src/basic
   src/axl_boolean
@@ -55,6 +54,7 @@ Aldor-Sources[] =
   src/textwrit
   src/tuple
   src/uarray
+  src/xassert
 
 Interfaces = include/axllib
 

@@ -6,6 +6,9 @@ Name		= alcomp
 Description	= Aldor compiler library
 
 C-Sources[] =
+  java/genjava.c
+  java/javacode.c
+  java/javaobj.c
   abcheck.c
   ablogic.c
   abnorm.c
@@ -86,6 +89,7 @@ C-Sources[] =
   gf_syme.c
   include.c
   inlutil.c
+  int.c
   intset.c
   lib.c
   linear.c
@@ -176,6 +180,9 @@ C-Sources[] =
   xfloat_t.c
 
 C-Headers[] =
+  java/genjava.h
+  java/javacode.h
+  java/javaobj.h
   abcheck.h
   ablogic.h
   abnorm.h
@@ -255,6 +262,7 @@ C-Headers[] =
   gf_util.h
   include.h
   inlutil.h
+  int.h
   intset.h
   lib.h
   limits.h0
@@ -357,12 +365,14 @@ C-Requires[] =
   m
 
 OM_CFLAGS	= $(STRICT_CFLAGS)
-OM_CPPFLAGS	= -DTEST_ALL=1
+OM_CPPFLAGS	= -DTEST_ALL=1 -I$(dir .)
 
 SHARED = false
 STATIC = true
 
 $(pkg-config-name $(Name)): $(install-target $(includedir)/aldor, $(C-Headers))
+
+recurse-subdirs = java
 
 TARGET = $(library-install)
 .DEFAULT: $(TARGET)

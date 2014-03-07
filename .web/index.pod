@@ -6,7 +6,7 @@ L<Main website|http://pippijn.github.io/aldor/>
 
 L<Aldor User Guide|http://www.aldor.org/docs/aldorug.pdf>
 
-L<Try it online|http://pippijn.github.io/aldor/eval/>
+L<Try it online|online>
 
 =begin code aldor
 

@@ -33,8 +33,8 @@ C-Headers[] =
 C-Requires[] =
   m
 
-OM_CFLAGS	= $(STRICT_CFLAGS)
-OM_CPPFLAGS	= -DFOAM_RTS=1 -I../../compiler
+OM_CFLAGS	+= $(STRICT_CFLAGS)
+OM_CPPFLAGS	+= -DFOAM_RTS=1 -I../../compiler
 
 STATIC = true
 SHARED = false

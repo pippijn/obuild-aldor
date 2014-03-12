@@ -224,6 +224,7 @@ C-Headers[] =
   emit.h
   errno.h0
   fbox.h
+  features.h0
   file.h
   fint.h
   fintphase.h
@@ -364,15 +365,14 @@ C-Headers[] =
 C-Requires[] =
   m
 
-OM_CFLAGS	= $(STRICT_CFLAGS)
-OM_CPPFLAGS	= -DTEST_ALL=1 -I$(dir .)
+OM_CFLAGS	+= $(STRICT_CFLAGS)
+OM_CPPFLAGS	+= -DTEST_ALL=1 -I$(dir .)
 
 SHARED = false
 STATIC = true
 
 $(pkg-config-name $(Name)): $(install-target $(includedir)/aldor, $(C-Headers))
 
-recurse-subdirs = java
-
+compute-recurse-subdirs ($(C-Sources))
 TARGET = $(library-install)
 .DEFAULT: $(TARGET)

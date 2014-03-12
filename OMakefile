@@ -1,5 +1,8 @@
 .SYSTEM:
 
+OM_CFLAGS	+= -m32
+OM_LDFLAGS	+= -m32
+
 STRICT_CFLAGS =
   FLAGS[] =
     -Wall
@@ -12,8 +15,7 @@ STRICT_CFLAGS =
     -Wno-unused
     -Wno-unused-parameter
     -Wno-error=type-limits
-    -Wno-error=parentheses
-    -Wno-error=char-subscripts
+    -funsigned-char
 
   switch $(basename $(CC))
   case clang:

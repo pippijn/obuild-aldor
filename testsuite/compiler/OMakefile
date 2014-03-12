@@ -40,12 +40,13 @@ C-Requires[] =
   alcomp
   m
 
+OM_CFLAGS	+= $(STRICT_CFLAGS)
+OM_CPPFLAGS	+= -I$(includedir)/aldor
+
 check: $(Name).log
 
 $(Name).log: $(Name)$(EXEEXT)
   $< > $@
-
-OM_CPPFLAGS = -I$(includedir)/aldor
 
 TARGET = $(program-install)
 .DEFAULT: $(TARGET)

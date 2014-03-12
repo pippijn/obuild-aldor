@@ -1,0 +1,11 @@
+"axllib.as", line 79:
+        rep x == x @ % pretend Rep;
+...............................^
+[L79 C32] #1 (Error) (After Macro Expansion) No meaning for identifier `Rep'.
+Expanded expression was: Rep
+
+"abcheck3.as", line 8:
+   #(v:Foo):SingleInteger == # rep v;
+.............................^
+[L8 C30] #2 (Error) There are no suitable meanings for the operator `#'.
+

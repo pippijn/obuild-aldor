@@ -5,6 +5,8 @@ OM_LDFLAGS	+= -m32
 
 STRICT_CFLAGS =
   FLAGS[] =
+    -pedantic
+    -std=c89
     -Wall
     -Wextra
     -Werror
@@ -14,15 +16,26 @@ STRICT_CFLAGS =
     -Wno-sign-compare
     -Wno-unused
     -Wno-unused-parameter
+    #-Wno-error=maybe-uninitialized
+    -Wno-error=format
     -Wno-error=type-limits
+    -Wno-error=strict-aliasing
     -funsigned-char
 
   switch $(basename $(CC))
   case clang:
     FLAGS[] +=
-      -Wno-enum-conversion
-      -Wno-shift-overflow
-      -Wno-tautological-compare
+      -fcolor-diagnostics
+      -Wno-error=enum-conversion
+      -Wno-error=tautological-compare
+    export
+  case gcc:
+    FLAGS[] +=
+      -Wno-error=clobbered
+    export
+  case i686-w64-mingw32-gcc:
+    FLAGS[] +=
+      -Wno-error=clobbered
     export
 
   value $(FLAGS)

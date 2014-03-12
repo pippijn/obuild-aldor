@@ -6,8 +6,9 @@ TestFramework.(run "testsuite" [
   { empty with
     tool = "aldor";
     suffixes = [".as"];
-    options = Some "-Ginterp -Mno-emax";
+    options = Some "-Wcheck -Ginterp -Mno-emax";
     dirs = [
+      "aldor";
       "axllib";
       "regression";
     ];

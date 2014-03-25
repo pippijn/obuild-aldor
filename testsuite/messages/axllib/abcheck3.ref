@@ -8,4 +8,3 @@ Expanded expression was: Rep
    #(v:Foo):SingleInteger == # rep v;
 .............................^
 [L8 C30] #2 (Error) There are no suitable meanings for the operator `#'.
-

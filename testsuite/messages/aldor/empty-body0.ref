@@ -1,0 +1,6 @@
+"empty-body0.as", line 3:
+fn():Integer == {
+................^
+[L3 C17] #1 (Error) Have determined 1 possible types for the expression.
+      Meaning 1: (0 types)
+  The context requires an expression of type AldorInteger.

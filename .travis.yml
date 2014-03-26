@@ -6,7 +6,7 @@ install:
    - sudo apt-add-repository -y ppa:pippijn/ppa
    - sudo apt-get update
    # Package dependencies.
-   - sudo apt-get install devscripts equivs
+   - sudo apt-get install devscripts equivs libbsd-resource-perl
    - sudo mk-build-deps -ir
 
 # whitelist

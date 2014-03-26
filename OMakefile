@@ -1,8 +1,5 @@
 .SYSTEM:
 
-OM_CFLAGS	+= -m32
-OM_LDFLAGS	+= -m32
-
 STRICT_CFLAGS =
   FLAGS[] =
     -pedantic

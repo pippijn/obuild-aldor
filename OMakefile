@@ -15,6 +15,7 @@ STRICT_CFLAGS =
     -Wno-unused-parameter
     #-Wno-error=maybe-uninitialized
     -Wno-error=format
+    -Wno-error=format-security
     -Wno-error=type-limits
     -Wno-error=strict-aliasing
     -funsigned-char

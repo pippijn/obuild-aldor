@@ -10,6 +10,7 @@ C-Sources[] =
   test_absyn.c
   test_bigint.c
   test_bitv.c
+  test_errorset.c
   test_float.c
   test_flog.c
   test_fname.c
@@ -17,6 +18,7 @@ C-Sources[] =
   test_format.c
   test_genfoam.c
   test_int.c
+  test_java.c
   test_jflow.c
   test_list.c
   test_ostream.c
